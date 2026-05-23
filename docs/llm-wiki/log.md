@@ -72,3 +72,21 @@ Files touched:
 Follow-up:
 
 - In a new Codex session, confirm that `commit` appears in the available skills list.
+
+## [2026-05-23] decision | Commit baseline and start roadmap/MVP planning
+
+The user asked to commit all current work and continue to the next task. The initial documentation baseline was committed, then roadmap and MVP planning documents were added.
+
+Files touched:
+
+- `docs/llm-wiki/roadmap.md`
+- `docs/llm-wiki/mvp.md`
+- `docs/llm-wiki/index.md`
+- `docs/llm-wiki/decisions.md`
+- `docs/llm-wiki/log.md`
+- `docs/llm-wiki/prompt-context.md`
+- `docs/llm-wiki/session-log.md`
+
+Follow-up:
+
+- Capture the actual board-game rules before scaffolding gameplay.

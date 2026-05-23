@@ -24,6 +24,8 @@ Content-oriented catalog for the Gate of Molta LLM Wiki.
 | Page | Purpose | Status |
 | --- | --- | --- |
 | [architecture](architecture.md) | Technical architecture for frontend-only solo play | Initial |
+| [roadmap](roadmap.md) | Staged work plan from project memory through online readiness | Active |
+| [mvp](mvp.md) | First playable version scope, non-scope, and acceptance criteria | Active |
 | [decisions](decisions.md) | Durable decisions and consequences | Active |
 
 ## Rules And Content
@@ -56,6 +58,8 @@ Content-oriented catalog for the Gate of Molta LLM Wiki.
 - Future online support through deterministic state/action design
 - Prompt context logging for retrospectives
 - LLM-maintained persistent wiki with raw sources, schema, index, and log
+- Rule capture before gameplay implementation
+- MVP loop before production-level animation polish
 
 ## Known Gaps
 

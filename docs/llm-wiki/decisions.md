@@ -79,3 +79,19 @@ Consequences:
 - `docs/llm-wiki/schema.md` defines wiki operations.
 - `docs/llm-wiki/index.md` is the content catalog.
 - `docs/llm-wiki/log.md` is the chronological operation log.
+
+## 2026-05-23: Define MVP before scaffolding gameplay
+
+The project will define a small playable MVP before implementing the frontend app.
+
+Reason:
+
+- The desired presentation quality is high, so scope can expand quickly.
+- The rules are not captured yet.
+- A playable rules loop should be proven before deep animation polish.
+
+Consequences:
+
+- `docs/llm-wiki/mvp.md` defines what counts as the first playable version.
+- Advanced animation, sound, replay, online play, and multiple saves are excluded from MVP.
+- Gameplay code should wait until `rules.md` has enough real rule data.

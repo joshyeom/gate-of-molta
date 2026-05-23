@@ -199,3 +199,24 @@ Full source preserved at `../llm-sources/2026-05-22-llm-wiki-pattern.md`.
 - The original Claude command is a slash command, not a Codex skill, so it needed skill frontmatter and a `skill.yaml`.
 - The existing `ask-commit-assistance` skill is intentionally safer and does not commit; the new `commit` skill preserves the broader issue/branch/PR/squash-merge workflow.
 - Home-directory writes required elevated permission.
+
+### 2026-05-23 14:30 KST - Commit Baseline And Continue
+
+**User Prompt**
+
+> 모두 커밋 진행하고 그 다음 작업을 이어서하자
+
+**Intent**
+
+- Commit the current documentation baseline.
+- Continue with the next planned project task instead of stopping at the commit.
+
+**Outcome**
+
+- Created the root commit `3782e70 docs(project): initialize LLM wiki and architecture`.
+- Started the next planning step by adding roadmap and MVP documents.
+
+**Bottleneck / Reflection**
+
+- The next implementation blocker is still real rule capture.
+- Planning can continue, but gameplay code should not begin until `rules.md` is filled with verified rules.

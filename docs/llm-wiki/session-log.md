@@ -49,12 +49,15 @@ The user asked to find the existing Claude `/commit` workflow and register it eq
 - Added Codex-compatible `SKILL.md` metadata and `skill.yaml`.
 - Verified the skill appears in `npx skills list -g --json`.
 - Recorded the prompt and operation in the LLM wiki.
+- Committed the initial documentation baseline as `3782e70 docs(project): initialize LLM wiki and architecture`.
+- Added roadmap and MVP planning documents.
 
 ### Known Gaps
 
 - The current session's available-skill list may not refresh until a new session starts.
 - The new skill should be checked in the next Codex session startup.
+- Gameplay implementation remains blocked until real rules are captured.
 
 ### Next Likely Task
 
-Use `/commit` or ask for the `commit` skill in a future session to validate that the newly registered workflow triggers correctly.
+Capture the actual "몰타의 관문" rules, then scaffold the Vite React TypeScript app once MVP inputs are available.
