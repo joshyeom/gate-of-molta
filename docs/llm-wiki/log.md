@@ -90,3 +90,21 @@ Files touched:
 Follow-up:
 
 - Capture the actual board-game rules before scaffolding gameplay.
+
+## [2026-05-23] ingest | Gate of Molta rule explanation links
+
+The user provided two rule explanation links. The WING Board Game article was accessible and used to partially capture implementation-oriented rules. The BoardLife link was blocked by a Cloudflare challenge and could not be used yet.
+
+Files touched:
+
+- `docs/llm-sources/2026-05-23-gate-of-molta-rule-links.md`
+- `docs/llm-wiki/rules.md`
+- `docs/llm-wiki/index.md`
+- `docs/llm-wiki/decisions.md`
+- `docs/llm-wiki/log.md`
+- `docs/llm-wiki/prompt-context.md`
+- `docs/llm-wiki/session-log.md`
+
+Follow-up:
+
+- Capture card-level data and solo/automa rules before implementing gameplay.

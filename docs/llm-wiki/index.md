@@ -32,7 +32,7 @@ Content-oriented catalog for the Gate of Molta LLM Wiki.
 
 | Page | Purpose | Status |
 | --- | --- | --- |
-| [rules](rules.md) | Capture template for the actual "몰타의 관문" rules | Needs source material |
+| [rules](rules.md) | Captured implementation-oriented rules for "몰타의 관문" | Partial; card list and solo rules missing |
 
 ## Retrospective Logs
 
@@ -46,6 +46,7 @@ Content-oriented catalog for the Gate of Molta LLM Wiki.
 | Source | Purpose | Ingested |
 | --- | --- | --- |
 | [LLM Wiki pattern](../llm-sources/2026-05-22-llm-wiki-pattern.md) | User-provided source describing persistent LLM-maintained wikis | 2026-05-22 |
+| [Gate of Molta rule links](../llm-sources/2026-05-23-gate-of-molta-rule-links.md) | Source metadata for user-provided rule explanation links | 2026-05-23 |
 
 ## Current Design Pillars
 
@@ -63,7 +64,7 @@ Content-oriented catalog for the Gate of Molta LLM Wiki.
 
 ## Known Gaps
 
-- The exact "몰타의 관문" rulebook has not been captured yet.
-- Card list, card effects, board layout, and solo-mode algorithm are not defined yet.
+- The core "몰타의 관문" turn loop has been partially captured from WING Board Game.
+- Card list, card effects, card distributions, and solo-mode algorithm are not defined yet.
 - Visual identity, asset dimensions, and animation timing standards are not defined yet.
 - Prompt timestamps are approximate unless a future tool or workflow records exact message times.

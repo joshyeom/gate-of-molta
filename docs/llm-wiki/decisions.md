@@ -95,3 +95,18 @@ Consequences:
 - `docs/llm-wiki/mvp.md` defines what counts as the first playable version.
 - Advanced animation, sound, replay, online play, and multiple saves are excluded from MVP.
 - Gameplay code should wait until `rules.md` has enough real rule data.
+
+## 2026-05-23: Treat solo mode as a custom adaptation until proven official
+
+The provided accessible rule source describes the original game as a 2-5 player game, and no official solo mode has been captured yet.
+
+Reason:
+
+- The product goal is solo play, but the source material currently supports multiplayer rules.
+- Implementing solo play by assumption would risk creating an unstable or unfun core loop.
+
+Consequences:
+
+- The base rules engine should model the original multiplayer game structure first.
+- Solo behavior should be added as a separate automa/system layer.
+- Any official solo rules found later should be ingested and reconciled with the custom automa plan.

@@ -51,13 +51,16 @@ The user asked to find the existing Claude `/commit` workflow and register it eq
 - Recorded the prompt and operation in the LLM wiki.
 - Committed the initial documentation baseline as `3782e70 docs(project): initialize LLM wiki and architecture`.
 - Added roadmap and MVP planning documents.
+- Ingested user-provided rule explanation links.
+- Captured the core multiplayer rule loop from WING Board Game into `rules.md`.
+- Recorded that the BoardLife source is currently blocked by Cloudflare in the agent environment.
 
 ### Known Gaps
 
 - The current session's available-skill list may not refresh until a new session starts.
 - The new skill should be checked in the next Codex session startup.
-- Gameplay implementation remains blocked until real rules are captured.
+- Gameplay implementation remains blocked until card-level data and solo/automa rules are captured.
 
 ### Next Likely Task
 
-Capture the actual "몰타의 관문" rules, then scaffold the Vite React TypeScript app once MVP inputs are available.
+Capture the complete card list, pearl distribution, card requirements/effects, and solo/automa rules, then scaffold the Vite React TypeScript app once MVP inputs are available.

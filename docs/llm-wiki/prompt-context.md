@@ -220,3 +220,28 @@ Full source preserved at `../llm-sources/2026-05-22-llm-wiki-pattern.md`.
 
 - The next implementation blocker is still real rule capture.
 - Planning can continue, but gameplay code should not begin until `rules.md` is filled with verified rules.
+
+### 2026-05-23 14:55 KST - Rule Explanation Links
+
+**User Prompt**
+
+> https://www.wingboardgame.com/2022/08/blog-post_65.html https://boardlife.co.kr/bbs_detail.php?tb=info_movie&bbs_num=697
+>
+> 룰 설명문들을 2개 가져왔어 여기서 파악해줘
+
+**Intent**
+
+- Use two external rule explanation sources to understand "몰타의 관문".
+- Start filling the rule knowledge needed before game-engine implementation.
+
+**Outcome**
+
+- Used the WING Board Game article to capture components, setup, turn flow, actions, diamonds, abilities, and end-game timing.
+- Recorded the BoardLife source as inaccessible from the agent environment due to a Cloudflare challenge.
+- Updated `rules.md` with implementation notes and open questions.
+
+**Bottleneck / Reflection**
+
+- The core loop is now visible, but card-level data is still missing.
+- Solo play is not described by the accessible source, so the digital solo mode needs custom automa design unless an official solo source appears.
+- Future prompts should provide card photos, rulebook scans, or a BoardLife transcript/screenshots for blocked content.
