@@ -54,12 +54,14 @@ The user asked to find the existing Claude `/commit` workflow and register it eq
 - Ingested user-provided rule explanation links.
 - Captured the core multiplayer rule loop from WING Board Game into `rules.md`.
 - Recorded that the BoardLife source is currently blocked by Cloudflare in the agent environment.
+- Cross-checked the rule capture with the Korea Boardgames YouTube introduction video.
+- Added pearl-card distribution: 1-8, 7 copies each.
 
 ### Known Gaps
 
 - The current session's available-skill list may not refresh until a new session starts.
 - The new skill should be checked in the next Codex session startup.
-- Gameplay implementation remains blocked until card-level data and solo/automa rules are captured.
+- Gameplay implementation remains blocked until character card requirements/effects and solo/automa rules are captured.
 
 ### Next Likely Task
 

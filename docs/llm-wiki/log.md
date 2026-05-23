@@ -108,3 +108,19 @@ Files touched:
 Follow-up:
 
 - Capture card-level data and solo/automa rules before implementing gameplay.
+
+## [2026-05-23] ingest | Korea Boardgames YouTube rule confirmation
+
+The user provided a Korea Boardgames YouTube introduction video. Metadata, auto-captions, and selected frame review were used to confirm the existing rule capture and add pearl-card distribution.
+
+Files touched:
+
+- `docs/llm-sources/2026-05-23-gate-of-molta-rule-links.md`
+- `docs/llm-wiki/rules.md`
+- `docs/llm-wiki/log.md`
+- `docs/llm-wiki/prompt-context.md`
+- `docs/llm-wiki/session-log.md`
+
+Follow-up:
+
+- Obtain card-level source material for character requirements and abilities.

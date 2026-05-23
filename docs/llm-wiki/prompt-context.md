@@ -245,3 +245,27 @@ Full source preserved at `../llm-sources/2026-05-22-llm-wiki-pattern.md`.
 - The core loop is now visible, but card-level data is still missing.
 - Solo play is not described by the accessible source, so the digital solo mode needs custom automa design unless an official solo source appears.
 - Future prompts should provide card photos, rulebook scans, or a BoardLife transcript/screenshots for blocked content.
+
+### 2026-05-23 15:10 KST - YouTube Rule Confirmation
+
+**User Prompt**
+
+> 마지막으로 https://youtu.be/W4Kvwuab_vY?si=Q0oPoBUT_q6AswUb 해당 유튜브를 분석해서 다시한번 확인해줘
+
+**Intent**
+
+- Use a Korea Boardgames YouTube introduction video as a final cross-check for the captured rules.
+- Confirm whether the WING article extraction missed important implementation details.
+
+**Outcome**
+
+- Confirmed that the video largely matches the WING rule explanation.
+- Added pearl-card distribution: numbers 1-8, 7 cards of each number.
+- Confirmed that players start with only their gate card; no starting hand/resource distribution was identified.
+- Kept card-level abilities and official solo rules as open gaps.
+
+**Bottleneck / Reflection**
+
+- YouTube auto-captions were imperfect, so only high-confidence points were added.
+- The video is an overview, not a complete card database.
+- The next source should be card photos, a rulebook PDF, or manual entry of card effects.

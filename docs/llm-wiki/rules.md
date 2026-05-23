@@ -7,9 +7,10 @@ Do not implement gameplay rules until the relevant section is filled in or other
 ## Rule Source
 
 - Primary source: WING Board Game "몰타의 관문" article, accessed 2026-05-23.
+- Confirmation source: Korea Boardgames YouTube video "몰타의 관문 게임 소개 영상", accessed 2026-05-23.
 - Source note: `../llm-sources/2026-05-23-gate-of-molta-rule-links.md`
 - BoardLife source status: provided by user but blocked by Cloudflare challenge in the agent environment.
-- Notes: this capture is enough for the core turn loop, but not enough for full card data or solo mode.
+- Notes: this capture is enough for the core turn loop and pearl number distribution, but not enough for full character card data or solo mode.
 
 ## Components
 
@@ -18,6 +19,7 @@ Do not implement gameplay rules until the relevant section is filled in or other
 - Board: no central board identified; play uses shared open-card rows and each player's gate card/tableau.
 - Cards:
   - Pearl cards: 56.
+  - Pearl cards are numbered 1-8, with 7 cards of each number.
   - Character cards: 54.
   - Player gate cards: 5.
 - Tokens:
@@ -36,6 +38,7 @@ Do not implement gameplay rules until the relevant section is filled in or other
 - Reveal 2 character cards in the center as open character cards.
 - Place the remaining character cards face-down as the character draw pile/acquisition pile.
 - Each player takes one gate card and places it in front of them.
+- No starting hand/resource distribution was identified; the YouTube explanation states players start with only their gate.
 - Choose a start player.
 - The start player flips their gate so the start-player symbol is visible.
 - The source says the open-card refresh effect from a pearl card is not applied during initial setup.
@@ -156,6 +159,7 @@ Exact ability text and the mapping from character cards to abilities still need 
 
 - Shuffle rules:
   - Pearl deck and character deck are shuffled separately during setup.
+  - Pearl deck composition is 1-8, 7 copies each.
 - Draw rules:
   - Pearl row starts with 4 open cards.
   - Character row starts with 2 open cards.
@@ -204,7 +208,7 @@ Potential state zones:
 
 - What is the complete character card list?
 - What are every character's pearl requirements, power value, diamonds, and special abilities?
-- What is the pearl card distribution by number and refresh/exchange symbol?
+- Which pearl cards carry refresh/exchange symbols?
 - Does replacing all 4 open pearl cards trigger character-market refresh if refresh symbols appear?
 - What happens when a draw pile is empty?
 - Are discarded pearl/character cards reshuffled into decks?
