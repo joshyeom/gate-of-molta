@@ -43,6 +43,7 @@ function normalizeCard(card) {
       diamonds: "-",
       effect: card.pearl?.variant === "character-refresh" ? "시장 교체 아이콘이 있는 진주 카드" : "진주 카드",
       group: "",
+      candidateGroupId: null,
       source: `${card.sourceFileName} -> ${card.generatedFileName}`,
     };
   }
@@ -59,17 +60,73 @@ function normalizeCard(card) {
     effect: candidate.effect || "효과 없음",
     group:
       candidate.groupSize > 1
-        ? `동일 후보 ${candidate.groupIndex}/${candidate.groupSize}`
+        ? `같은 조건 그룹 ${candidate.groupIndex}/${candidate.groupSize}`
         : "",
+    candidateGroupId: candidate.groupId ?? null,
     source: `${card.sourceFileName} -> ${card.generatedFileName}`,
   };
 }
 
+function groupKeyFor(card) {
+  if (card.category === "character" && card.candidateGroupId !== null) {
+    return `character-group-${card.candidateGroupId}`;
+  }
+
+  return [
+    card.category,
+    card.requirement,
+    card.power,
+    card.diamonds,
+    card.effect,
+  ].join("::");
+}
+
+function uniqueValues(values) {
+  return [...new Set(values.filter((value) => value !== ""))];
+}
+
+function combineValues(values) {
+  return uniqueValues(values).join(" / ") || "-";
+}
+
+function groupCards(cards) {
+  const groups = new Map();
+  for (const card of cards) {
+    const groupKey = groupKeyFor(card);
+    if (!groups.has(groupKey)) {
+      groups.set(groupKey, []);
+    }
+    groups.get(groupKey).push(card);
+  }
+
+  return [...groups.values()].map((group) => {
+    const first = group[0];
+    const isMerged = group.length > 1;
+    return {
+      id: isMerged ? group.map((card) => card.id).join("__") : first.id,
+      category: first.category,
+      imagePaths: group.map((card) => ({ id: card.id, path: card.imagePath })),
+      title:
+        isMerged && first.category === "character"
+          ? "인물 카드 조건 묶음"
+          : first.title,
+      requirement: combineValues(group.map((card) => card.requirement)),
+      power: combineValues(group.map((card) => String(card.power))),
+      diamonds: combineValues(group.map((card) => String(card.diamonds))),
+      effect: combineValues(group.map((card) => card.effect)),
+      group: isMerged ? `${group.length}개 이미지 묶음` : "",
+      sourceIds: group.map((card) => card.id),
+      sources: group.map((card) => card.source),
+    };
+  });
+}
+
 const manifest = JSON.parse(await readFile(manifestPath, "utf8"));
-const cards = manifest.cards
+const normalizedCards = manifest.cards
   .filter((card) => card.namedFileName)
   .sort((left, right) => cardSortKey(left).localeCompare(cardSortKey(right)))
   .map(normalizeCard);
+const cards = groupCards(normalizedCards);
 
 const cardJson = JSON.stringify(cards);
 const cardsHtml = cards
@@ -82,11 +139,19 @@ const cardsHtml = cards
         card.effect,
         card.power,
         card.diamonds,
-        card.source,
+        card.sourceIds.join(" "),
+        card.sources.join(" "),
       ].join(" "),
     )}">
-        <div class="image-wrap">
-          <img src="${escapeHtml(card.imagePath)}" alt="${escapeHtml(card.id)}">
+        <div class="image-wrap ${card.imagePaths.length > 1 ? "image-group" : ""}">
+          ${card.imagePaths
+            .map(
+              (image) => `<figure>
+            <img src="${escapeHtml(image.path)}" alt="${escapeHtml(image.id)}">
+            <figcaption>${escapeHtml(image.id)}</figcaption>
+          </figure>`,
+            )
+            .join("\n          ")}
         </div>
         <div class="card-copy">
           <div class="card-head">
@@ -111,8 +176,10 @@ const cardsHtml = cards
               <dd>${escapeHtml(card.effect)}</dd>
             </div>
           </dl>
-          <code>${escapeHtml(card.id)}</code>
-          <code>${escapeHtml(card.source)}</code>
+          <div class="code-list">
+            ${card.sourceIds.map((id) => `<code>${escapeHtml(id)}</code>`).join("\n            ")}
+            ${card.sources.map((source) => `<code>${escapeHtml(source)}</code>`).join("\n            ")}
+          </div>
         </div>
       </article>`,
   )
@@ -225,12 +292,30 @@ const html = `<!doctype html>
       padding: 6px;
     }
 
+    figure {
+      margin: 0;
+    }
+
+    .image-group {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
     img {
       width: 100%;
       aspect-ratio: 1008 / 1561;
       display: block;
       object-fit: fill;
       border-radius: 5px;
+    }
+
+    figcaption {
+      margin-top: 4px;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+      font-size: 10px;
+      line-height: 1.2;
     }
 
     .card-copy {
@@ -316,6 +401,11 @@ const html = `<!doctype html>
       line-height: 1.35;
     }
 
+    .code-list {
+      display: grid;
+      gap: 3px;
+    }
+
     .hidden {
       display: none;
     }
@@ -337,7 +427,7 @@ const html = `<!doctype html>
     <div class="bar">
       <div>
         <h1>몰타의 관문 생성 카드 이미지/설명 매핑</h1>
-        <div class="meta">이미지는 <code>generated-imagegen/named-cards/</code>, 설명은 generated manifest의 후보 메타데이터 기준입니다. 후보 데이터는 공식 확정 자료가 아닙니다.</div>
+        <div class="meta">이미지는 <code>generated-imagegen/named-cards/</code>, 설명은 generated manifest의 후보 메타데이터 기준입니다. 같은 조건/효과/점수/다이아 조합은 한 항목으로 묶었습니다. 후보 데이터는 공식 확정 자료가 아닙니다. ${cards.length}개 항목 / ${normalizedCards.length}개 이미지.</div>
       </div>
       <div class="controls">
         <input id="search" type="search" placeholder="조건, 효과, 파일명, 카드 번호 검색">

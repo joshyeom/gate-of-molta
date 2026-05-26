@@ -11,7 +11,7 @@ layout study, and prompt iteration.
 - `cards/` keeps the original source-position filenames, such as `12-card-sheet-face-r1c1.png`, so every output can be traced back to the crop manifest.
 - `named-cards/` contains human-readable copies for review and asset planning.
 - `contact-sheet.png` is a quick overview using source-position order.
-- `named-review.html` lists every named image with its source crop and candidate metadata.
+- `named-review.html` groups named images by matching condition/effect/score/diamond metadata, while preserving each source crop mapping inside the grouped item.
 - `manifest.json` maps source crop filenames, generated filenames, named filenames, candidate character metadata, pearl values, hashes, and duplicate relationships.
 
 ## Naming

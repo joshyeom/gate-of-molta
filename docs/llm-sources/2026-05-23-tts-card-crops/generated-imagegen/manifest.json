@@ -76,7 +76,7 @@
       "row": 1,
       "column": 3,
       "cardIndex": 3,
-      "sha256": "bdcdfff3a9a002cb105ea7f9557c1e5c967b0035e5078128ddc7dd2eaf743ba3",
+      "sha256": "76e0b42626a3171470fb472318c1c907f60e1b9813e53e5fe3778dbb9adc218b",
       "characterCandidate": {
         "cardId": 402,
         "requirement": "연속되는 카드 3장",
@@ -99,7 +99,7 @@
       "row": 2,
       "column": 1,
       "cardIndex": 4,
-      "sha256": "d153969592bdec4ef5fc696175977fcf55ca8d524cb9cdc3545894860cb30068",
+      "sha256": "72a0499fbbd5a823d2d92284f75b20051b2a4bcf91b2a062b520cec74b9ae44a",
       "characterCandidate": {
         "cardId": 403,
         "requirement": "같은 카드 2장 + 66",
@@ -122,7 +122,7 @@
       "row": 2,
       "column": 2,
       "cardIndex": 5,
-      "sha256": "4fab94c9518516855364685587f50c00daa62b70becb053de023b3befd5b491f",
+      "sha256": "be55499ab7cbfdde16330bcb3831b3dae382d6555a17918a6b4988a3d29c37e9",
       "characterCandidate": {
         "cardId": 404,
         "requirement": "33",
@@ -168,7 +168,7 @@
       "row": 3,
       "column": 1,
       "cardIndex": 7,
-      "sha256": "94e6bc0930ce843438ee82a065d820ce055b645965a0d27458dece159b906e34",
+      "sha256": "981fbf043515237340ac2225b89409fa053afdca02eae07c0285897c14d63ee3",
       "characterCandidate": {
         "cardId": 406,
         "requirement": "같은 카드 2장",
@@ -191,7 +191,7 @@
       "row": 3,
       "column": 2,
       "cardIndex": 8,
-      "sha256": "0564fce9aa17274332a9d3896a630b447e177c2e6cb08be168ad48b5004402fa",
+      "sha256": "a5077c7c7735dd48234e351bcac489097bac48423ce3c9fdcb655cca4e95010a",
       "characterCandidate": {
         "cardId": 407,
         "requirement": "합하면 20이 되는 카드 3장",
@@ -446,7 +446,7 @@
       "row": 1,
       "column": 3,
       "cardIndex": 3,
-      "sha256": "e4d58cd353b35f0e1d6a2064a5039258ceb13edb3e6ded04573924a4a2ffd0e0",
+      "sha256": "0f0db781239dadfae339fce09c196833fe16c523e70456514179da4b8c83f2c9",
       "characterCandidate": {
         "cardId": 302,
         "requirement": "18",
@@ -469,7 +469,7 @@
       "row": 2,
       "column": 1,
       "cardIndex": 4,
-      "sha256": "f505053a0097cb4018d5b57a17c0478f963dcec3978e5c47e4cfeeb5f529e2ad",
+      "sha256": "23d60bac0602c2252be8618c34c5375eab6b6c05fac36a60530c1e891e35bfff",
       "characterCandidate": {
         "cardId": 303,
         "requirement": "합하면 '10'이 되는 카드들",
@@ -515,7 +515,7 @@
       "row": 2,
       "column": 3,
       "cardIndex": 6,
-      "sha256": "01f117b2cbaffe5401dcebe250dda0c28c3f9e209ba6a0cb589ddaba4414ae2c",
+      "sha256": "99ec4a2617a6f0921e86025ffd19ea55e7cefe7ca53e5b9a0bfcafac9c25a65d",
       "characterCandidate": {
         "cardId": 305,
         "requirement": "6688",
@@ -584,7 +584,7 @@
       "row": 3,
       "column": 3,
       "cardIndex": 9,
-      "sha256": "43b5991139fc89ad09d7cd9e4eb5a47c2e6c4a162198c225401d478e15cfb79d",
+      "sha256": "a6354720e57c892b93ec7cca07e8d4cc1dc0a0398f737432d15882dd998a38f4",
       "characterCandidate": {
         "cardId": 308,
         "requirement": "55",
@@ -700,7 +700,7 @@
       "row": 2,
       "column": 2,
       "cardIndex": 5,
-      "sha256": "01f117b2cbaffe5401dcebe250dda0c28c3f9e209ba6a0cb589ddaba4414ae2c",
+      "sha256": "9106b90acd20707ad7b46a7b9ade2431d160ab502d9ab216ba13188d6bc09c76",
       "characterCandidate": {
         "cardId": 504,
         "requirement": "6688",
@@ -711,7 +711,6 @@
         "groupSize": 3,
         "groupIndex": 2
       },
-      "duplicateOfGeneratedFileName": "cards/15-card-sheet-face-r2c3.png",
       "displayName": "Character 504: 6688 / power 3 / diamonds 0",
       "assetName": "character-504-6688-p3-d0",
       "namedFileName": "named-cards/character-504-6688-p3-d0.png"
@@ -747,7 +746,7 @@
       "row": 3,
       "column": 1,
       "cardIndex": 7,
-      "sha256": "94e6bc0930ce843438ee82a065d820ce055b645965a0d27458dece159b906e34",
+      "sha256": "ddc5dd9287232f044bf33e2ff0adb3407ed368ca8ff6fb6139d01607cce9407c",
       "characterCandidate": {
         "cardId": 506,
         "requirement": "같은 카드 2장",
@@ -758,7 +757,6 @@
         "groupSize": 3,
         "groupIndex": 2
       },
-      "duplicateOfGeneratedFileName": "cards/12-card-sheet-face-r3c1.png",
       "displayName": "Character 506: 같은 카드 2장 / power 1 / diamonds 0",
       "assetName": "character-506-pair-p1-d0",
       "namedFileName": "named-cards/character-506-pair-p1-d0.png"
@@ -956,7 +954,7 @@
       "row": 3,
       "column": 1,
       "cardIndex": 7,
-      "sha256": "01f117b2cbaffe5401dcebe250dda0c28c3f9e209ba6a0cb589ddaba4414ae2c",
+      "sha256": "1e4e62a005a1335b75af769722a3b128acbd6a1ca361ad9673a19df42f69362b",
       "characterCandidate": {
         "cardId": 606,
         "requirement": "6688",
@@ -967,7 +965,6 @@
         "groupSize": 3,
         "groupIndex": 3
       },
-      "duplicateOfGeneratedFileName": "cards/15-card-sheet-face-r2c3.png",
       "displayName": "Character 606: 6688 / power 3 / diamonds 0",
       "assetName": "character-606-6688-p3-d0",
       "namedFileName": "named-cards/character-606-6688-p3-d0.png"
@@ -1141,7 +1138,7 @@
       "row": 2,
       "column": 3,
       "cardIndex": 6,
-      "sha256": "f505053a0097cb4018d5b57a17c0478f963dcec3978e5c47e4cfeeb5f529e2ad",
+      "sha256": "475b7aa8850b50447581211e3a65ef871fe3b4ab05fffae5d398b0b8e82239a6",
       "characterCandidate": {
         "cardId": 705,
         "requirement": "합하면 '10'이 되는 카드들",
@@ -1152,7 +1149,6 @@
         "groupSize": 3,
         "groupIndex": 3
       },
-      "duplicateOfGeneratedFileName": "cards/15-card-sheet-face-r2c1.png",
       "displayName": "Character 705: 합하면 '10'이 되는 카드들 / power 1 / diamonds 0",
       "assetName": "character-705-sum-10-p1-d0",
       "namedFileName": "named-cards/character-705-sum-10-p1-d0.png"
@@ -1306,7 +1302,7 @@
       "row": 2,
       "column": 1,
       "cardIndex": 4,
-      "sha256": "94e6bc0930ce843438ee82a065d820ce055b645965a0d27458dece159b906e34",
+      "sha256": "aa4cbde39da39dfeeb6b94b67e997c278a5be07727c7650d9f3551a548333c19",
       "characterCandidate": {
         "cardId": 803,
         "requirement": "같은 카드 2장",
@@ -1317,7 +1313,6 @@
         "groupSize": 3,
         "groupIndex": 3
       },
-      "duplicateOfGeneratedFileName": "cards/12-card-sheet-face-r3c1.png",
       "displayName": "Character 803: 같은 카드 2장 / power 1 / diamonds 0",
       "assetName": "character-803-pair-p1-d0",
       "namedFileName": "named-cards/character-803-pair-p1-d0.png"
@@ -1446,7 +1441,7 @@
       "row": 1,
       "column": 1,
       "cardIndex": 1,
-      "sha256": "d153969592bdec4ef5fc696175977fcf55ca8d524cb9cdc3545894860cb30068",
+      "sha256": "572f8cb807da68df06753e03089e89e9880a755fb36e8c52765b2562c5042fa2",
       "characterCandidate": {
         "cardId": 900,
         "requirement": "같은 카드 2장 + 6카드 2장",
@@ -1457,7 +1452,6 @@
         "groupSize": 2,
         "groupIndex": 2
       },
-      "duplicateOfGeneratedFileName": "cards/12-card-sheet-face-r2c1.png",
       "displayName": "Character 900: 같은 카드 2장 + 6카드 2장 / power 2 / diamonds 1",
       "assetName": "character-900-same-2-plus-6x2-p2-d1",
       "namedFileName": "named-cards/character-900-same-2-plus-6x2-p2-d1.png"
