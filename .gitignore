@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.DS_Store
+.codex-tmp/
+npm-debug.log*
+
+# Local artifacts
+.playwright-mcp/
+*.png
+!src/assets/**
+!docs/**
