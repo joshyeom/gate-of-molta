@@ -121,23 +121,35 @@ export function getLegalActions(state: GameState, playerId: PlayerId): LegalActi
     }
   }
 
+  for (const characterInstanceId of player.gateCharacters) {
+    for (const payment of getPaymentPlans(state, playerId, characterInstanceId)) {
+      actions.push({
+        type: "activateGateCharacter",
+        actorId: playerId,
+        characterInstanceId,
+        payment,
+      });
+    }
+  }
+
   return actions;
 }
 
 export function canPayRequirement(
-  _state: GameState,
-  _playerId: PlayerId,
-  _characterInstanceId: CardInstanceId,
+  state: GameState,
+  playerId: PlayerId,
+  characterInstanceId: CardInstanceId,
 ): boolean {
-  return false;
+  return getPaymentPlans(state, playerId, characterInstanceId).length > 0;
 }
 
 export function getPaymentPlans(
-  _state: GameState,
-  _playerId: PlayerId,
-  _characterInstanceId: CardInstanceId,
+  state: GameState,
+  playerId: PlayerId,
+  characterInstanceId: CardInstanceId,
 ) {
-  return [];
+  const pearlIds = findPaymentForCharacter(state, playerId, characterInstanceId);
+  return pearlIds ? [{ pearlIds, diamondUses: [] }] : [];
 }
 
 function getHandPearls(

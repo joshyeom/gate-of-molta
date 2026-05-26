@@ -1,7 +1,15 @@
 import { describe, expect, it } from "vitest";
+import { chooseAiAction } from "../solo/chooseAiAction";
 import { reduceGame } from "./reducer";
 import { defaultSetupOptions, STARTING_PEARL_HAND_SIZE } from "./state";
-import { getActivePlayer, getLegalActions, getPlayer } from "./selectors";
+import {
+  canPayRequirement,
+  findPaymentForCharacter,
+  getActivePlayer,
+  getLegalActions,
+  getPaymentPlans,
+  getPlayer,
+} from "./selectors";
 import type { GameSetupOptions, GameState } from "./types";
 
 function start(options: Partial<GameSetupOptions> = {}): GameState {
@@ -156,6 +164,52 @@ describe("basic actions", () => {
     expect(legalActions.some((action) => action.type === "gainPearlFromMarket")).toBe(true);
     expect(legalActions.some((action) => action.type === "placeCharacterFromMarket")).toBe(true);
   });
+
+  it("exposes payable gate character activations as legal actions", () => {
+    const setup = findPayableGateSetup();
+    if (!setup) {
+      throw new Error("Could not build payable gate character scenario.");
+    }
+
+    const legalActions = getLegalActions(setup.state, setup.actorId);
+    const activation = legalActions.find(
+      (action) =>
+        action.type === "activateGateCharacter" &&
+        action.characterInstanceId === setup.characterId,
+    );
+
+    expect(activation).toBeDefined();
+    expect(canPayRequirement(setup.state, setup.actorId, setup.characterId)).toBe(true);
+    expect(getPaymentPlans(setup.state, setup.actorId, setup.characterId)).toEqual([
+      { pearlIds: setup.pearlIds, diamondUses: [] },
+    ]);
+  });
+
+  it("plays one full automated round without breaking market or hand-limit invariants", () => {
+    let state = start({ totalPlayers: 3, seed: "cycle-test" });
+    const startPlayerId = state.turn.startPlayerId;
+    let completedTurns = 0;
+
+    while (!(state.turn.roundNumber === 2 && state.turn.activePlayerId === startPlayerId)) {
+      state = playAutomatedTurn(state);
+      completedTurns += 1;
+
+      expect(state.market.pearlMarket).toHaveLength(4);
+      expect(state.market.characterMarket).toHaveLength(2);
+      for (const player of state.players) {
+        expect(player.pearlHand.length).toBeLessThanOrEqual(5);
+      }
+
+      if (completedTurns > state.players.length) {
+        throw new Error("Automated round did not return to the start player.");
+      }
+    }
+
+    expect(completedTurns).toBe(state.players.length);
+    expect(state.turn.roundNumber).toBe(2);
+    expect(state.turn.activePlayerId).toBe(startPlayerId);
+    expect(state.turn.actionsRemaining).toBe(3);
+  });
 });
 
 describe("invariants", () => {
@@ -239,3 +293,57 @@ describe("invariants", () => {
     ).toThrow(/Duplicate pearl/);
   });
 });
+
+function findPayableGateSetup(): {
+  state: GameState;
+  actorId: string;
+  characterId: string;
+  pearlIds: string[];
+} | null {
+  for (let attempt = 0; attempt < 100; attempt += 1) {
+    const state = start({ seed: `payable-${attempt}` });
+    const active = getActivePlayer(state);
+
+    for (const marketIndex of [0, 1]) {
+      const placed = reduceGame(state, {
+        type: "placeCharacterFromMarket",
+        actorId: active.id,
+        marketIndex,
+      }).state;
+      const characterId = getPlayer(placed, active.id).gateCharacters[0];
+      const pearlIds = findPaymentForCharacter(placed, active.id, characterId);
+      if (pearlIds) {
+        return {
+          state: placed,
+          actorId: active.id,
+          characterId,
+          pearlIds,
+        };
+      }
+    }
+  }
+
+  return null;
+}
+
+function playAutomatedTurn(state: GameState): GameState {
+  const actorId = state.turn.activePlayerId;
+  let nextState = state;
+
+  while (nextState.turn.activePlayerId === actorId && nextState.turn.actionsRemaining > 0) {
+    const action = chooseAiAction(nextState, actorId);
+    nextState = reduceGame(nextState, action).state;
+  }
+
+  const player = getPlayer(nextState, actorId);
+  const excess = Math.max(0, player.pearlHand.length - 5);
+  if (excess > 0) {
+    nextState = reduceGame(nextState, {
+      type: "discardPearlsToLimit",
+      actorId,
+      pearlIds: player.pearlHand.slice(0, excess),
+    }).state;
+  }
+
+  return reduceGame(nextState, { type: "endTurn", actorId }).state;
+}
