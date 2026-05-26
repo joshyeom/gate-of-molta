@@ -1362,7 +1362,7 @@
         if (visibleByQuery && visibleByFilter && card.groupId !== lastVisibleGroupId) {
           const groupHeader = document.createElement("div");
           groupHeader.className = "group-header";
-          const label = card.groupSize > 1 ? `동일 후보 ${card.groupSize}장` : "단일 카드";
+          const label = card.groupSize > 1 ? `같은 조건 그룹 ${card.groupSize}장` : "단일 카드";
           groupHeader.innerHTML = `<strong>그룹 ${card.groupId}</strong><span>${label}</span>`;
           cardsEl.append(groupHeader);
           lastVisibleGroupId = card.groupId;
@@ -1388,7 +1388,7 @@
         <div class="id">#${card.cardId}</div>
           <div class="source">${card.sourceSheet} r${card.row}c${card.column}</div>
         </div>
-        ${card.groupSize > 1 ? `<div class="badge">동일 후보 ${card.groupIndex}/${card.groupSize}</div>` : ""}
+        ${card.groupSize > 1 ? `<div class="badge">같은 조건 그룹 ${card.groupIndex}/${card.groupSize}</div>` : ""}
         <img class="photo" src="${card.imagePath}" alt="카드 #${card.cardId} 이미지">
         <dl>
           <dt>비용</dt>
