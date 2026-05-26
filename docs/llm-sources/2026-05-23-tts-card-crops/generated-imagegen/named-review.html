@@ -3,541 +3,2210 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Generated ImageGen Named Cards</title>
+  <title>몰타의 관문 생성 카드 이미지/설명 매핑</title>
   <style>
+    :root {
+      color-scheme: light;
+      --bg: #f4f0e8;
+      --panel: #fffaf1;
+      --ink: #231f1a;
+      --muted: #70675b;
+      --line: #d7c7af;
+      --accent: #236a62;
+      --effect: #245f34;
+      --shadow: 0 10px 28px rgba(49, 38, 22, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: #f6f5f2;
-      color: #1f2933;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
     }
+
     header {
       position: sticky;
       top: 0;
-      z-index: 1;
-      padding: 16px 20px;
-      border-bottom: 1px solid #d6d3cc;
-      background: #fffdfa;
+      z-index: 10;
+      border-bottom: 1px solid var(--line);
+      background: rgba(244, 240, 232, 0.96);
+      backdrop-filter: blur(10px);
     }
+
+    .bar {
+      max-width: 1500px;
+      display: grid;
+      gap: 12px;
+      margin: 0 auto;
+      padding: 16px 18px;
+    }
+
     h1 {
-      margin: 0 0 4px;
-      font-size: 20px;
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
     }
+
     .meta {
-      color: #5f6b7a;
+      color: var(--muted);
       font-size: 13px;
     }
-    main {
+
+    .controls {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+      grid-template-columns: minmax(220px, 1fr) 160px;
+      gap: 8px;
+    }
+
+    input,
+    select {
+      min-height: 38px;
+      border: 1px solid var(--line);
+      border-radius: 7px;
+      background: #fffef9;
+      color: var(--ink);
+      padding: 0 10px;
+      font: inherit;
+    }
+
+    main {
+      max-width: 1500px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(620px, 1fr));
       gap: 14px;
-      padding: 16px;
     }
+
     .card {
-      padding: 10px;
-      border: 1px solid #d6d3cc;
-      border-radius: 6px;
-      background: #fffdfa;
+      min-width: 0;
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      gap: 16px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      padding: 12px;
     }
-    img {
-      display: block;
-      width: 100%;
-      height: 280px;
-      object-fit: contain;
+
+    .image-wrap {
+      align-self: start;
+      border: 1px solid #eadfcf;
+      border-radius: 8px;
       background: #fff;
-      border: 1px solid #ece8df;
+      padding: 6px;
     }
+
+    figure {
+      margin: 0;
+    }
+
+    .image-group {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    img {
+      width: 100%;
+      aspect-ratio: 1008 / 1561;
+      display: block;
+      object-fit: fill;
+      border-radius: 5px;
+    }
+
+    figcaption {
+      margin-top: 4px;
+      color: var(--muted);
+      overflow-wrap: anywhere;
+      font-size: 10px;
+      line-height: 1.2;
+    }
+
+    .card-copy {
+      min-width: 0;
+      display: grid;
+      align-content: start;
+      gap: 10px;
+    }
+
+    .card-head {
+      display: flex;
+      align-items: start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
     h2 {
-      margin: 8px 0 4px;
+      margin: 0;
+      font-size: 17px;
+      line-height: 1.25;
+    }
+
+    .card-head span {
+      flex: 0 0 auto;
+      border: 1px solid #dfc18a;
+      border-radius: 999px;
+      color: #6c4b0f;
+      background: #fff3d6;
+      padding: 3px 7px;
+      font-size: 11px;
+      font-weight: 800;
+    }
+
+    dl {
+      display: grid;
+      gap: 7px;
+      margin: 0;
+    }
+
+    dl > div {
+      display: grid;
+      grid-template-columns: 56px minmax(0, 1fr);
+      gap: 8px;
+      border: 1px solid rgba(215, 199, 175, 0.65);
+      border-radius: 6px;
+      background: rgba(255, 255, 255, 0.48);
+      padding: 7px 8px;
+    }
+
+    dt,
+    dd {
+      margin: 0;
+    }
+
+    dt {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    dd {
+      min-width: 0;
       overflow-wrap: anywhere;
       font-size: 13px;
+      font-weight: 700;
+      line-height: 1.45;
     }
-    p,
+
+    .effect-row {
+      border-color: rgba(36, 95, 52, 0.28);
+      background: rgba(36, 95, 52, 0.06);
+    }
+
+    .effect-row dt {
+      color: var(--effect);
+    }
+
     code {
       display: block;
-      margin: 4px 0 0;
-      color: #5f6b7a;
+      color: var(--muted);
       overflow-wrap: anywhere;
-      font-size: 12px;
+      font-size: 11px;
       line-height: 1.35;
+    }
+
+    .code-list {
+      display: grid;
+      gap: 3px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    @media (max-width: 720px) {
+      .controls,
+      .card {
+        grid-template-columns: 1fr;
+      }
+
+      .image-wrap {
+        width: min(300px, 100%);
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>Generated ImageGen Named Cards</h1>
-    <div class="meta">67 named reference derivatives. Source-position files remain in <code>cards/</code>; human-readable copies live in <code>named-cards/</code>.</div>
+    <div class="bar">
+      <div>
+        <h1>몰타의 관문 생성 카드 이미지/설명 매핑</h1>
+        <div class="meta">이미지는 <code>generated-imagegen/named-cards/</code>, 설명은 generated manifest의 후보 메타데이터 기준입니다. 같은 조건/효과/점수/다이아 조합은 한 항목으로 묶었습니다. 후보 데이터는 공식 확정 자료가 아닙니다. 51개 항목 / 67개 이미지.</div>
+      </div>
+      <div class="controls">
+        <input id="search" type="search" placeholder="조건, 효과, 파일명, 카드 번호 검색">
+        <select id="category">
+          <option value="all">전체</option>
+          <option value="character">인물 카드</option>
+          <option value="pearl">진주 카드</option>
+        </select>
+      </div>
+    </div>
   </header>
   <main>
-      <article class="card">
-        <img src="named-cards/character-400-12-p0-d0.png" alt="character-400-12-p0-d0">
-        <h2>character-400-12-p0-d0</h2>
-        <p>Character 400: 12 / power 0 / diamonds 0</p>
-        <p>12 | power 0 | diamonds 0</p>
-        <code>cards/12-card-sheet-face-r1c1.jpg -> cards/12-card-sheet-face-r1c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-401-357-p1-d1.png" alt="character-401-357-p1-d1">
-        <h2>character-401-357-p1-d1</h2>
-        <p>Character 401: 357 / power 1 / diamonds 1</p>
-        <p>357 | power 1 | diamonds 1</p>
-        <code>cards/12-card-sheet-face-r1c2.jpg -> cards/12-card-sheet-face-r1c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-402-straight-3-p1-d0.png" alt="character-402-straight-3-p1-d0">
-        <h2>character-402-straight-3-p1-d0</h2>
-        <p>Character 402: 연속되는 카드 3장 / power 1 / diamonds 0</p>
-        <p>연속되는 카드 3장 | power 1 | diamonds 0</p>
-        <code>cards/12-card-sheet-face-r1c3.jpg -> cards/12-card-sheet-face-r1c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-403-same-2-plus-66-p2-d1.png" alt="character-403-same-2-plus-66-p2-d1">
-        <h2>character-403-same-2-plus-66-p2-d1</h2>
-        <p>Character 403: 같은 카드 2장 + 66 / power 2 / diamonds 1</p>
-        <p>같은 카드 2장 + 66 | power 2 | diamonds 1</p>
-        <code>cards/12-card-sheet-face-r2c1.jpg -> cards/12-card-sheet-face-r2c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-404-33-p1-d0.png" alt="character-404-33-p1-d0">
-        <h2>character-404-33-p1-d0</h2>
-        <p>Character 404: 33 / power 1 / diamonds 0</p>
-        <p>33 | power 1 | diamonds 0</p>
-        <code>cards/12-card-sheet-face-r2c2.jpg -> cards/12-card-sheet-face-r2c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-405-three-of-kind-p2-d0.png" alt="character-405-three-of-kind-p2-d0">
-        <h2>character-405-three-of-kind-p2-d0</h2>
-        <p>Character 405: 같은 카드 3장 / power 2 / diamonds 0</p>
-        <p>같은 카드 3장 | power 2 | diamonds 0</p>
-        <code>cards/12-card-sheet-face-r2c3.jpg -> cards/12-card-sheet-face-r2c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-406-pair-p1-d0.png" alt="character-406-pair-p1-d0">
-        <h2>character-406-pair-p1-d0</h2>
-        <p>Character 406: 같은 카드 2장 / power 1 / diamonds 0</p>
-        <p>같은 카드 2장 | power 1 | diamonds 0</p>
-        <code>cards/12-card-sheet-face-r3c1.jpg -> cards/12-card-sheet-face-r3c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-407-three-card-sum-20-p2-d0.png" alt="character-407-three-card-sum-20-p2-d0">
-        <h2>character-407-three-card-sum-20-p2-d0</h2>
-        <p>Character 407: 합하면 20이 되는 카드 3장 / power 2 / diamonds 0</p>
-        <p>합하면 20이 되는 카드 3장 | power 2 | diamonds 0</p>
-        <code>cards/12-card-sheet-face-r3c2.jpg -> cards/12-card-sheet-face-r3c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-408-odd-3-cards-p1-d1.png" alt="character-408-odd-3-cards-p1-d1">
-        <h2>character-408-odd-3-cards-p1-d1</h2>
-        <p>Character 408: 홀수인 카드 3장 / power 1 / diamonds 1</p>
-        <p>홀수인 카드 3장 | power 1 | diamonds 1</p>
-        <code>cards/12-card-sheet-face-r3c3.jpg -> cards/12-card-sheet-face-r3c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/pearl-1.png" alt="pearl-1">
-        <h2>pearl-1</h2>
-        <p>Pearl 1</p>
-        <p>value 1 | standard</p>
-        <code>cards/13-card-sheet-face-r1c1.jpg -> cards/13-card-sheet-face-r1c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/pearl-2.png" alt="pearl-2">
-        <h2>pearl-2</h2>
-        <p>Pearl 2</p>
-        <p>value 2 | standard</p>
-        <code>cards/13-card-sheet-face-r1c2.jpg -> cards/13-card-sheet-face-r1c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/pearl-3.png" alt="pearl-3">
-        <h2>pearl-3</h2>
-        <p>Pearl 3</p>
-        <p>value 3 | standard</p>
-        <code>cards/13-card-sheet-face-r1c3.jpg -> cards/13-card-sheet-face-r1c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/pearl-4.png" alt="pearl-4">
-        <h2>pearl-4</h2>
-        <p>Pearl 4</p>
-        <p>value 4 | standard</p>
-        <code>cards/13-card-sheet-face-r2c1.jpg -> cards/13-card-sheet-face-r2c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/pearl-5.png" alt="pearl-5">
-        <h2>pearl-5</h2>
-        <p>Pearl 5</p>
-        <p>value 5 | standard</p>
-        <code>cards/13-card-sheet-face-r2c2.jpg -> cards/13-card-sheet-face-r2c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/pearl-6.png" alt="pearl-6">
-        <h2>pearl-6</h2>
-        <p>Pearl 6</p>
-        <p>value 6 | standard</p>
-        <code>cards/13-card-sheet-face-r2c3.jpg -> cards/13-card-sheet-face-r2c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/pearl-7.png" alt="pearl-7">
-        <h2>pearl-7</h2>
-        <p>Pearl 7</p>
-        <p>value 7 | standard</p>
-        <code>cards/13-card-sheet-face-r3c1.jpg -> cards/13-card-sheet-face-r3c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/pearl-8.png" alt="pearl-8">
-        <h2>pearl-8</h2>
-        <p>Pearl 8</p>
-        <p>value 8 | standard</p>
-        <code>cards/13-card-sheet-face-r3c2.jpg -> cards/13-card-sheet-face-r3c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/pearl-3-refresh.png" alt="pearl-3-refresh">
-        <h2>pearl-3-refresh</h2>
-        <p>Pearl 3 character-refresh</p>
-        <p>value 3 | character-refresh</p>
-        <code>cards/13-card-sheet-face-r3c3.jpg -> cards/13-card-sheet-face-r3c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/pearl-4-refresh.png" alt="pearl-4-refresh">
-        <h2>pearl-4-refresh</h2>
-        <p>Pearl 4 character-refresh</p>
-        <p>value 4 | character-refresh</p>
-        <code>cards/15-card-sheet-face-r1c1.jpg -> cards/15-card-sheet-face-r1c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/pearl-5-refresh.png" alt="pearl-5-refresh">
-        <h2>pearl-5-refresh</h2>
-        <p>Pearl 5 character-refresh</p>
-        <p>value 5 | character-refresh</p>
-        <code>cards/15-card-sheet-face-r1c2.jpg -> cards/15-card-sheet-face-r1c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-302-18-p1-d0.png" alt="character-302-18-p1-d0">
-        <h2>character-302-18-p1-d0</h2>
-        <p>Character 302: 18 / power 1 / diamonds 0</p>
-        <p>18 | power 1 | diamonds 0</p>
-        <code>cards/15-card-sheet-face-r1c3.jpg -> cards/15-card-sheet-face-r1c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-303-sum-10-p1-d0.png" alt="character-303-sum-10-p1-d0">
-        <h2>character-303-sum-10-p1-d0</h2>
-        <p>Character 303: 합하면 '10'이 되는 카드들 / power 1 / diamonds 0</p>
-        <p>합하면 '10'이 되는 카드들 | power 1 | diamonds 0</p>
-        <code>cards/15-card-sheet-face-r2c1.jpg -> cards/15-card-sheet-face-r2c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-304-12-p0-d0.png" alt="character-304-12-p0-d0">
-        <h2>character-304-12-p0-d0</h2>
-        <p>Character 304: 12 / power 0 / diamonds 0</p>
-        <p>12 | power 0 | diamonds 0</p>
-        <code>cards/15-card-sheet-face-r2c2.jpg -> cards/15-card-sheet-face-r2c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-305-6688-p3-d0.png" alt="character-305-6688-p3-d0">
-        <h2>character-305-6688-p3-d0</h2>
-        <p>Character 305: 6688 / power 3 / diamonds 0</p>
-        <p>6688 | power 3 | diamonds 0</p>
-        <code>cards/15-card-sheet-face-r2c3.jpg -> cards/15-card-sheet-face-r2c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-306-11-p1-d0.png" alt="character-306-11-p1-d0">
-        <h2>character-306-11-p1-d0</h2>
-        <p>Character 306: 11 / power 1 / diamonds 0</p>
-        <p>11 | power 1 | diamonds 0</p>
-        <code>cards/15-card-sheet-face-r3c1.jpg -> cards/15-card-sheet-face-r3c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-307-7777-p4-d0.png" alt="character-307-7777-p4-d0">
-        <h2>character-307-7777-p4-d0</h2>
-        <p>Character 307: 7777 / power 4 / diamonds 0</p>
-        <p>7777 | power 4 | diamonds 0</p>
-        <code>cards/15-card-sheet-face-r3c2.jpg -> cards/15-card-sheet-face-r3c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-308-55-p1-d0.png" alt="character-308-55-p1-d0">
-        <h2>character-308-55-p1-d0</h2>
-        <p>Character 308: 55 / power 1 / diamonds 0</p>
-        <p>55 | power 1 | diamonds 0</p>
-        <code>cards/15-card-sheet-face-r3c3.jpg -> cards/15-card-sheet-face-r3c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-500-44-p1-d0.png" alt="character-500-44-p1-d0">
-        <h2>character-500-44-p1-d0</h2>
-        <p>Character 500: 44 / power 1 / diamonds 0</p>
-        <p>44 | power 1 | diamonds 0</p>
-        <code>cards/17-card-sheet-face-r1c1.jpg -> cards/17-card-sheet-face-r1c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-501-88-p2-d0.png" alt="character-501-88-p2-d0">
-        <h2>character-501-88-p2-d0</h2>
-        <p>Character 501: 88 / power 2 / diamonds 0</p>
-        <p>88 | power 2 | diamonds 0</p>
-        <code>cards/17-card-sheet-face-r1c2.jpg -> cards/17-card-sheet-face-r1c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-502-sum-10-p1-d0.png" alt="character-502-sum-10-p1-d0">
-        <h2>character-502-sum-10-p1-d0</h2>
-        <p>Character 502: 합하면 '10'이 되는 카드들 / power 1 / diamonds 0</p>
-        <p>합하면 '10'이 되는 카드들 | power 1 | diamonds 0</p>
-        <code>cards/17-card-sheet-face-r1c3.jpg -> cards/17-card-sheet-face-r1c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-503-7777-p4-d0.png" alt="character-503-7777-p4-d0">
-        <h2>character-503-7777-p4-d0</h2>
-        <p>Character 503: 7777 / power 4 / diamonds 0</p>
-        <p>7777 | power 4 | diamonds 0</p>
-        <code>cards/17-card-sheet-face-r2c1.jpg -> cards/17-card-sheet-face-r2c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-504-6688-p3-d0.png" alt="character-504-6688-p3-d0">
-        <h2>character-504-6688-p3-d0</h2>
-        <p>Character 504: 6688 / power 3 / diamonds 0</p>
-        <p>6688 | power 3 | diamonds 0</p>
-        <code>cards/17-card-sheet-face-r2c2.jpg -> cards/17-card-sheet-face-r2c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-505-8888-p5-d0.png" alt="character-505-8888-p5-d0">
-        <h2>character-505-8888-p5-d0</h2>
-        <p>Character 505: 8888 / power 5 / diamonds 0</p>
-        <p>8888 | power 5 | diamonds 0</p>
-        <code>cards/17-card-sheet-face-r2c3.jpg -> cards/17-card-sheet-face-r2c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-506-pair-p1-d0.png" alt="character-506-pair-p1-d0">
-        <h2>character-506-pair-p1-d0</h2>
-        <p>Character 506: 같은 카드 2장 / power 1 / diamonds 0</p>
-        <p>같은 카드 2장 | power 1 | diamonds 0</p>
-        <code>cards/17-card-sheet-face-r3c1.jpg -> cards/17-card-sheet-face-r3c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-507-567-p1-d0.png" alt="character-507-567-p1-d0">
-        <h2>character-507-567-p1-d0</h2>
-        <p>Character 507: 567 / power 1 / diamonds 0</p>
-        <p>567 | power 1 | diamonds 0</p>
-        <code>cards/17-card-sheet-face-r3c2.jpg -> cards/17-card-sheet-face-r3c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-508-45678-p1-d0.png" alt="character-508-45678-p1-d0">
-        <h2>character-508-45678-p1-d0</h2>
-        <p>Character 508: 45678 / power 1 / diamonds 0</p>
-        <p>45678 | power 1 | diamonds 0</p>
-        <code>cards/17-card-sheet-face-r3c3.jpg -> cards/17-card-sheet-face-r3c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-600-222-1-plus-diamond-p3-d0.png" alt="character-600-222-1-plus-diamond-p3-d0">
-        <h2>character-600-222-1-plus-diamond-p3-d0</h2>
-        <p>Character 600: 222+다이아몬드 1장 / power 3 / diamonds 0</p>
-        <p>222+다이아몬드 1장 | power 3 | diamonds 0</p>
-        <code>cards/18-card-sheet-face-r1c1.jpg -> cards/18-card-sheet-face-r1c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-601-88-p2-d0.png" alt="character-601-88-p2-d0">
-        <h2>character-601-88-p2-d0</h2>
-        <p>Character 601: 88 / power 2 / diamonds 0</p>
-        <p>88 | power 2 | diamonds 0</p>
-        <code>cards/18-card-sheet-face-r1c2.jpg -> cards/18-card-sheet-face-r1c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-602-three-card-sum-7-p1-d0.png" alt="character-602-three-card-sum-7-p1-d0">
-        <h2>character-602-three-card-sum-7-p1-d0</h2>
-        <p>Character 602: 합하면 7이 되는 카드 3장 / power 1 / diamonds 0</p>
-        <p>합하면 7이 되는 카드 3장 | power 1 | diamonds 0</p>
-        <code>cards/18-card-sheet-face-r1c3.jpg -> cards/18-card-sheet-face-r1c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-603-1111-p0-d0.png" alt="character-603-1111-p0-d0">
-        <h2>character-603-1111-p0-d0</h2>
-        <p>Character 603: 1111 / power 0 / diamonds 0</p>
-        <p>1111 | power 0 | diamonds 0</p>
-        <code>cards/18-card-sheet-face-r2c1.jpg -> cards/18-card-sheet-face-r2c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-604-two-pairs-p2-d0.png" alt="character-604-two-pairs-p2-d0">
-        <h2>character-604-two-pairs-p2-d0</h2>
-        <p>Character 604: 같은 카드 2장씩 두 벌 / power 2 / diamonds 0</p>
-        <p>같은 카드 2장씩 두 벌 | power 2 | diamonds 0</p>
-        <code>cards/18-card-sheet-face-r2c2.jpg -> cards/18-card-sheet-face-r2c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-605-7788-p3-d1.png" alt="character-605-7788-p3-d1">
-        <h2>character-605-7788-p3-d1</h2>
-        <p>Character 605: 7788 / power 3 / diamonds 1</p>
-        <p>7788 | power 3 | diamonds 1</p>
-        <code>cards/18-card-sheet-face-r2c3.jpg -> cards/18-card-sheet-face-r2c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-606-6688-p3-d0.png" alt="character-606-6688-p3-d0">
-        <h2>character-606-6688-p3-d0</h2>
-        <p>Character 606: 6688 / power 3 / diamonds 0</p>
-        <p>6688 | power 3 | diamonds 0</p>
-        <code>cards/18-card-sheet-face-r3c1.jpg -> cards/18-card-sheet-face-r3c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-607-22-p1-d0.png" alt="character-607-22-p1-d0">
-        <h2>character-607-22-p1-d0</h2>
-        <p>Character 607: 22 / power 1 / diamonds 0</p>
-        <p>22 | power 1 | diamonds 0</p>
-        <code>cards/18-card-sheet-face-r3c2.jpg -> cards/18-card-sheet-face-r3c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-608-333-p1-d0.png" alt="character-608-333-p1-d0">
-        <h2>character-608-333-p1-d0</h2>
-        <p>Character 608: 333 / power 1 / diamonds 0</p>
-        <p>333 | power 1 | diamonds 0</p>
-        <code>cards/18-card-sheet-face-r3c3.jpg -> cards/18-card-sheet-face-r3c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-700-straight-5-p2-d0.png" alt="character-700-straight-5-p2-d0">
-        <h2>character-700-straight-5-p2-d0</h2>
-        <p>Character 700: 연속되는 카드 5장 / power 2 / diamonds 0</p>
-        <p>연속되는 카드 5장 | power 2 | diamonds 0</p>
-        <code>cards/19-card-sheet-face-r1c1.jpg -> cards/19-card-sheet-face-r1c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-701-2468-p2-d0.png" alt="character-701-2468-p2-d0">
-        <h2>character-701-2468-p2-d0</h2>
-        <p>Character 701: 2468 / power 2 / diamonds 0</p>
-        <p>2468 | power 2 | diamonds 0</p>
-        <code>cards/19-card-sheet-face-r1c2.jpg -> cards/19-card-sheet-face-r1c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-702-1357-p2-d0.png" alt="character-702-1357-p2-d0">
-        <h2>character-702-1357-p2-d0</h2>
-        <p>Character 702: 1357 / power 2 / diamonds 0</p>
-        <p>1357 | power 2 | diamonds 0</p>
-        <code>cards/19-card-sheet-face-r1c3.jpg -> cards/19-card-sheet-face-r1c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-703-even-3-cards-p1-d1.png" alt="character-703-even-3-cards-p1-d1">
-        <h2>character-703-even-3-cards-p1-d1</h2>
-        <p>Character 703: 짝수인 카드 3장 / power 1 / diamonds 1</p>
-        <p>짝수인 카드 3장 | power 1 | diamonds 1</p>
-        <code>cards/19-card-sheet-face-r2c1.jpg -> cards/19-card-sheet-face-r2c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-704-four-of-kind-p3-d0.png" alt="character-704-four-of-kind-p3-d0">
-        <h2>character-704-four-of-kind-p3-d0</h2>
-        <p>Character 704: 같은 카드 4장 / power 3 / diamonds 0</p>
-        <p>같은 카드 4장 | power 3 | diamonds 0</p>
-        <code>cards/19-card-sheet-face-r2c2.jpg -> cards/19-card-sheet-face-r2c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-705-sum-10-p1-d0.png" alt="character-705-sum-10-p1-d0">
-        <h2>character-705-sum-10-p1-d0</h2>
-        <p>Character 705: 합하면 '10'이 되는 카드들 / power 1 / diamonds 0</p>
-        <p>합하면 '10'이 되는 카드들 | power 1 | diamonds 0</p>
-        <code>cards/19-card-sheet-face-r2c3.jpg -> cards/19-card-sheet-face-r2c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-706-three-of-kind-p2-d0.png" alt="character-706-three-of-kind-p2-d0">
-        <h2>character-706-three-of-kind-p2-d0</h2>
-        <p>Character 706: 같은 카드 3장 / power 2 / diamonds 0</p>
-        <p>같은 카드 3장 | power 2 | diamonds 0</p>
-        <code>cards/19-card-sheet-face-r3c1.jpg -> cards/19-card-sheet-face-r3c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-707-333-or-666-p3-d0.png" alt="character-707-333-or-666-p3-d0">
-        <h2>character-707-333-or-666-p3-d0</h2>
-        <p>Character 707: 333/666 / power 3 / diamonds 0</p>
-        <p>333/666 | power 3 | diamonds 0</p>
-        <code>cards/19-card-sheet-face-r3c2.jpg -> cards/19-card-sheet-face-r3c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-708-three-card-sum-10-p1-d0.png" alt="character-708-three-card-sum-10-p1-d0">
-        <h2>character-708-three-card-sum-10-p1-d0</h2>
-        <p>Character 708: 합이 10이 되는 카드 3장 / power 1 / diamonds 0</p>
-        <p>합이 10이 되는 카드 3장 | power 1 | diamonds 0</p>
-        <code>cards/19-card-sheet-face-r3c3.jpg -> cards/19-card-sheet-face-r3c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-800-345-p1-d0.png" alt="character-800-345-p1-d0">
-        <h2>character-800-345-p1-d0</h2>
-        <p>Character 800: 345 / power 1 / diamonds 0</p>
-        <p>345 | power 1 | diamonds 0</p>
-        <code>cards/20-card-sheet-face-r1c1.jpg -> cards/20-card-sheet-face-r1c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-801-567-p1-d0.png" alt="character-801-567-p1-d0">
-        <h2>character-801-567-p1-d0</h2>
-        <p>Character 801: 567 / power 1 / diamonds 0</p>
-        <p>567 | power 1 | diamonds 0</p>
-        <code>cards/20-card-sheet-face-r1c2.jpg -> cards/20-card-sheet-face-r1c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-802-7788-p3-d1.png" alt="character-802-7788-p3-d1">
-        <h2>character-802-7788-p3-d1</h2>
-        <p>Character 802: 7788 / power 3 / diamonds 1</p>
-        <p>7788 | power 3 | diamonds 1</p>
-        <code>cards/20-card-sheet-face-r1c3.jpg -> cards/20-card-sheet-face-r1c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-803-pair-p1-d0.png" alt="character-803-pair-p1-d0">
-        <h2>character-803-pair-p1-d0</h2>
-        <p>Character 803: 같은 카드 2장 / power 1 / diamonds 0</p>
-        <p>같은 카드 2장 | power 1 | diamonds 0</p>
-        <code>cards/20-card-sheet-face-r2c1.jpg -> cards/20-card-sheet-face-r2c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-804-66-p1-d0.png" alt="character-804-66-p1-d0">
-        <h2>character-804-66-p1-d0</h2>
-        <p>Character 804: 66 / power 1 / diamonds 0</p>
-        <p>66 | power 1 | diamonds 0</p>
-        <code>cards/20-card-sheet-face-r2c2.jpg -> cards/20-card-sheet-face-r2c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-805-77-p1-d0.png" alt="character-805-77-p1-d0">
-        <h2>character-805-77-p1-d0</h2>
-        <p>Character 805: 77 / power 1 / diamonds 0</p>
-        <p>77 | power 1 | diamonds 0</p>
-        <code>cards/20-card-sheet-face-r2c3.jpg -> cards/20-card-sheet-face-r2c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-806-2-p0-d1.png" alt="character-806-2-p0-d1">
-        <h2>character-806-2-p0-d1</h2>
-        <p>Character 806: 2 / power 0 / diamonds 1</p>
-        <p>2 | power 0 | diamonds 1</p>
-        <code>cards/20-card-sheet-face-r3c1.jpg -> cards/20-card-sheet-face-r3c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-807-three-card-sum-7-p1-d0.png" alt="character-807-three-card-sum-7-p1-d0">
-        <h2>character-807-three-card-sum-7-p1-d0</h2>
-        <p>Character 807: 합하면 7이 되는 카드 3장 / power 1 / diamonds 0</p>
-        <p>합하면 7이 되는 카드 3장 | power 1 | diamonds 0</p>
-        <code>cards/20-card-sheet-face-r3c2.jpg -> cards/20-card-sheet-face-r3c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-808-1234-p1-d2.png" alt="character-808-1234-p1-d2">
-        <h2>character-808-1234-p1-d2</h2>
-        <p>Character 808: 1234 / power 1 / diamonds 2</p>
-        <p>1234 | power 1 | diamonds 2</p>
-        <code>cards/20-card-sheet-face-r3c3.jpg -> cards/20-card-sheet-face-r3c3.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-900-same-2-plus-6x2-p2-d1.png" alt="character-900-same-2-plus-6x2-p2-d1">
-        <h2>character-900-same-2-plus-6x2-p2-d1</h2>
-        <p>Character 900: 같은 카드 2장 + 6카드 2장 / power 2 / diamonds 1</p>
-        <p>같은 카드 2장 + 6카드 2장 | power 2 | diamonds 1</p>
-        <code>cards/21-card-sheet-face-r1c1.jpg -> cards/21-card-sheet-face-r1c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-901-444-or-555-p3-d0.png" alt="character-901-444-or-555-p3-d0">
-        <h2>character-901-444-or-555-p3-d0</h2>
-        <p>Character 901: 444/555 / power 3 / diamonds 0</p>
-        <p>444/555 | power 3 | diamonds 0</p>
-        <code>cards/21-card-sheet-face-r1c2.jpg -> cards/21-card-sheet-face-r1c2.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-extra-21r2c1-77-p1-d0.png" alt="character-extra-21r2c1-77-p1-d0">
-        <h2>character-extra-21r2c1-77-p1-d0</h2>
-        <p>Character extra: 77 / power 1 / diamonds 0</p>
-        <p>77 | power 1 | diamonds 0</p>
-        <code>cards/21-card-sheet-face-r2c1.jpg -> cards/21-card-sheet-face-r2c1.png</code>
-      </article>
-      <article class="card">
-        <img src="named-cards/character-extra-21r2c2-66-p1-d0.png" alt="character-extra-21r2c2-66-p1-d0">
-        <h2>character-extra-21r2c2-66-p1-d0</h2>
-        <p>Character extra: 66 / power 1 / diamonds 0</p>
-        <p>66 | power 1 | diamonds 0</p>
-        <code>cards/21-card-sheet-face-r2c2.jpg -> cards/21-card-sheet-face-r2c2.png</code>
-      </article>
+    <section class="grid" id="grid">
+      <article class="card" data-category="character" data-search="character-302-18-p1-d0 인물 카드 302 18 내 차례 종료 직전, 마지막 행동을 끝낸 뒤, 차례마다 한 번, 손에 든 진주 카드를 모두 버린 후 획득 더미에서 버린 수 만큼 새 진주 카드를 획득할 수 있음 1 0 character-302-18-p1-d0 cards/15-card-sheet-face-r1c3.jpg -&gt; cards/15-card-sheet-face-r1c3.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-302-18-p1-d0.png" alt="character-302-18-p1-d0">
+            <figcaption>character-302-18-p1-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 302</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>18</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>내 차례 종료 직전, 마지막 행동을 끝낸 뒤, 차례마다 한 번, 손에 든 진주 카드를 모두 버린 후 획득 더미에서 버린 수 만큼 새 진주 카드를 획득할 수 있음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-302-18-p1-d0</code>
+            <code>cards/15-card-sheet-face-r1c3.jpg -&gt; cards/15-card-sheet-face-r1c3.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-303-sum-10-p1-d0__character-502-sum-10-p1-d0__character-705-sum-10-p1-d0 인물 카드 조건 묶음 합하면 '10'이 되는 카드들 손 카드 제한이 1장 많아짐 1 0 character-303-sum-10-p1-d0 character-502-sum-10-p1-d0 character-705-sum-10-p1-d0 cards/15-card-sheet-face-r2c1.jpg -&gt; cards/15-card-sheet-face-r2c1.png cards/17-card-sheet-face-r1c3.jpg -&gt; cards/17-card-sheet-face-r1c3.png cards/19-card-sheet-face-r2c3.jpg -&gt; cards/19-card-sheet-face-r2c3.png">
+        <div class="image-wrap image-group">
+          <figure>
+            <img src="named-cards/character-303-sum-10-p1-d0.png" alt="character-303-sum-10-p1-d0">
+            <figcaption>character-303-sum-10-p1-d0</figcaption>
+          </figure>
+          <figure>
+            <img src="named-cards/character-502-sum-10-p1-d0.png" alt="character-502-sum-10-p1-d0">
+            <figcaption>character-502-sum-10-p1-d0</figcaption>
+          </figure>
+          <figure>
+            <img src="named-cards/character-705-sum-10-p1-d0.png" alt="character-705-sum-10-p1-d0">
+            <figcaption>character-705-sum-10-p1-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 조건 묶음</h2>
+            <span>3개 이미지 묶음</span>
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>합하면 '10'이 되는 카드들</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>손 카드 제한이 1장 많아짐</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-303-sum-10-p1-d0</code>
+            <code>character-502-sum-10-p1-d0</code>
+            <code>character-705-sum-10-p1-d0</code>
+            <code>cards/15-card-sheet-face-r2c1.jpg -&gt; cards/15-card-sheet-face-r2c1.png</code>
+            <code>cards/17-card-sheet-face-r1c3.jpg -&gt; cards/17-card-sheet-face-r1c3.png</code>
+            <code>cards/19-card-sheet-face-r2c3.jpg -&gt; cards/19-card-sheet-face-r2c3.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-304-12-p0-d0__character-400-12-p0-d0 인물 카드 조건 묶음 12 진주 8로 사용가능 0 0 character-304-12-p0-d0 character-400-12-p0-d0 cards/15-card-sheet-face-r2c2.jpg -&gt; cards/15-card-sheet-face-r2c2.png cards/12-card-sheet-face-r1c1.jpg -&gt; cards/12-card-sheet-face-r1c1.png">
+        <div class="image-wrap image-group">
+          <figure>
+            <img src="named-cards/character-304-12-p0-d0.png" alt="character-304-12-p0-d0">
+            <figcaption>character-304-12-p0-d0</figcaption>
+          </figure>
+          <figure>
+            <img src="named-cards/character-400-12-p0-d0.png" alt="character-400-12-p0-d0">
+            <figcaption>character-400-12-p0-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 조건 묶음</h2>
+            <span>2개 이미지 묶음</span>
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>12</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>0</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>진주 8로 사용가능</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-304-12-p0-d0</code>
+            <code>character-400-12-p0-d0</code>
+            <code>cards/15-card-sheet-face-r2c2.jpg -&gt; cards/15-card-sheet-face-r2c2.png</code>
+            <code>cards/12-card-sheet-face-r1c1.jpg -&gt; cards/12-card-sheet-face-r1c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-305-6688-p3-d0__character-504-6688-p3-d0__character-606-6688-p3-d0 인물 카드 조건 묶음 6688 효과 없음 3 0 character-305-6688-p3-d0 character-504-6688-p3-d0 character-606-6688-p3-d0 cards/15-card-sheet-face-r2c3.jpg -&gt; cards/15-card-sheet-face-r2c3.png cards/17-card-sheet-face-r2c2.jpg -&gt; cards/17-card-sheet-face-r2c2.png cards/18-card-sheet-face-r3c1.jpg -&gt; cards/18-card-sheet-face-r3c1.png">
+        <div class="image-wrap image-group">
+          <figure>
+            <img src="named-cards/character-305-6688-p3-d0.png" alt="character-305-6688-p3-d0">
+            <figcaption>character-305-6688-p3-d0</figcaption>
+          </figure>
+          <figure>
+            <img src="named-cards/character-504-6688-p3-d0.png" alt="character-504-6688-p3-d0">
+            <figcaption>character-504-6688-p3-d0</figcaption>
+          </figure>
+          <figure>
+            <img src="named-cards/character-606-6688-p3-d0.png" alt="character-606-6688-p3-d0">
+            <figcaption>character-606-6688-p3-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 조건 묶음</h2>
+            <span>3개 이미지 묶음</span>
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>6688</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>3</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>효과 없음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-305-6688-p3-d0</code>
+            <code>character-504-6688-p3-d0</code>
+            <code>character-606-6688-p3-d0</code>
+            <code>cards/15-card-sheet-face-r2c3.jpg -&gt; cards/15-card-sheet-face-r2c3.png</code>
+            <code>cards/17-card-sheet-face-r2c2.jpg -&gt; cards/17-card-sheet-face-r2c2.png</code>
+            <code>cards/18-card-sheet-face-r3c1.jpg -&gt; cards/18-card-sheet-face-r3c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-306-11-p1-d0 인물 카드 306 11 진주 1로 사용가능 1 0 character-306-11-p1-d0 cards/15-card-sheet-face-r3c1.jpg -&gt; cards/15-card-sheet-face-r3c1.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-306-11-p1-d0.png" alt="character-306-11-p1-d0">
+            <figcaption>character-306-11-p1-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 306</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>11</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>진주 1로 사용가능</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-306-11-p1-d0</code>
+            <code>cards/15-card-sheet-face-r3c1.jpg -&gt; cards/15-card-sheet-face-r3c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-307-7777-p4-d0__character-503-7777-p4-d0 인물 카드 조건 묶음 7777 효과 없음 4 0 character-307-7777-p4-d0 character-503-7777-p4-d0 cards/15-card-sheet-face-r3c2.jpg -&gt; cards/15-card-sheet-face-r3c2.png cards/17-card-sheet-face-r2c1.jpg -&gt; cards/17-card-sheet-face-r2c1.png">
+        <div class="image-wrap image-group">
+          <figure>
+            <img src="named-cards/character-307-7777-p4-d0.png" alt="character-307-7777-p4-d0">
+            <figcaption>character-307-7777-p4-d0</figcaption>
+          </figure>
+          <figure>
+            <img src="named-cards/character-503-7777-p4-d0.png" alt="character-503-7777-p4-d0">
+            <figcaption>character-503-7777-p4-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 조건 묶음</h2>
+            <span>2개 이미지 묶음</span>
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>7777</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>4</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>효과 없음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-307-7777-p4-d0</code>
+            <code>character-503-7777-p4-d0</code>
+            <code>cards/15-card-sheet-face-r3c2.jpg -&gt; cards/15-card-sheet-face-r3c2.png</code>
+            <code>cards/17-card-sheet-face-r2c1.jpg -&gt; cards/17-card-sheet-face-r2c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-308-55-p1-d0 인물 카드 308 55 진주 5로 사용가능 1 0 character-308-55-p1-d0 cards/15-card-sheet-face-r3c3.jpg -&gt; cards/15-card-sheet-face-r3c3.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-308-55-p1-d0.png" alt="character-308-55-p1-d0">
+            <figcaption>character-308-55-p1-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 308</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>55</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>진주 5로 사용가능</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-308-55-p1-d0</code>
+            <code>cards/15-card-sheet-face-r3c3.jpg -&gt; cards/15-card-sheet-face-r3c3.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-401-357-p1-d1 인물 카드 401 357 다이아몬드를 사용해서 진주 카드의 값을 1 내릴 수 있음. 단, 진주 카드의 값을 '0'으로 만들 수는 없음. 진주 카드 1장에는 다이아몬드 하나만 사용가능. 사용한 다이아몬드는 버린 캐릭터 더미에 버림. 1 1 character-401-357-p1-d1 cards/12-card-sheet-face-r1c2.jpg -&gt; cards/12-card-sheet-face-r1c2.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-401-357-p1-d1.png" alt="character-401-357-p1-d1">
+            <figcaption>character-401-357-p1-d1</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 401</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>357</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>1</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>다이아몬드를 사용해서 진주 카드의 값을 1 내릴 수 있음. 단, 진주 카드의 값을 '0'으로 만들 수는 없음. 진주 카드 1장에는 다이아몬드 하나만 사용가능. 사용한 다이아몬드는 버린 캐릭터 더미에 버림.</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-401-357-p1-d1</code>
+            <code>cards/12-card-sheet-face-r1c2.jpg -&gt; cards/12-card-sheet-face-r1c2.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-402-straight-3-p1-d0 인물 카드 402 연속되는 카드 3장 내 차례 시작 직후, 첫 행동을 시작하기 전에, 캐릭터 획득 더미 맨 위 1장을 살펴볼 수 있음. 살펴본 카드는 제자리에 돌려놓음. 1 0 character-402-straight-3-p1-d0 cards/12-card-sheet-face-r1c3.jpg -&gt; cards/12-card-sheet-face-r1c3.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-402-straight-3-p1-d0.png" alt="character-402-straight-3-p1-d0">
+            <figcaption>character-402-straight-3-p1-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 402</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>연속되는 카드 3장</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>내 차례 시작 직후, 첫 행동을 시작하기 전에, 캐릭터 획득 더미 맨 위 1장을 살펴볼 수 있음. 살펴본 카드는 제자리에 돌려놓음.</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-402-straight-3-p1-d0</code>
+            <code>cards/12-card-sheet-face-r1c3.jpg -&gt; cards/12-card-sheet-face-r1c3.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-403-same-2-plus-66-p2-d1__character-900-same-2-plus-6x2-p2-d1 인물 카드 조건 묶음 같은 카드 2장 + 66 / 같은 카드 2장 + 6카드 2장 효과 없음 2 1 character-403-same-2-plus-66-p2-d1 character-900-same-2-plus-6x2-p2-d1 cards/12-card-sheet-face-r2c1.jpg -&gt; cards/12-card-sheet-face-r2c1.png cards/21-card-sheet-face-r1c1.jpg -&gt; cards/21-card-sheet-face-r1c1.png">
+        <div class="image-wrap image-group">
+          <figure>
+            <img src="named-cards/character-403-same-2-plus-66-p2-d1.png" alt="character-403-same-2-plus-66-p2-d1">
+            <figcaption>character-403-same-2-plus-66-p2-d1</figcaption>
+          </figure>
+          <figure>
+            <img src="named-cards/character-900-same-2-plus-6x2-p2-d1.png" alt="character-900-same-2-plus-6x2-p2-d1">
+            <figcaption>character-900-same-2-plus-6x2-p2-d1</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 조건 묶음</h2>
+            <span>2개 이미지 묶음</span>
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>같은 카드 2장 + 66 / 같은 카드 2장 + 6카드 2장</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>2</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>1</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>효과 없음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-403-same-2-plus-66-p2-d1</code>
+            <code>character-900-same-2-plus-6x2-p2-d1</code>
+            <code>cards/12-card-sheet-face-r2c1.jpg -&gt; cards/12-card-sheet-face-r2c1.png</code>
+            <code>cards/21-card-sheet-face-r1c1.jpg -&gt; cards/21-card-sheet-face-r1c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-404-33-p1-d0 인물 카드 404 33 진주 3으로 사용가능 1 0 character-404-33-p1-d0 cards/12-card-sheet-face-r2c2.jpg -&gt; cards/12-card-sheet-face-r2c2.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-404-33-p1-d0.png" alt="character-404-33-p1-d0">
+            <figcaption>character-404-33-p1-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 404</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>33</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>진주 3으로 사용가능</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-404-33-p1-d0</code>
+            <code>cards/12-card-sheet-face-r2c2.jpg -&gt; cards/12-card-sheet-face-r2c2.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-405-three-of-kind-p2-d0__character-706-three-of-kind-p2-d0 인물 카드 조건 묶음 같은 카드 3장 효과 없음 2 0 character-405-three-of-kind-p2-d0 character-706-three-of-kind-p2-d0 cards/12-card-sheet-face-r2c3.jpg -&gt; cards/12-card-sheet-face-r2c3.png cards/19-card-sheet-face-r3c1.jpg -&gt; cards/19-card-sheet-face-r3c1.png">
+        <div class="image-wrap image-group">
+          <figure>
+            <img src="named-cards/character-405-three-of-kind-p2-d0.png" alt="character-405-three-of-kind-p2-d0">
+            <figcaption>character-405-three-of-kind-p2-d0</figcaption>
+          </figure>
+          <figure>
+            <img src="named-cards/character-706-three-of-kind-p2-d0.png" alt="character-706-three-of-kind-p2-d0">
+            <figcaption>character-706-three-of-kind-p2-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 조건 묶음</h2>
+            <span>2개 이미지 묶음</span>
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>같은 카드 3장</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>2</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>효과 없음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-405-three-of-kind-p2-d0</code>
+            <code>character-706-three-of-kind-p2-d0</code>
+            <code>cards/12-card-sheet-face-r2c3.jpg -&gt; cards/12-card-sheet-face-r2c3.png</code>
+            <code>cards/19-card-sheet-face-r3c1.jpg -&gt; cards/19-card-sheet-face-r3c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-406-pair-p1-d0__character-506-pair-p1-d0__character-803-pair-p1-d0 인물 카드 조건 묶음 같은 카드 2장 효과 없음 1 0 character-406-pair-p1-d0 character-506-pair-p1-d0 character-803-pair-p1-d0 cards/12-card-sheet-face-r3c1.jpg -&gt; cards/12-card-sheet-face-r3c1.png cards/17-card-sheet-face-r3c1.jpg -&gt; cards/17-card-sheet-face-r3c1.png cards/20-card-sheet-face-r2c1.jpg -&gt; cards/20-card-sheet-face-r2c1.png">
+        <div class="image-wrap image-group">
+          <figure>
+            <img src="named-cards/character-406-pair-p1-d0.png" alt="character-406-pair-p1-d0">
+            <figcaption>character-406-pair-p1-d0</figcaption>
+          </figure>
+          <figure>
+            <img src="named-cards/character-506-pair-p1-d0.png" alt="character-506-pair-p1-d0">
+            <figcaption>character-506-pair-p1-d0</figcaption>
+          </figure>
+          <figure>
+            <img src="named-cards/character-803-pair-p1-d0.png" alt="character-803-pair-p1-d0">
+            <figcaption>character-803-pair-p1-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 조건 묶음</h2>
+            <span>3개 이미지 묶음</span>
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>같은 카드 2장</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>효과 없음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-406-pair-p1-d0</code>
+            <code>character-506-pair-p1-d0</code>
+            <code>character-803-pair-p1-d0</code>
+            <code>cards/12-card-sheet-face-r3c1.jpg -&gt; cards/12-card-sheet-face-r3c1.png</code>
+            <code>cards/17-card-sheet-face-r3c1.jpg -&gt; cards/17-card-sheet-face-r3c1.png</code>
+            <code>cards/20-card-sheet-face-r2c1.jpg -&gt; cards/20-card-sheet-face-r2c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-407-three-card-sum-20-p2-d0 인물 카드 407 합하면 20이 되는 카드 3장 효과 없음 2 0 character-407-three-card-sum-20-p2-d0 cards/12-card-sheet-face-r3c2.jpg -&gt; cards/12-card-sheet-face-r3c2.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-407-three-card-sum-20-p2-d0.png" alt="character-407-three-card-sum-20-p2-d0">
+            <figcaption>character-407-three-card-sum-20-p2-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 407</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>합하면 20이 되는 카드 3장</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>2</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>효과 없음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-407-three-card-sum-20-p2-d0</code>
+            <code>cards/12-card-sheet-face-r3c2.jpg -&gt; cards/12-card-sheet-face-r3c2.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-408-odd-3-cards-p1-d1 인물 카드 408 홀수인 카드 3장 효과 없음 1 1 character-408-odd-3-cards-p1-d1 cards/12-card-sheet-face-r3c3.jpg -&gt; cards/12-card-sheet-face-r3c3.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-408-odd-3-cards-p1-d1.png" alt="character-408-odd-3-cards-p1-d1">
+            <figcaption>character-408-odd-3-cards-p1-d1</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 408</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>홀수인 카드 3장</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>1</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>효과 없음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-408-odd-3-cards-p1-d1</code>
+            <code>cards/12-card-sheet-face-r3c3.jpg -&gt; cards/12-card-sheet-face-r3c3.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-500-44-p1-d0 인물 카드 500 44 진주 4로 사용가능 1 0 character-500-44-p1-d0 cards/17-card-sheet-face-r1c1.jpg -&gt; cards/17-card-sheet-face-r1c1.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-500-44-p1-d0.png" alt="character-500-44-p1-d0">
+            <figcaption>character-500-44-p1-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 500</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>44</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>진주 4로 사용가능</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-500-44-p1-d0</code>
+            <code>cards/17-card-sheet-face-r1c1.jpg -&gt; cards/17-card-sheet-face-r1c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-501-88-p2-d0__character-601-88-p2-d0 인물 카드 조건 묶음 88 효과 없음 2 0 character-501-88-p2-d0 character-601-88-p2-d0 cards/17-card-sheet-face-r1c2.jpg -&gt; cards/17-card-sheet-face-r1c2.png cards/18-card-sheet-face-r1c2.jpg -&gt; cards/18-card-sheet-face-r1c2.png">
+        <div class="image-wrap image-group">
+          <figure>
+            <img src="named-cards/character-501-88-p2-d0.png" alt="character-501-88-p2-d0">
+            <figcaption>character-501-88-p2-d0</figcaption>
+          </figure>
+          <figure>
+            <img src="named-cards/character-601-88-p2-d0.png" alt="character-601-88-p2-d0">
+            <figcaption>character-601-88-p2-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 조건 묶음</h2>
+            <span>2개 이미지 묶음</span>
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>88</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>2</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>효과 없음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-501-88-p2-d0</code>
+            <code>character-601-88-p2-d0</code>
+            <code>cards/17-card-sheet-face-r1c2.jpg -&gt; cards/17-card-sheet-face-r1c2.png</code>
+            <code>cards/18-card-sheet-face-r1c2.jpg -&gt; cards/18-card-sheet-face-r1c2.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-505-8888-p5-d0 인물 카드 505 8888 효과 없음 5 0 character-505-8888-p5-d0 cards/17-card-sheet-face-r2c3.jpg -&gt; cards/17-card-sheet-face-r2c3.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-505-8888-p5-d0.png" alt="character-505-8888-p5-d0">
+            <figcaption>character-505-8888-p5-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 505</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>8888</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>5</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>효과 없음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-505-8888-p5-d0</code>
+            <code>cards/17-card-sheet-face-r2c3.jpg -&gt; cards/17-card-sheet-face-r2c3.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-507-567-p1-d0__character-801-567-p1-d0 인물 카드 조건 묶음 567 다른 플레이어 한 명의 손 카드를 보고, 그 중 1장을 가져옴 1 0 character-507-567-p1-d0 character-801-567-p1-d0 cards/17-card-sheet-face-r3c2.jpg -&gt; cards/17-card-sheet-face-r3c2.png cards/20-card-sheet-face-r1c2.jpg -&gt; cards/20-card-sheet-face-r1c2.png">
+        <div class="image-wrap image-group">
+          <figure>
+            <img src="named-cards/character-507-567-p1-d0.png" alt="character-507-567-p1-d0">
+            <figcaption>character-507-567-p1-d0</figcaption>
+          </figure>
+          <figure>
+            <img src="named-cards/character-801-567-p1-d0.png" alt="character-801-567-p1-d0">
+            <figcaption>character-801-567-p1-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 조건 묶음</h2>
+            <span>2개 이미지 묶음</span>
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>567</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>다른 플레이어 한 명의 손 카드를 보고, 그 중 1장을 가져옴</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-507-567-p1-d0</code>
+            <code>character-801-567-p1-d0</code>
+            <code>cards/17-card-sheet-face-r3c2.jpg -&gt; cards/17-card-sheet-face-r3c2.png</code>
+            <code>cards/20-card-sheet-face-r1c2.jpg -&gt; cards/20-card-sheet-face-r1c2.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-508-45678-p1-d0 인물 카드 508 45678 이번 차례를 포함해서, 매 차례마다 행동 1회를 추가로 수행할 수 있음 1 0 character-508-45678-p1-d0 cards/17-card-sheet-face-r3c3.jpg -&gt; cards/17-card-sheet-face-r3c3.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-508-45678-p1-d0.png" alt="character-508-45678-p1-d0">
+            <figcaption>character-508-45678-p1-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 508</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>45678</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>이번 차례를 포함해서, 매 차례마다 행동 1회를 추가로 수행할 수 있음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-508-45678-p1-d0</code>
+            <code>cards/17-card-sheet-face-r3c3.jpg -&gt; cards/17-card-sheet-face-r3c3.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-600-222-1-plus-diamond-p3-d0 인물 카드 600 222+다이아몬드 1장 효과 없음 3 0 character-600-222-1-plus-diamond-p3-d0 cards/18-card-sheet-face-r1c1.jpg -&gt; cards/18-card-sheet-face-r1c1.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-600-222-1-plus-diamond-p3-d0.png" alt="character-600-222-1-plus-diamond-p3-d0">
+            <figcaption>character-600-222-1-plus-diamond-p3-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 600</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>222+다이아몬드 1장</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>3</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>효과 없음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-600-222-1-plus-diamond-p3-d0</code>
+            <code>cards/18-card-sheet-face-r1c1.jpg -&gt; cards/18-card-sheet-face-r1c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-602-three-card-sum-7-p1-d0__character-807-three-card-sum-7-p1-d0 인물 카드 조건 묶음 합하면 7이 되는 카드 3장 다른 플레이어 한 명의 관문에 있는 캐릭터 카드 중 1장을 버림 1 0 character-602-three-card-sum-7-p1-d0 character-807-three-card-sum-7-p1-d0 cards/18-card-sheet-face-r1c3.jpg -&gt; cards/18-card-sheet-face-r1c3.png cards/20-card-sheet-face-r3c2.jpg -&gt; cards/20-card-sheet-face-r3c2.png">
+        <div class="image-wrap image-group">
+          <figure>
+            <img src="named-cards/character-602-three-card-sum-7-p1-d0.png" alt="character-602-three-card-sum-7-p1-d0">
+            <figcaption>character-602-three-card-sum-7-p1-d0</figcaption>
+          </figure>
+          <figure>
+            <img src="named-cards/character-807-three-card-sum-7-p1-d0.png" alt="character-807-three-card-sum-7-p1-d0">
+            <figcaption>character-807-three-card-sum-7-p1-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 조건 묶음</h2>
+            <span>2개 이미지 묶음</span>
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>합하면 7이 되는 카드 3장</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>다른 플레이어 한 명의 관문에 있는 캐릭터 카드 중 1장을 버림</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-602-three-card-sum-7-p1-d0</code>
+            <code>character-807-three-card-sum-7-p1-d0</code>
+            <code>cards/18-card-sheet-face-r1c3.jpg -&gt; cards/18-card-sheet-face-r1c3.png</code>
+            <code>cards/20-card-sheet-face-r3c2.jpg -&gt; cards/20-card-sheet-face-r3c2.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-603-1111-p0-d0 인물 카드 603 1111 진주 '1~8'중 원하는 수로 사용가능 0 0 character-603-1111-p0-d0 cards/18-card-sheet-face-r2c1.jpg -&gt; cards/18-card-sheet-face-r2c1.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-603-1111-p0-d0.png" alt="character-603-1111-p0-d0">
+            <figcaption>character-603-1111-p0-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 603</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>1111</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>0</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>진주 '1~8'중 원하는 수로 사용가능</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-603-1111-p0-d0</code>
+            <code>cards/18-card-sheet-face-r2c1.jpg -&gt; cards/18-card-sheet-face-r2c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-604-two-pairs-p2-d0 인물 카드 604 같은 카드 2장씩 두 벌 다음 차례의 플레이어는 자신의 차례에 행동 1회를 추가로 수행 2 0 character-604-two-pairs-p2-d0 cards/18-card-sheet-face-r2c2.jpg -&gt; cards/18-card-sheet-face-r2c2.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-604-two-pairs-p2-d0.png" alt="character-604-two-pairs-p2-d0">
+            <figcaption>character-604-two-pairs-p2-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 604</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>같은 카드 2장씩 두 벌</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>2</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>다음 차례의 플레이어는 자신의 차례에 행동 1회를 추가로 수행</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-604-two-pairs-p2-d0</code>
+            <code>cards/18-card-sheet-face-r2c2.jpg -&gt; cards/18-card-sheet-face-r2c2.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-605-7788-p3-d1__character-802-7788-p3-d1 인물 카드 조건 묶음 7788 효과 없음 3 1 character-605-7788-p3-d1 character-802-7788-p3-d1 cards/18-card-sheet-face-r2c3.jpg -&gt; cards/18-card-sheet-face-r2c3.png cards/20-card-sheet-face-r1c3.jpg -&gt; cards/20-card-sheet-face-r1c3.png">
+        <div class="image-wrap image-group">
+          <figure>
+            <img src="named-cards/character-605-7788-p3-d1.png" alt="character-605-7788-p3-d1">
+            <figcaption>character-605-7788-p3-d1</figcaption>
+          </figure>
+          <figure>
+            <img src="named-cards/character-802-7788-p3-d1.png" alt="character-802-7788-p3-d1">
+            <figcaption>character-802-7788-p3-d1</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 조건 묶음</h2>
+            <span>2개 이미지 묶음</span>
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>7788</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>3</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>1</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>효과 없음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-605-7788-p3-d1</code>
+            <code>character-802-7788-p3-d1</code>
+            <code>cards/18-card-sheet-face-r2c3.jpg -&gt; cards/18-card-sheet-face-r2c3.png</code>
+            <code>cards/20-card-sheet-face-r1c3.jpg -&gt; cards/20-card-sheet-face-r1c3.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-607-22-p1-d0 인물 카드 607 22 진주 2로 사용가능 1 0 character-607-22-p1-d0 cards/18-card-sheet-face-r3c2.jpg -&gt; cards/18-card-sheet-face-r3c2.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-607-22-p1-d0.png" alt="character-607-22-p1-d0">
+            <figcaption>character-607-22-p1-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 607</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>22</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>진주 2로 사용가능</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-607-22-p1-d0</code>
+            <code>cards/18-card-sheet-face-r3c2.jpg -&gt; cards/18-card-sheet-face-r3c2.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-608-333-p1-d0 인물 카드 608 333 캐릭터를 활성화할 때, 손에 든 '3' 진주 카드를 '1~8' 중 원하는 값으로 사용할 수 있음 1 0 character-608-333-p1-d0 cards/18-card-sheet-face-r3c3.jpg -&gt; cards/18-card-sheet-face-r3c3.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-608-333-p1-d0.png" alt="character-608-333-p1-d0">
+            <figcaption>character-608-333-p1-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 608</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>333</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>캐릭터를 활성화할 때, 손에 든 '3' 진주 카드를 '1~8' 중 원하는 값으로 사용할 수 있음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-608-333-p1-d0</code>
+            <code>cards/18-card-sheet-face-r3c3.jpg -&gt; cards/18-card-sheet-face-r3c3.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-700-straight-5-p2-d0 인물 카드 700 연속되는 카드 5장 내 차례 시작 직후, 첫 행동을 시작하기 전에, 내 관문에 있는 캐릭터 카드 1장을 열린 캐릭터 카드 1장과 서로 바꿀 수 있음 2 0 character-700-straight-5-p2-d0 cards/19-card-sheet-face-r1c1.jpg -&gt; cards/19-card-sheet-face-r1c1.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-700-straight-5-p2-d0.png" alt="character-700-straight-5-p2-d0">
+            <figcaption>character-700-straight-5-p2-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 700</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>연속되는 카드 5장</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>2</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>내 차례 시작 직후, 첫 행동을 시작하기 전에, 내 관문에 있는 캐릭터 카드 1장을 열린 캐릭터 카드 1장과 서로 바꿀 수 있음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-700-straight-5-p2-d0</code>
+            <code>cards/19-card-sheet-face-r1c1.jpg -&gt; cards/19-card-sheet-face-r1c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-701-2468-p2-d0 인물 카드 701 2468 추가 행동 3회를 즉시 수행 2 0 character-701-2468-p2-d0 cards/19-card-sheet-face-r1c2.jpg -&gt; cards/19-card-sheet-face-r1c2.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-701-2468-p2-d0.png" alt="character-701-2468-p2-d0">
+            <figcaption>character-701-2468-p2-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 701</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>2468</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>2</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>추가 행동 3회를 즉시 수행</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-701-2468-p2-d0</code>
+            <code>cards/19-card-sheet-face-r1c2.jpg -&gt; cards/19-card-sheet-face-r1c2.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-702-1357-p2-d0 인물 카드 702 1357 추가 행동 3회를 즉시 수행 2 0 character-702-1357-p2-d0 cards/19-card-sheet-face-r1c3.jpg -&gt; cards/19-card-sheet-face-r1c3.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-702-1357-p2-d0.png" alt="character-702-1357-p2-d0">
+            <figcaption>character-702-1357-p2-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 702</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>1357</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>2</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>추가 행동 3회를 즉시 수행</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-702-1357-p2-d0</code>
+            <code>cards/19-card-sheet-face-r1c3.jpg -&gt; cards/19-card-sheet-face-r1c3.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-703-even-3-cards-p1-d1 인물 카드 703 짝수인 카드 3장 효과 없음 1 1 character-703-even-3-cards-p1-d1 cards/19-card-sheet-face-r2c1.jpg -&gt; cards/19-card-sheet-face-r2c1.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-703-even-3-cards-p1-d1.png" alt="character-703-even-3-cards-p1-d1">
+            <figcaption>character-703-even-3-cards-p1-d1</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 703</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>짝수인 카드 3장</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>1</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>효과 없음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-703-even-3-cards-p1-d1</code>
+            <code>cards/19-card-sheet-face-r2c1.jpg -&gt; cards/19-card-sheet-face-r2c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-704-four-of-kind-p3-d0 인물 카드 704 같은 카드 4장 효과 없음 3 0 character-704-four-of-kind-p3-d0 cards/19-card-sheet-face-r2c2.jpg -&gt; cards/19-card-sheet-face-r2c2.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-704-four-of-kind-p3-d0.png" alt="character-704-four-of-kind-p3-d0">
+            <figcaption>character-704-four-of-kind-p3-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 704</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>같은 카드 4장</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>3</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>효과 없음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-704-four-of-kind-p3-d0</code>
+            <code>cards/19-card-sheet-face-r2c2.jpg -&gt; cards/19-card-sheet-face-r2c2.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-707-333-or-666-p3-d0 인물 카드 707 333/666 도깨비불은 관문에 거꾸로 놓는 유일한 캐릭터 카드임. 내 관문에 놓은 도깨비불을 내 양 옆 플레이어가 활성화시킬 수도 있음. 도깨비불을 활성화한 플레이어는 그 도깨비불을 가져가서 자신의 관문 오른쪽에 놓고 힘 3점을 얻음. 3 0 character-707-333-or-666-p3-d0 cards/19-card-sheet-face-r3c2.jpg -&gt; cards/19-card-sheet-face-r3c2.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-707-333-or-666-p3-d0.png" alt="character-707-333-or-666-p3-d0">
+            <figcaption>character-707-333-or-666-p3-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 707</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>333/666</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>3</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>도깨비불은 관문에 거꾸로 놓는 유일한 캐릭터 카드임. 내 관문에 놓은 도깨비불을 내 양 옆 플레이어가 활성화시킬 수도 있음. 도깨비불을 활성화한 플레이어는 그 도깨비불을 가져가서 자신의 관문 오른쪽에 놓고 힘 3점을 얻음.</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-707-333-or-666-p3-d0</code>
+            <code>cards/19-card-sheet-face-r3c2.jpg -&gt; cards/19-card-sheet-face-r3c2.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-708-three-card-sum-10-p1-d0 인물 카드 708 합이 10이 되는 카드 3장 캐릭터를 활성화할 때, 손에 든 '1' 진주 카드를 '8'인 것처럼 사용할 수 있음 1 0 character-708-three-card-sum-10-p1-d0 cards/19-card-sheet-face-r3c3.jpg -&gt; cards/19-card-sheet-face-r3c3.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-708-three-card-sum-10-p1-d0.png" alt="character-708-three-card-sum-10-p1-d0">
+            <figcaption>character-708-three-card-sum-10-p1-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 708</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>합이 10이 되는 카드 3장</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>캐릭터를 활성화할 때, 손에 든 '1' 진주 카드를 '8'인 것처럼 사용할 수 있음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-708-three-card-sum-10-p1-d0</code>
+            <code>cards/19-card-sheet-face-r3c3.jpg -&gt; cards/19-card-sheet-face-r3c3.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-800-345-p1-d0 인물 카드 800 345 방금 사용한 진주 카드 중 1장을 다시 가져옴 1 0 character-800-345-p1-d0 cards/20-card-sheet-face-r1c1.jpg -&gt; cards/20-card-sheet-face-r1c1.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-800-345-p1-d0.png" alt="character-800-345-p1-d0">
+            <figcaption>character-800-345-p1-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 800</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>345</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>방금 사용한 진주 카드 중 1장을 다시 가져옴</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-800-345-p1-d0</code>
+            <code>cards/20-card-sheet-face-r1c1.jpg -&gt; cards/20-card-sheet-face-r1c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-804-66-p1-d0__character-extra-21r2c2-66-p1-d0 인물 카드 조건 묶음 66 진주 6으로 사용가능 1 0 character-804-66-p1-d0 character-extra-21r2c2-66-p1-d0 cards/20-card-sheet-face-r2c2.jpg -&gt; cards/20-card-sheet-face-r2c2.png cards/21-card-sheet-face-r2c2.jpg -&gt; cards/21-card-sheet-face-r2c2.png">
+        <div class="image-wrap image-group">
+          <figure>
+            <img src="named-cards/character-804-66-p1-d0.png" alt="character-804-66-p1-d0">
+            <figcaption>character-804-66-p1-d0</figcaption>
+          </figure>
+          <figure>
+            <img src="named-cards/character-extra-21r2c2-66-p1-d0.png" alt="character-extra-21r2c2-66-p1-d0">
+            <figcaption>character-extra-21r2c2-66-p1-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 조건 묶음</h2>
+            <span>2개 이미지 묶음</span>
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>66</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>진주 6으로 사용가능</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-804-66-p1-d0</code>
+            <code>character-extra-21r2c2-66-p1-d0</code>
+            <code>cards/20-card-sheet-face-r2c2.jpg -&gt; cards/20-card-sheet-face-r2c2.png</code>
+            <code>cards/21-card-sheet-face-r2c2.jpg -&gt; cards/21-card-sheet-face-r2c2.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-805-77-p1-d0__character-extra-21r2c1-77-p1-d0 인물 카드 조건 묶음 77 진주 7로 사용가능 1 0 character-805-77-p1-d0 character-extra-21r2c1-77-p1-d0 cards/20-card-sheet-face-r2c3.jpg -&gt; cards/20-card-sheet-face-r2c3.png cards/21-card-sheet-face-r2c1.jpg -&gt; cards/21-card-sheet-face-r2c1.png">
+        <div class="image-wrap image-group">
+          <figure>
+            <img src="named-cards/character-805-77-p1-d0.png" alt="character-805-77-p1-d0">
+            <figcaption>character-805-77-p1-d0</figcaption>
+          </figure>
+          <figure>
+            <img src="named-cards/character-extra-21r2c1-77-p1-d0.png" alt="character-extra-21r2c1-77-p1-d0">
+            <figcaption>character-extra-21r2c1-77-p1-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 조건 묶음</h2>
+            <span>2개 이미지 묶음</span>
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>77</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>진주 7로 사용가능</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-805-77-p1-d0</code>
+            <code>character-extra-21r2c1-77-p1-d0</code>
+            <code>cards/20-card-sheet-face-r2c3.jpg -&gt; cards/20-card-sheet-face-r2c3.png</code>
+            <code>cards/21-card-sheet-face-r2c1.jpg -&gt; cards/21-card-sheet-face-r2c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-806-2-p0-d1 인물 카드 806 2 손에 든 '2' 진주 카드 1장을 버리고 다이아몬드 1개를 가져올 수 있음 0 1 character-806-2-p0-d1 cards/20-card-sheet-face-r3c1.jpg -&gt; cards/20-card-sheet-face-r3c1.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-806-2-p0-d1.png" alt="character-806-2-p0-d1">
+            <figcaption>character-806-2-p0-d1</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 806</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>2</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>0</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>1</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>손에 든 '2' 진주 카드 1장을 버리고 다이아몬드 1개를 가져올 수 있음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-806-2-p0-d1</code>
+            <code>cards/20-card-sheet-face-r3c1.jpg -&gt; cards/20-card-sheet-face-r3c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-808-1234-p1-d2 인물 카드 808 1234 효과 없음 1 2 character-808-1234-p1-d2 cards/20-card-sheet-face-r3c3.jpg -&gt; cards/20-card-sheet-face-r3c3.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-808-1234-p1-d2.png" alt="character-808-1234-p1-d2">
+            <figcaption>character-808-1234-p1-d2</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 808</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>1234</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>1</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>2</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>효과 없음</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-808-1234-p1-d2</code>
+            <code>cards/20-card-sheet-face-r3c3.jpg -&gt; cards/20-card-sheet-face-r3c3.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="character" data-search="character-901-444-or-555-p3-d0 인물 카드 901 444/555 도깨비불은 관문에 거꾸로 놓는 유일한 캐릭터 카드임. 내 관문에 놓은 도깨비불을 내 양 옆 플레이어가 활성화시킬 수도 있음. 도깨비불을 활성화한 플레이어는 그 도깨비불을 가져가서 자신의 관문 오른쪽에 놓고 힘 3점을 얻음. 3 0 character-901-444-or-555-p3-d0 cards/21-card-sheet-face-r1c2.jpg -&gt; cards/21-card-sheet-face-r1c2.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/character-901-444-or-555-p3-d0.png" alt="character-901-444-or-555-p3-d0">
+            <figcaption>character-901-444-or-555-p3-d0</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>인물 카드 901</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>444/555</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>3</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>0</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>도깨비불은 관문에 거꾸로 놓는 유일한 캐릭터 카드임. 내 관문에 놓은 도깨비불을 내 양 옆 플레이어가 활성화시킬 수도 있음. 도깨비불을 활성화한 플레이어는 그 도깨비불을 가져가서 자신의 관문 오른쪽에 놓고 힘 3점을 얻음.</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>character-901-444-or-555-p3-d0</code>
+            <code>cards/21-card-sheet-face-r1c2.jpg -&gt; cards/21-card-sheet-face-r1c2.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="pearl" data-search="pearl-1 진주 1 값 1 진주 카드 - - pearl-1 cards/13-card-sheet-face-r1c1.jpg -&gt; cards/13-card-sheet-face-r1c1.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/pearl-1.png" alt="pearl-1">
+            <figcaption>pearl-1</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>진주 1</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>값 1</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>-</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>-</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>진주 카드</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>pearl-1</code>
+            <code>cards/13-card-sheet-face-r1c1.jpg -&gt; cards/13-card-sheet-face-r1c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="pearl" data-search="pearl-2 진주 2 값 2 진주 카드 - - pearl-2 cards/13-card-sheet-face-r1c2.jpg -&gt; cards/13-card-sheet-face-r1c2.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/pearl-2.png" alt="pearl-2">
+            <figcaption>pearl-2</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>진주 2</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>값 2</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>-</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>-</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>진주 카드</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>pearl-2</code>
+            <code>cards/13-card-sheet-face-r1c2.jpg -&gt; cards/13-card-sheet-face-r1c2.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="pearl" data-search="pearl-3 진주 3 값 3 진주 카드 - - pearl-3 cards/13-card-sheet-face-r1c3.jpg -&gt; cards/13-card-sheet-face-r1c3.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/pearl-3.png" alt="pearl-3">
+            <figcaption>pearl-3</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>진주 3</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>값 3</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>-</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>-</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>진주 카드</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>pearl-3</code>
+            <code>cards/13-card-sheet-face-r1c3.jpg -&gt; cards/13-card-sheet-face-r1c3.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="pearl" data-search="pearl-3-refresh 진주 3 값 3 시장 교체 아이콘이 있는 진주 카드 - - pearl-3-refresh cards/13-card-sheet-face-r3c3.jpg -&gt; cards/13-card-sheet-face-r3c3.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/pearl-3-refresh.png" alt="pearl-3-refresh">
+            <figcaption>pearl-3-refresh</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>진주 3</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>값 3</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>-</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>-</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>시장 교체 아이콘이 있는 진주 카드</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>pearl-3-refresh</code>
+            <code>cards/13-card-sheet-face-r3c3.jpg -&gt; cards/13-card-sheet-face-r3c3.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="pearl" data-search="pearl-4 진주 4 값 4 진주 카드 - - pearl-4 cards/13-card-sheet-face-r2c1.jpg -&gt; cards/13-card-sheet-face-r2c1.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/pearl-4.png" alt="pearl-4">
+            <figcaption>pearl-4</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>진주 4</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>값 4</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>-</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>-</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>진주 카드</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>pearl-4</code>
+            <code>cards/13-card-sheet-face-r2c1.jpg -&gt; cards/13-card-sheet-face-r2c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="pearl" data-search="pearl-4-refresh 진주 4 값 4 시장 교체 아이콘이 있는 진주 카드 - - pearl-4-refresh cards/15-card-sheet-face-r1c1.jpg -&gt; cards/15-card-sheet-face-r1c1.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/pearl-4-refresh.png" alt="pearl-4-refresh">
+            <figcaption>pearl-4-refresh</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>진주 4</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>값 4</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>-</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>-</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>시장 교체 아이콘이 있는 진주 카드</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>pearl-4-refresh</code>
+            <code>cards/15-card-sheet-face-r1c1.jpg -&gt; cards/15-card-sheet-face-r1c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="pearl" data-search="pearl-5 진주 5 값 5 진주 카드 - - pearl-5 cards/13-card-sheet-face-r2c2.jpg -&gt; cards/13-card-sheet-face-r2c2.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/pearl-5.png" alt="pearl-5">
+            <figcaption>pearl-5</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>진주 5</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>값 5</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>-</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>-</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>진주 카드</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>pearl-5</code>
+            <code>cards/13-card-sheet-face-r2c2.jpg -&gt; cards/13-card-sheet-face-r2c2.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="pearl" data-search="pearl-5-refresh 진주 5 값 5 시장 교체 아이콘이 있는 진주 카드 - - pearl-5-refresh cards/15-card-sheet-face-r1c2.jpg -&gt; cards/15-card-sheet-face-r1c2.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/pearl-5-refresh.png" alt="pearl-5-refresh">
+            <figcaption>pearl-5-refresh</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>진주 5</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>값 5</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>-</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>-</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>시장 교체 아이콘이 있는 진주 카드</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>pearl-5-refresh</code>
+            <code>cards/15-card-sheet-face-r1c2.jpg -&gt; cards/15-card-sheet-face-r1c2.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="pearl" data-search="pearl-6 진주 6 값 6 진주 카드 - - pearl-6 cards/13-card-sheet-face-r2c3.jpg -&gt; cards/13-card-sheet-face-r2c3.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/pearl-6.png" alt="pearl-6">
+            <figcaption>pearl-6</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>진주 6</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>값 6</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>-</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>-</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>진주 카드</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>pearl-6</code>
+            <code>cards/13-card-sheet-face-r2c3.jpg -&gt; cards/13-card-sheet-face-r2c3.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="pearl" data-search="pearl-7 진주 7 값 7 진주 카드 - - pearl-7 cards/13-card-sheet-face-r3c1.jpg -&gt; cards/13-card-sheet-face-r3c1.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/pearl-7.png" alt="pearl-7">
+            <figcaption>pearl-7</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>진주 7</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>값 7</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>-</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>-</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>진주 카드</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>pearl-7</code>
+            <code>cards/13-card-sheet-face-r3c1.jpg -&gt; cards/13-card-sheet-face-r3c1.png</code>
+          </div>
+        </div>
+      </article>
+      <article class="card" data-category="pearl" data-search="pearl-8 진주 8 값 8 진주 카드 - - pearl-8 cards/13-card-sheet-face-r3c2.jpg -&gt; cards/13-card-sheet-face-r3c2.png">
+        <div class="image-wrap ">
+          <figure>
+            <img src="named-cards/pearl-8.png" alt="pearl-8">
+            <figcaption>pearl-8</figcaption>
+          </figure>
+        </div>
+        <div class="card-copy">
+          <div class="card-head">
+            <h2>진주 8</h2>
+            
+          </div>
+          <dl>
+            <div>
+              <dt>조건</dt>
+              <dd>값 8</dd>
+            </div>
+            <div>
+              <dt>점수</dt>
+              <dd>-</dd>
+            </div>
+            <div>
+              <dt>다이아</dt>
+              <dd>-</dd>
+            </div>
+            <div class="effect-row">
+              <dt>효과</dt>
+              <dd>진주 카드</dd>
+            </div>
+          </dl>
+          <div class="code-list">
+            <code>pearl-8</code>
+            <code>cards/13-card-sheet-face-r3c2.jpg -&gt; cards/13-card-sheet-face-r3c2.png</code>
+          </div>
+        </div>
+      </article>
+    </section>
   </main>
+  <script>
+    const CARDS = [{"id":"character-302-18-p1-d0","category":"character","imagePaths":[{"id":"character-302-18-p1-d0","path":"named-cards/character-302-18-p1-d0.png"}],"title":"인물 카드 302","requirement":"18","power":"1","diamonds":"0","effect":"내 차례 종료 직전, 마지막 행동을 끝낸 뒤, 차례마다 한 번, 손에 든 진주 카드를 모두 버린 후 획득 더미에서 버린 수 만큼 새 진주 카드를 획득할 수 있음","group":"","sourceIds":["character-302-18-p1-d0"],"sources":["cards/15-card-sheet-face-r1c3.jpg -> cards/15-card-sheet-face-r1c3.png"]},{"id":"character-303-sum-10-p1-d0__character-502-sum-10-p1-d0__character-705-sum-10-p1-d0","category":"character","imagePaths":[{"id":"character-303-sum-10-p1-d0","path":"named-cards/character-303-sum-10-p1-d0.png"},{"id":"character-502-sum-10-p1-d0","path":"named-cards/character-502-sum-10-p1-d0.png"},{"id":"character-705-sum-10-p1-d0","path":"named-cards/character-705-sum-10-p1-d0.png"}],"title":"인물 카드 조건 묶음","requirement":"합하면 '10'이 되는 카드들","power":"1","diamonds":"0","effect":"손 카드 제한이 1장 많아짐","group":"3개 이미지 묶음","sourceIds":["character-303-sum-10-p1-d0","character-502-sum-10-p1-d0","character-705-sum-10-p1-d0"],"sources":["cards/15-card-sheet-face-r2c1.jpg -> cards/15-card-sheet-face-r2c1.png","cards/17-card-sheet-face-r1c3.jpg -> cards/17-card-sheet-face-r1c3.png","cards/19-card-sheet-face-r2c3.jpg -> cards/19-card-sheet-face-r2c3.png"]},{"id":"character-304-12-p0-d0__character-400-12-p0-d0","category":"character","imagePaths":[{"id":"character-304-12-p0-d0","path":"named-cards/character-304-12-p0-d0.png"},{"id":"character-400-12-p0-d0","path":"named-cards/character-400-12-p0-d0.png"}],"title":"인물 카드 조건 묶음","requirement":"12","power":"0","diamonds":"0","effect":"진주 8로 사용가능","group":"2개 이미지 묶음","sourceIds":["character-304-12-p0-d0","character-400-12-p0-d0"],"sources":["cards/15-card-sheet-face-r2c2.jpg -> cards/15-card-sheet-face-r2c2.png","cards/12-card-sheet-face-r1c1.jpg -> cards/12-card-sheet-face-r1c1.png"]},{"id":"character-305-6688-p3-d0__character-504-6688-p3-d0__character-606-6688-p3-d0","category":"character","imagePaths":[{"id":"character-305-6688-p3-d0","path":"named-cards/character-305-6688-p3-d0.png"},{"id":"character-504-6688-p3-d0","path":"named-cards/character-504-6688-p3-d0.png"},{"id":"character-606-6688-p3-d0","path":"named-cards/character-606-6688-p3-d0.png"}],"title":"인물 카드 조건 묶음","requirement":"6688","power":"3","diamonds":"0","effect":"효과 없음","group":"3개 이미지 묶음","sourceIds":["character-305-6688-p3-d0","character-504-6688-p3-d0","character-606-6688-p3-d0"],"sources":["cards/15-card-sheet-face-r2c3.jpg -> cards/15-card-sheet-face-r2c3.png","cards/17-card-sheet-face-r2c2.jpg -> cards/17-card-sheet-face-r2c2.png","cards/18-card-sheet-face-r3c1.jpg -> cards/18-card-sheet-face-r3c1.png"]},{"id":"character-306-11-p1-d0","category":"character","imagePaths":[{"id":"character-306-11-p1-d0","path":"named-cards/character-306-11-p1-d0.png"}],"title":"인물 카드 306","requirement":"11","power":"1","diamonds":"0","effect":"진주 1로 사용가능","group":"","sourceIds":["character-306-11-p1-d0"],"sources":["cards/15-card-sheet-face-r3c1.jpg -> cards/15-card-sheet-face-r3c1.png"]},{"id":"character-307-7777-p4-d0__character-503-7777-p4-d0","category":"character","imagePaths":[{"id":"character-307-7777-p4-d0","path":"named-cards/character-307-7777-p4-d0.png"},{"id":"character-503-7777-p4-d0","path":"named-cards/character-503-7777-p4-d0.png"}],"title":"인물 카드 조건 묶음","requirement":"7777","power":"4","diamonds":"0","effect":"효과 없음","group":"2개 이미지 묶음","sourceIds":["character-307-7777-p4-d0","character-503-7777-p4-d0"],"sources":["cards/15-card-sheet-face-r3c2.jpg -> cards/15-card-sheet-face-r3c2.png","cards/17-card-sheet-face-r2c1.jpg -> cards/17-card-sheet-face-r2c1.png"]},{"id":"character-308-55-p1-d0","category":"character","imagePaths":[{"id":"character-308-55-p1-d0","path":"named-cards/character-308-55-p1-d0.png"}],"title":"인물 카드 308","requirement":"55","power":"1","diamonds":"0","effect":"진주 5로 사용가능","group":"","sourceIds":["character-308-55-p1-d0"],"sources":["cards/15-card-sheet-face-r3c3.jpg -> cards/15-card-sheet-face-r3c3.png"]},{"id":"character-401-357-p1-d1","category":"character","imagePaths":[{"id":"character-401-357-p1-d1","path":"named-cards/character-401-357-p1-d1.png"}],"title":"인물 카드 401","requirement":"357","power":"1","diamonds":"1","effect":"다이아몬드를 사용해서 진주 카드의 값을 1 내릴 수 있음. 단, 진주 카드의 값을 '0'으로 만들 수는 없음. 진주 카드 1장에는 다이아몬드 하나만 사용가능. 사용한 다이아몬드는 버린 캐릭터 더미에 버림.","group":"","sourceIds":["character-401-357-p1-d1"],"sources":["cards/12-card-sheet-face-r1c2.jpg -> cards/12-card-sheet-face-r1c2.png"]},{"id":"character-402-straight-3-p1-d0","category":"character","imagePaths":[{"id":"character-402-straight-3-p1-d0","path":"named-cards/character-402-straight-3-p1-d0.png"}],"title":"인물 카드 402","requirement":"연속되는 카드 3장","power":"1","diamonds":"0","effect":"내 차례 시작 직후, 첫 행동을 시작하기 전에, 캐릭터 획득 더미 맨 위 1장을 살펴볼 수 있음. 살펴본 카드는 제자리에 돌려놓음.","group":"","sourceIds":["character-402-straight-3-p1-d0"],"sources":["cards/12-card-sheet-face-r1c3.jpg -> cards/12-card-sheet-face-r1c3.png"]},{"id":"character-403-same-2-plus-66-p2-d1__character-900-same-2-plus-6x2-p2-d1","category":"character","imagePaths":[{"id":"character-403-same-2-plus-66-p2-d1","path":"named-cards/character-403-same-2-plus-66-p2-d1.png"},{"id":"character-900-same-2-plus-6x2-p2-d1","path":"named-cards/character-900-same-2-plus-6x2-p2-d1.png"}],"title":"인물 카드 조건 묶음","requirement":"같은 카드 2장 + 66 / 같은 카드 2장 + 6카드 2장","power":"2","diamonds":"1","effect":"효과 없음","group":"2개 이미지 묶음","sourceIds":["character-403-same-2-plus-66-p2-d1","character-900-same-2-plus-6x2-p2-d1"],"sources":["cards/12-card-sheet-face-r2c1.jpg -> cards/12-card-sheet-face-r2c1.png","cards/21-card-sheet-face-r1c1.jpg -> cards/21-card-sheet-face-r1c1.png"]},{"id":"character-404-33-p1-d0","category":"character","imagePaths":[{"id":"character-404-33-p1-d0","path":"named-cards/character-404-33-p1-d0.png"}],"title":"인물 카드 404","requirement":"33","power":"1","diamonds":"0","effect":"진주 3으로 사용가능","group":"","sourceIds":["character-404-33-p1-d0"],"sources":["cards/12-card-sheet-face-r2c2.jpg -> cards/12-card-sheet-face-r2c2.png"]},{"id":"character-405-three-of-kind-p2-d0__character-706-three-of-kind-p2-d0","category":"character","imagePaths":[{"id":"character-405-three-of-kind-p2-d0","path":"named-cards/character-405-three-of-kind-p2-d0.png"},{"id":"character-706-three-of-kind-p2-d0","path":"named-cards/character-706-three-of-kind-p2-d0.png"}],"title":"인물 카드 조건 묶음","requirement":"같은 카드 3장","power":"2","diamonds":"0","effect":"효과 없음","group":"2개 이미지 묶음","sourceIds":["character-405-three-of-kind-p2-d0","character-706-three-of-kind-p2-d0"],"sources":["cards/12-card-sheet-face-r2c3.jpg -> cards/12-card-sheet-face-r2c3.png","cards/19-card-sheet-face-r3c1.jpg -> cards/19-card-sheet-face-r3c1.png"]},{"id":"character-406-pair-p1-d0__character-506-pair-p1-d0__character-803-pair-p1-d0","category":"character","imagePaths":[{"id":"character-406-pair-p1-d0","path":"named-cards/character-406-pair-p1-d0.png"},{"id":"character-506-pair-p1-d0","path":"named-cards/character-506-pair-p1-d0.png"},{"id":"character-803-pair-p1-d0","path":"named-cards/character-803-pair-p1-d0.png"}],"title":"인물 카드 조건 묶음","requirement":"같은 카드 2장","power":"1","diamonds":"0","effect":"효과 없음","group":"3개 이미지 묶음","sourceIds":["character-406-pair-p1-d0","character-506-pair-p1-d0","character-803-pair-p1-d0"],"sources":["cards/12-card-sheet-face-r3c1.jpg -> cards/12-card-sheet-face-r3c1.png","cards/17-card-sheet-face-r3c1.jpg -> cards/17-card-sheet-face-r3c1.png","cards/20-card-sheet-face-r2c1.jpg -> cards/20-card-sheet-face-r2c1.png"]},{"id":"character-407-three-card-sum-20-p2-d0","category":"character","imagePaths":[{"id":"character-407-three-card-sum-20-p2-d0","path":"named-cards/character-407-three-card-sum-20-p2-d0.png"}],"title":"인물 카드 407","requirement":"합하면 20이 되는 카드 3장","power":"2","diamonds":"0","effect":"효과 없음","group":"","sourceIds":["character-407-three-card-sum-20-p2-d0"],"sources":["cards/12-card-sheet-face-r3c2.jpg -> cards/12-card-sheet-face-r3c2.png"]},{"id":"character-408-odd-3-cards-p1-d1","category":"character","imagePaths":[{"id":"character-408-odd-3-cards-p1-d1","path":"named-cards/character-408-odd-3-cards-p1-d1.png"}],"title":"인물 카드 408","requirement":"홀수인 카드 3장","power":"1","diamonds":"1","effect":"효과 없음","group":"","sourceIds":["character-408-odd-3-cards-p1-d1"],"sources":["cards/12-card-sheet-face-r3c3.jpg -> cards/12-card-sheet-face-r3c3.png"]},{"id":"character-500-44-p1-d0","category":"character","imagePaths":[{"id":"character-500-44-p1-d0","path":"named-cards/character-500-44-p1-d0.png"}],"title":"인물 카드 500","requirement":"44","power":"1","diamonds":"0","effect":"진주 4로 사용가능","group":"","sourceIds":["character-500-44-p1-d0"],"sources":["cards/17-card-sheet-face-r1c1.jpg -> cards/17-card-sheet-face-r1c1.png"]},{"id":"character-501-88-p2-d0__character-601-88-p2-d0","category":"character","imagePaths":[{"id":"character-501-88-p2-d0","path":"named-cards/character-501-88-p2-d0.png"},{"id":"character-601-88-p2-d0","path":"named-cards/character-601-88-p2-d0.png"}],"title":"인물 카드 조건 묶음","requirement":"88","power":"2","diamonds":"0","effect":"효과 없음","group":"2개 이미지 묶음","sourceIds":["character-501-88-p2-d0","character-601-88-p2-d0"],"sources":["cards/17-card-sheet-face-r1c2.jpg -> cards/17-card-sheet-face-r1c2.png","cards/18-card-sheet-face-r1c2.jpg -> cards/18-card-sheet-face-r1c2.png"]},{"id":"character-505-8888-p5-d0","category":"character","imagePaths":[{"id":"character-505-8888-p5-d0","path":"named-cards/character-505-8888-p5-d0.png"}],"title":"인물 카드 505","requirement":"8888","power":"5","diamonds":"0","effect":"효과 없음","group":"","sourceIds":["character-505-8888-p5-d0"],"sources":["cards/17-card-sheet-face-r2c3.jpg -> cards/17-card-sheet-face-r2c3.png"]},{"id":"character-507-567-p1-d0__character-801-567-p1-d0","category":"character","imagePaths":[{"id":"character-507-567-p1-d0","path":"named-cards/character-507-567-p1-d0.png"},{"id":"character-801-567-p1-d0","path":"named-cards/character-801-567-p1-d0.png"}],"title":"인물 카드 조건 묶음","requirement":"567","power":"1","diamonds":"0","effect":"다른 플레이어 한 명의 손 카드를 보고, 그 중 1장을 가져옴","group":"2개 이미지 묶음","sourceIds":["character-507-567-p1-d0","character-801-567-p1-d0"],"sources":["cards/17-card-sheet-face-r3c2.jpg -> cards/17-card-sheet-face-r3c2.png","cards/20-card-sheet-face-r1c2.jpg -> cards/20-card-sheet-face-r1c2.png"]},{"id":"character-508-45678-p1-d0","category":"character","imagePaths":[{"id":"character-508-45678-p1-d0","path":"named-cards/character-508-45678-p1-d0.png"}],"title":"인물 카드 508","requirement":"45678","power":"1","diamonds":"0","effect":"이번 차례를 포함해서, 매 차례마다 행동 1회를 추가로 수행할 수 있음","group":"","sourceIds":["character-508-45678-p1-d0"],"sources":["cards/17-card-sheet-face-r3c3.jpg -> cards/17-card-sheet-face-r3c3.png"]},{"id":"character-600-222-1-plus-diamond-p3-d0","category":"character","imagePaths":[{"id":"character-600-222-1-plus-diamond-p3-d0","path":"named-cards/character-600-222-1-plus-diamond-p3-d0.png"}],"title":"인물 카드 600","requirement":"222+다이아몬드 1장","power":"3","diamonds":"0","effect":"효과 없음","group":"","sourceIds":["character-600-222-1-plus-diamond-p3-d0"],"sources":["cards/18-card-sheet-face-r1c1.jpg -> cards/18-card-sheet-face-r1c1.png"]},{"id":"character-602-three-card-sum-7-p1-d0__character-807-three-card-sum-7-p1-d0","category":"character","imagePaths":[{"id":"character-602-three-card-sum-7-p1-d0","path":"named-cards/character-602-three-card-sum-7-p1-d0.png"},{"id":"character-807-three-card-sum-7-p1-d0","path":"named-cards/character-807-three-card-sum-7-p1-d0.png"}],"title":"인물 카드 조건 묶음","requirement":"합하면 7이 되는 카드 3장","power":"1","diamonds":"0","effect":"다른 플레이어 한 명의 관문에 있는 캐릭터 카드 중 1장을 버림","group":"2개 이미지 묶음","sourceIds":["character-602-three-card-sum-7-p1-d0","character-807-three-card-sum-7-p1-d0"],"sources":["cards/18-card-sheet-face-r1c3.jpg -> cards/18-card-sheet-face-r1c3.png","cards/20-card-sheet-face-r3c2.jpg -> cards/20-card-sheet-face-r3c2.png"]},{"id":"character-603-1111-p0-d0","category":"character","imagePaths":[{"id":"character-603-1111-p0-d0","path":"named-cards/character-603-1111-p0-d0.png"}],"title":"인물 카드 603","requirement":"1111","power":"0","diamonds":"0","effect":"진주 '1~8'중 원하는 수로 사용가능","group":"","sourceIds":["character-603-1111-p0-d0"],"sources":["cards/18-card-sheet-face-r2c1.jpg -> cards/18-card-sheet-face-r2c1.png"]},{"id":"character-604-two-pairs-p2-d0","category":"character","imagePaths":[{"id":"character-604-two-pairs-p2-d0","path":"named-cards/character-604-two-pairs-p2-d0.png"}],"title":"인물 카드 604","requirement":"같은 카드 2장씩 두 벌","power":"2","diamonds":"0","effect":"다음 차례의 플레이어는 자신의 차례에 행동 1회를 추가로 수행","group":"","sourceIds":["character-604-two-pairs-p2-d0"],"sources":["cards/18-card-sheet-face-r2c2.jpg -> cards/18-card-sheet-face-r2c2.png"]},{"id":"character-605-7788-p3-d1__character-802-7788-p3-d1","category":"character","imagePaths":[{"id":"character-605-7788-p3-d1","path":"named-cards/character-605-7788-p3-d1.png"},{"id":"character-802-7788-p3-d1","path":"named-cards/character-802-7788-p3-d1.png"}],"title":"인물 카드 조건 묶음","requirement":"7788","power":"3","diamonds":"1","effect":"효과 없음","group":"2개 이미지 묶음","sourceIds":["character-605-7788-p3-d1","character-802-7788-p3-d1"],"sources":["cards/18-card-sheet-face-r2c3.jpg -> cards/18-card-sheet-face-r2c3.png","cards/20-card-sheet-face-r1c3.jpg -> cards/20-card-sheet-face-r1c3.png"]},{"id":"character-607-22-p1-d0","category":"character","imagePaths":[{"id":"character-607-22-p1-d0","path":"named-cards/character-607-22-p1-d0.png"}],"title":"인물 카드 607","requirement":"22","power":"1","diamonds":"0","effect":"진주 2로 사용가능","group":"","sourceIds":["character-607-22-p1-d0"],"sources":["cards/18-card-sheet-face-r3c2.jpg -> cards/18-card-sheet-face-r3c2.png"]},{"id":"character-608-333-p1-d0","category":"character","imagePaths":[{"id":"character-608-333-p1-d0","path":"named-cards/character-608-333-p1-d0.png"}],"title":"인물 카드 608","requirement":"333","power":"1","diamonds":"0","effect":"캐릭터를 활성화할 때, 손에 든 '3' 진주 카드를 '1~8' 중 원하는 값으로 사용할 수 있음","group":"","sourceIds":["character-608-333-p1-d0"],"sources":["cards/18-card-sheet-face-r3c3.jpg -> cards/18-card-sheet-face-r3c3.png"]},{"id":"character-700-straight-5-p2-d0","category":"character","imagePaths":[{"id":"character-700-straight-5-p2-d0","path":"named-cards/character-700-straight-5-p2-d0.png"}],"title":"인물 카드 700","requirement":"연속되는 카드 5장","power":"2","diamonds":"0","effect":"내 차례 시작 직후, 첫 행동을 시작하기 전에, 내 관문에 있는 캐릭터 카드 1장을 열린 캐릭터 카드 1장과 서로 바꿀 수 있음","group":"","sourceIds":["character-700-straight-5-p2-d0"],"sources":["cards/19-card-sheet-face-r1c1.jpg -> cards/19-card-sheet-face-r1c1.png"]},{"id":"character-701-2468-p2-d0","category":"character","imagePaths":[{"id":"character-701-2468-p2-d0","path":"named-cards/character-701-2468-p2-d0.png"}],"title":"인물 카드 701","requirement":"2468","power":"2","diamonds":"0","effect":"추가 행동 3회를 즉시 수행","group":"","sourceIds":["character-701-2468-p2-d0"],"sources":["cards/19-card-sheet-face-r1c2.jpg -> cards/19-card-sheet-face-r1c2.png"]},{"id":"character-702-1357-p2-d0","category":"character","imagePaths":[{"id":"character-702-1357-p2-d0","path":"named-cards/character-702-1357-p2-d0.png"}],"title":"인물 카드 702","requirement":"1357","power":"2","diamonds":"0","effect":"추가 행동 3회를 즉시 수행","group":"","sourceIds":["character-702-1357-p2-d0"],"sources":["cards/19-card-sheet-face-r1c3.jpg -> cards/19-card-sheet-face-r1c3.png"]},{"id":"character-703-even-3-cards-p1-d1","category":"character","imagePaths":[{"id":"character-703-even-3-cards-p1-d1","path":"named-cards/character-703-even-3-cards-p1-d1.png"}],"title":"인물 카드 703","requirement":"짝수인 카드 3장","power":"1","diamonds":"1","effect":"효과 없음","group":"","sourceIds":["character-703-even-3-cards-p1-d1"],"sources":["cards/19-card-sheet-face-r2c1.jpg -> cards/19-card-sheet-face-r2c1.png"]},{"id":"character-704-four-of-kind-p3-d0","category":"character","imagePaths":[{"id":"character-704-four-of-kind-p3-d0","path":"named-cards/character-704-four-of-kind-p3-d0.png"}],"title":"인물 카드 704","requirement":"같은 카드 4장","power":"3","diamonds":"0","effect":"효과 없음","group":"","sourceIds":["character-704-four-of-kind-p3-d0"],"sources":["cards/19-card-sheet-face-r2c2.jpg -> cards/19-card-sheet-face-r2c2.png"]},{"id":"character-707-333-or-666-p3-d0","category":"character","imagePaths":[{"id":"character-707-333-or-666-p3-d0","path":"named-cards/character-707-333-or-666-p3-d0.png"}],"title":"인물 카드 707","requirement":"333/666","power":"3","diamonds":"0","effect":"도깨비불은 관문에 거꾸로 놓는 유일한 캐릭터 카드임. 내 관문에 놓은 도깨비불을 내 양 옆 플레이어가 활성화시킬 수도 있음. 도깨비불을 활성화한 플레이어는 그 도깨비불을 가져가서 자신의 관문 오른쪽에 놓고 힘 3점을 얻음.","group":"","sourceIds":["character-707-333-or-666-p3-d0"],"sources":["cards/19-card-sheet-face-r3c2.jpg -> cards/19-card-sheet-face-r3c2.png"]},{"id":"character-708-three-card-sum-10-p1-d0","category":"character","imagePaths":[{"id":"character-708-three-card-sum-10-p1-d0","path":"named-cards/character-708-three-card-sum-10-p1-d0.png"}],"title":"인물 카드 708","requirement":"합이 10이 되는 카드 3장","power":"1","diamonds":"0","effect":"캐릭터를 활성화할 때, 손에 든 '1' 진주 카드를 '8'인 것처럼 사용할 수 있음","group":"","sourceIds":["character-708-three-card-sum-10-p1-d0"],"sources":["cards/19-card-sheet-face-r3c3.jpg -> cards/19-card-sheet-face-r3c3.png"]},{"id":"character-800-345-p1-d0","category":"character","imagePaths":[{"id":"character-800-345-p1-d0","path":"named-cards/character-800-345-p1-d0.png"}],"title":"인물 카드 800","requirement":"345","power":"1","diamonds":"0","effect":"방금 사용한 진주 카드 중 1장을 다시 가져옴","group":"","sourceIds":["character-800-345-p1-d0"],"sources":["cards/20-card-sheet-face-r1c1.jpg -> cards/20-card-sheet-face-r1c1.png"]},{"id":"character-804-66-p1-d0__character-extra-21r2c2-66-p1-d0","category":"character","imagePaths":[{"id":"character-804-66-p1-d0","path":"named-cards/character-804-66-p1-d0.png"},{"id":"character-extra-21r2c2-66-p1-d0","path":"named-cards/character-extra-21r2c2-66-p1-d0.png"}],"title":"인물 카드 조건 묶음","requirement":"66","power":"1","diamonds":"0","effect":"진주 6으로 사용가능","group":"2개 이미지 묶음","sourceIds":["character-804-66-p1-d0","character-extra-21r2c2-66-p1-d0"],"sources":["cards/20-card-sheet-face-r2c2.jpg -> cards/20-card-sheet-face-r2c2.png","cards/21-card-sheet-face-r2c2.jpg -> cards/21-card-sheet-face-r2c2.png"]},{"id":"character-805-77-p1-d0__character-extra-21r2c1-77-p1-d0","category":"character","imagePaths":[{"id":"character-805-77-p1-d0","path":"named-cards/character-805-77-p1-d0.png"},{"id":"character-extra-21r2c1-77-p1-d0","path":"named-cards/character-extra-21r2c1-77-p1-d0.png"}],"title":"인물 카드 조건 묶음","requirement":"77","power":"1","diamonds":"0","effect":"진주 7로 사용가능","group":"2개 이미지 묶음","sourceIds":["character-805-77-p1-d0","character-extra-21r2c1-77-p1-d0"],"sources":["cards/20-card-sheet-face-r2c3.jpg -> cards/20-card-sheet-face-r2c3.png","cards/21-card-sheet-face-r2c1.jpg -> cards/21-card-sheet-face-r2c1.png"]},{"id":"character-806-2-p0-d1","category":"character","imagePaths":[{"id":"character-806-2-p0-d1","path":"named-cards/character-806-2-p0-d1.png"}],"title":"인물 카드 806","requirement":"2","power":"0","diamonds":"1","effect":"손에 든 '2' 진주 카드 1장을 버리고 다이아몬드 1개를 가져올 수 있음","group":"","sourceIds":["character-806-2-p0-d1"],"sources":["cards/20-card-sheet-face-r3c1.jpg -> cards/20-card-sheet-face-r3c1.png"]},{"id":"character-808-1234-p1-d2","category":"character","imagePaths":[{"id":"character-808-1234-p1-d2","path":"named-cards/character-808-1234-p1-d2.png"}],"title":"인물 카드 808","requirement":"1234","power":"1","diamonds":"2","effect":"효과 없음","group":"","sourceIds":["character-808-1234-p1-d2"],"sources":["cards/20-card-sheet-face-r3c3.jpg -> cards/20-card-sheet-face-r3c3.png"]},{"id":"character-901-444-or-555-p3-d0","category":"character","imagePaths":[{"id":"character-901-444-or-555-p3-d0","path":"named-cards/character-901-444-or-555-p3-d0.png"}],"title":"인물 카드 901","requirement":"444/555","power":"3","diamonds":"0","effect":"도깨비불은 관문에 거꾸로 놓는 유일한 캐릭터 카드임. 내 관문에 놓은 도깨비불을 내 양 옆 플레이어가 활성화시킬 수도 있음. 도깨비불을 활성화한 플레이어는 그 도깨비불을 가져가서 자신의 관문 오른쪽에 놓고 힘 3점을 얻음.","group":"","sourceIds":["character-901-444-or-555-p3-d0"],"sources":["cards/21-card-sheet-face-r1c2.jpg -> cards/21-card-sheet-face-r1c2.png"]},{"id":"pearl-1","category":"pearl","imagePaths":[{"id":"pearl-1","path":"named-cards/pearl-1.png"}],"title":"진주 1","requirement":"값 1","power":"-","diamonds":"-","effect":"진주 카드","group":"","sourceIds":["pearl-1"],"sources":["cards/13-card-sheet-face-r1c1.jpg -> cards/13-card-sheet-face-r1c1.png"]},{"id":"pearl-2","category":"pearl","imagePaths":[{"id":"pearl-2","path":"named-cards/pearl-2.png"}],"title":"진주 2","requirement":"값 2","power":"-","diamonds":"-","effect":"진주 카드","group":"","sourceIds":["pearl-2"],"sources":["cards/13-card-sheet-face-r1c2.jpg -> cards/13-card-sheet-face-r1c2.png"]},{"id":"pearl-3","category":"pearl","imagePaths":[{"id":"pearl-3","path":"named-cards/pearl-3.png"}],"title":"진주 3","requirement":"값 3","power":"-","diamonds":"-","effect":"진주 카드","group":"","sourceIds":["pearl-3"],"sources":["cards/13-card-sheet-face-r1c3.jpg -> cards/13-card-sheet-face-r1c3.png"]},{"id":"pearl-3-refresh","category":"pearl","imagePaths":[{"id":"pearl-3-refresh","path":"named-cards/pearl-3-refresh.png"}],"title":"진주 3","requirement":"값 3","power":"-","diamonds":"-","effect":"시장 교체 아이콘이 있는 진주 카드","group":"","sourceIds":["pearl-3-refresh"],"sources":["cards/13-card-sheet-face-r3c3.jpg -> cards/13-card-sheet-face-r3c3.png"]},{"id":"pearl-4","category":"pearl","imagePaths":[{"id":"pearl-4","path":"named-cards/pearl-4.png"}],"title":"진주 4","requirement":"값 4","power":"-","diamonds":"-","effect":"진주 카드","group":"","sourceIds":["pearl-4"],"sources":["cards/13-card-sheet-face-r2c1.jpg -> cards/13-card-sheet-face-r2c1.png"]},{"id":"pearl-4-refresh","category":"pearl","imagePaths":[{"id":"pearl-4-refresh","path":"named-cards/pearl-4-refresh.png"}],"title":"진주 4","requirement":"값 4","power":"-","diamonds":"-","effect":"시장 교체 아이콘이 있는 진주 카드","group":"","sourceIds":["pearl-4-refresh"],"sources":["cards/15-card-sheet-face-r1c1.jpg -> cards/15-card-sheet-face-r1c1.png"]},{"id":"pearl-5","category":"pearl","imagePaths":[{"id":"pearl-5","path":"named-cards/pearl-5.png"}],"title":"진주 5","requirement":"값 5","power":"-","diamonds":"-","effect":"진주 카드","group":"","sourceIds":["pearl-5"],"sources":["cards/13-card-sheet-face-r2c2.jpg -> cards/13-card-sheet-face-r2c2.png"]},{"id":"pearl-5-refresh","category":"pearl","imagePaths":[{"id":"pearl-5-refresh","path":"named-cards/pearl-5-refresh.png"}],"title":"진주 5","requirement":"값 5","power":"-","diamonds":"-","effect":"시장 교체 아이콘이 있는 진주 카드","group":"","sourceIds":["pearl-5-refresh"],"sources":["cards/15-card-sheet-face-r1c2.jpg -> cards/15-card-sheet-face-r1c2.png"]},{"id":"pearl-6","category":"pearl","imagePaths":[{"id":"pearl-6","path":"named-cards/pearl-6.png"}],"title":"진주 6","requirement":"값 6","power":"-","diamonds":"-","effect":"진주 카드","group":"","sourceIds":["pearl-6"],"sources":["cards/13-card-sheet-face-r2c3.jpg -> cards/13-card-sheet-face-r2c3.png"]},{"id":"pearl-7","category":"pearl","imagePaths":[{"id":"pearl-7","path":"named-cards/pearl-7.png"}],"title":"진주 7","requirement":"값 7","power":"-","diamonds":"-","effect":"진주 카드","group":"","sourceIds":["pearl-7"],"sources":["cards/13-card-sheet-face-r3c1.jpg -> cards/13-card-sheet-face-r3c1.png"]},{"id":"pearl-8","category":"pearl","imagePaths":[{"id":"pearl-8","path":"named-cards/pearl-8.png"}],"title":"진주 8","requirement":"값 8","power":"-","diamonds":"-","effect":"진주 카드","group":"","sourceIds":["pearl-8"],"sources":["cards/13-card-sheet-face-r3c2.jpg -> cards/13-card-sheet-face-r3c2.png"]}];
+    const searchInput = document.querySelector("#search");
+    const categorySelect = document.querySelector("#category");
+    const elements = [...document.querySelectorAll(".card")];
+
+    function applyFilters() {
+      const query = searchInput.value.trim().toLowerCase();
+      const category = categorySelect.value;
+      for (const element of elements) {
+        const matchesCategory = category === "all" || element.dataset.category === category;
+        const matchesQuery = !query || element.dataset.search.toLowerCase().includes(query);
+        element.classList.toggle("hidden", !(matchesCategory && matchesQuery));
+      }
+    }
+
+    searchInput.addEventListener("input", applyFilters);
+    categorySelect.addEventListener("change", applyFilters);
+    window.CARDS = CARDS;
+  </script>
 </body>
 </html>
