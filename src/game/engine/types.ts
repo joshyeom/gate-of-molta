@@ -133,9 +133,11 @@ export type TurnState = {
   roundNumber: number;
   activePlayerId: PlayerId;
   startPlayerId: PlayerId;
-  actionsRemaining: 0 | 1 | 2 | 3;
+  actionsRemaining: number;
   phase: TurnPhase;
   endGame: EndGameState;
+  actionBonuses: Record<PlayerId, number>;
+  usedAbilityIds: string[];
 };
 
 export type AbilityChoices = Record<
@@ -146,6 +148,20 @@ export type AbilityChoices = Record<
 export type PaymentPlan = {
   pearlIds: CardInstanceId[];
   diamondUses: DiamondUse[];
+  spentDiamondIds?: CardInstanceId[];
+  pearlValueOverrides?: PearlValueOverride[];
+  virtualPearls?: VirtualPearlUse[];
+};
+
+export type PearlValueOverride = {
+  pearlId: CardInstanceId;
+  value: PearlValue;
+  sourceCharacterId: CardInstanceId;
+};
+
+export type VirtualPearlUse = {
+  sourceCharacterId: CardInstanceId;
+  value: PearlValue;
 };
 
 export type DiamondUse = {
@@ -230,9 +246,14 @@ export type GameEvent =
       owner: PlayerId | null;
     }
   | { type: "marketRefilled"; market: "pearl" | "character"; cardIds: CardInstanceId[] }
-  | { type: "marketRefreshed"; market: "pearl"; discarded: CardInstanceId[] }
+  | { type: "marketRefreshed"; market: "pearl" | "character"; discarded: CardInstanceId[] }
   | { type: "characterPlaced"; playerId: PlayerId; cardId: CardInstanceId }
-  | { type: "pearlsDiscarded"; playerId: PlayerId; cardIds: CardInstanceId[] };
+  | { type: "characterDiscarded"; playerId: PlayerId; cardId: CardInstanceId }
+  | { type: "pearlsDiscarded"; playerId: PlayerId; cardIds: CardInstanceId[] }
+  | { type: "diamondsDiscarded"; playerId: PlayerId; cardIds: CardInstanceId[] }
+  | { type: "abilityUsed"; playerId: PlayerId; abilityId: string; sourceCardId: CardInstanceId }
+  | { type: "actionBonusGranted"; playerId: PlayerId; amount: number }
+  | { type: "pearlsReclaimed"; playerId: PlayerId; cardIds: CardInstanceId[] };
 
 export type AnimationIntent =
   | { type: "cardMove"; cardId: CardInstanceId; from: string; to: string }
@@ -248,4 +269,3 @@ export type EngineResult = {
 export type LegalAction =
   | GameAction
   | { type: "disabled"; reason: string; actorId: PlayerId };
-

@@ -1,16 +1,29 @@
 import { describe, expect, it } from "vitest";
-import { chooseAiAction } from "../solo/chooseAiAction";
+import { fixtureCatalog } from "../content/catalog";
+import { chooseAiAction, choosePearlsToDiscardToLimit } from "../solo/chooseAiAction";
+import {
+  getFixtureCharacterDeckDefinitionIds,
+  getFixtureCharacterDefinitionIds,
+} from "../content/characters.fixture";
 import { reduceGame } from "./reducer";
 import { defaultSetupOptions, STARTING_PEARL_HAND_SIZE } from "./state";
 import {
   canPayRequirement,
   findPaymentForCharacter,
   getActivePlayer,
+  getHandLimit,
   getLegalActions,
   getPaymentPlans,
   getPlayer,
+  getPlayerPower,
 } from "./selectors";
-import type { GameSetupOptions, GameState } from "./types";
+import type {
+  CardDefinitionId,
+  CardInstanceId,
+  GameSetupOptions,
+  GameState,
+  PlayerState,
+} from "./types";
 
 function start(options: Partial<GameSetupOptions> = {}): GameState {
   return reduceGame(undefined, {
@@ -64,6 +77,47 @@ describe("engine setup", () => {
       }
     }
   });
+
+  it("creates 8 pearl cards for each value with refresh variants included", () => {
+    const state = start();
+    const counts = new Map<number, number>();
+    const refreshDefinitionIds = new Set<CardDefinitionId>();
+
+    for (const card of Object.values(state.cardsById)) {
+      const pearl = fixtureCatalog.pearlCards[card.definitionId];
+      if (!pearl) continue;
+      counts.set(pearl.value, (counts.get(pearl.value) ?? 0) + 1);
+      if (pearl.hasRefreshIcon === true) {
+        refreshDefinitionIds.add(card.definitionId);
+      }
+    }
+
+    expect([...counts.entries()].sort()).toEqual([
+      [1, 8],
+      [2, 8],
+      [3, 8],
+      [4, 8],
+      [5, 8],
+      [6, 8],
+      [7, 8],
+      [8, 8],
+    ]);
+    expect([...refreshDefinitionIds].sort()).toEqual([
+      "pearl-3-refresh",
+      "pearl-4-refresh",
+      "pearl-5-refresh",
+    ]);
+  });
+
+  it("uses one physical character instance per deck entry", () => {
+    const state = start();
+    const characterInstances = Object.values(state.cardsById).filter(
+      (card) => fixtureCatalog.characterCards[card.definitionId],
+    );
+
+    expect(getFixtureCharacterDeckDefinitionIds()).toEqual(getFixtureCharacterDefinitionIds());
+    expect(characterInstances).toHaveLength(getFixtureCharacterDeckDefinitionIds().length);
+  });
 });
 
 describe("basic actions", () => {
@@ -81,6 +135,64 @@ describe("basic actions", () => {
     expect(getPlayer(next, active.id).pearlHand).toContain(takenCard);
     expect(next.market.pearlMarket).toHaveLength(4);
     expect(next.turn.actionsRemaining).toBe(2);
+  });
+
+  it("refreshes open characters when a refresh pearl enters the open pearl market", () => {
+    let state = start({ seed: "refresh-pearl" });
+    const active = getActivePlayer(state);
+    const takenPearlId = state.market.pearlMarket[0];
+    const refreshPearlId = cardIdForDefinition(state, "pearl-3-refresh", [takenPearlId]);
+    const oldCharacterMarket = [...state.market.characterMarket];
+    const newCharacterMarket = state.characterDeck.drawPile.slice(0, 2);
+
+    state = {
+      ...state,
+      cardsById: {
+        ...state.cardsById,
+        [refreshPearlId]: { ...state.cardsById[refreshPearlId], owner: null },
+      },
+      players: state.players.map((player) => ({
+        ...player,
+        pearlHand: player.pearlHand.filter((cardId) => cardId !== refreshPearlId),
+      })),
+      market: {
+        pearlMarket: [
+          takenPearlId,
+          ...state.market.pearlMarket
+            .filter((cardId) => cardId !== takenPearlId && cardId !== refreshPearlId)
+            .slice(0, 3),
+        ],
+        characterMarket: oldCharacterMarket,
+      },
+      pearlDeck: {
+        ...state.pearlDeck,
+        drawPile: [
+          refreshPearlId,
+          ...state.pearlDeck.drawPile.filter((cardId) => cardId !== refreshPearlId),
+        ],
+      },
+    };
+
+    const result = reduceGame(state, {
+      type: "gainPearlFromMarket",
+      actorId: active.id,
+      marketIndex: 0,
+    });
+
+    expect(result.state.market.pearlMarket[0]).toBe(refreshPearlId);
+    expect(result.state.market.characterMarket).toEqual(newCharacterMarket);
+    expect(result.state.characterDeck.discardPile).toEqual(
+      expect.arrayContaining(oldCharacterMarket),
+    );
+    for (const oldCharacterId of oldCharacterMarket) {
+      expect(result.state.cardsById[oldCharacterId].owner).toBeNull();
+      expect(result.state.characterDeck.drawPile).not.toContain(oldCharacterId);
+    }
+    expect(result.events).toContainEqual({
+      type: "marketRefreshed",
+      market: "character",
+      discarded: oldCharacterMarket,
+    });
   });
 
   it("rejects actions by inactive players", () => {
@@ -127,6 +239,40 @@ describe("basic actions", () => {
 
       expect(state.market.characterMarket).toHaveLength(2);
     }
+  });
+
+  it("discards and clears owner for replaced gate characters", () => {
+    let state = start();
+    const active = getActivePlayer(state);
+
+    state = reduceGame(state, {
+      type: "placeCharacterFromMarket",
+      actorId: active.id,
+      marketIndex: 0,
+    }).state;
+    state = reduceGame(state, {
+      type: "placeCharacterFromMarket",
+      actorId: active.id,
+      marketIndex: 0,
+    }).state;
+
+    const discardedCardId = getPlayer(state, active.id).gateCharacters[0];
+    const result = reduceGame(state, {
+      type: "placeCharacterFromMarket",
+      actorId: active.id,
+      marketIndex: 0,
+      discardGateCharacterId: discardedCardId,
+    });
+
+    expect(result.events).toContainEqual({
+      type: "characterDiscarded",
+      playerId: active.id,
+      cardId: discardedCardId,
+    });
+    expect(result.state.cardsById[discardedCardId].owner).toBeNull();
+    expect(result.state.characterDeck.discardPile).toContain(discardedCardId);
+    expect(getPlayer(result.state, active.id).gateCharacters).not.toContain(discardedCardId);
+    expect(getPlayer(result.state, active.id).gateCharacters).toHaveLength(2);
   });
 
   it("requires discarding over the 5-card limit before ending the turn", () => {
@@ -185,6 +331,231 @@ describe("basic actions", () => {
     ]);
   });
 
+  it("uses base-rule diamonds to increase pearl values by 1 during activation", () => {
+    const setup = makeDiamondPaymentSetup();
+    const payment = getPaymentPlans(setup.state, setup.actorId, setup.characterId)[0];
+
+    expect(payment).toEqual({
+      pearlIds: [setup.exactPearlId, setup.boostedPearlId],
+      diamondUses: [
+        {
+          diamondId: setup.diamondId,
+          pearlId: setup.boostedPearlId,
+          modifier: 1,
+          source: "baseRule",
+        },
+      ],
+    });
+
+    const next = reduceGame(setup.state, {
+      type: "activateGateCharacter",
+      actorId: setup.actorId,
+      characterInstanceId: setup.characterId,
+      payment,
+    }).state;
+    const player = getPlayer(next, setup.actorId);
+
+    expect(player.activatedCharacters).toContain(setup.characterId);
+    expect(player.pearlHand).not.toContain(setup.exactPearlId);
+    expect(player.pearlHand).not.toContain(setup.boostedPearlId);
+    expect(player.diamonds).not.toContain(setup.diamondId);
+    expect(next.pearlDeck.discardPile).toEqual(
+      expect.arrayContaining([setup.exactPearlId, setup.boostedPearlId]),
+    );
+    expect(next.characterDeck.discardPile).toContain(setup.diamondId);
+    expect(next.cardsById[setup.diamondId].owner).toBeNull();
+  });
+
+  it("uses activated virtual pearl effects as reusable payment values", () => {
+    let state = start({ seed: "virtual-pearl" });
+    const active = getActivePlayer(state);
+    const virtualSourceId = cardIdForDefinition(state, "character-304-12-p0-d0", []);
+    const characterId = cardIdForDefinition(state, "character-501-88-p2-d0", [virtualSourceId]);
+    const pearl8Id = cardIdForDefinition(state, "pearl-8", []);
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: [pearl8Id],
+      gateCharacters: [characterId],
+      activatedCharacters: [virtualSourceId],
+    });
+
+    const payment = getPaymentPlans(state, active.id, characterId)[0];
+    expect(payment.virtualPearls).toEqual([{ sourceCharacterId: virtualSourceId, value: 8 }]);
+
+    const next = reduceGame(state, {
+      type: "activateGateCharacter",
+      actorId: active.id,
+      characterInstanceId: characterId,
+      payment,
+    }).state;
+
+    expect(getPlayer(next, active.id).activatedCharacters).toEqual(
+      expect.arrayContaining([virtualSourceId, characterId]),
+    );
+    expect(getPlayer(next, active.id).pearlHand).not.toContain(pearl8Id);
+  });
+
+  it("uses the candidate diamond effect to lower pearl values by 1", () => {
+    let state = start({ seed: "down-diamond" });
+    const active = getActivePlayer(state);
+    const sourceId = cardIdForDefinition(state, "character-401-357-p1-d1", []);
+    const characterId = cardIdForDefinition(state, "character-805-77-p1-d0", [sourceId]);
+    const pearl7Id = cardIdForDefinition(state, "pearl-7", []);
+    const pearl8Id = cardIdForDefinition(state, "pearl-8", []);
+    const diamondId = cardIdForDefinition(state, "character-302-18-p1-d0", [sourceId, characterId]);
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: [pearl7Id, pearl8Id],
+      gateCharacters: [characterId],
+      activatedCharacters: [sourceId],
+      diamonds: [diamondId],
+    });
+
+    const payment = getPaymentPlans(state, active.id, characterId)[0];
+    expect(payment.diamondUses).toContainEqual({
+      diamondId,
+      pearlId: pearl8Id,
+      modifier: -1,
+      source: "candidateAbility",
+    });
+
+    const next = reduceGame(state, {
+      type: "activateGateCharacter",
+      actorId: active.id,
+      characterInstanceId: characterId,
+      payment,
+    }).state;
+
+    expect(getPlayer(next, active.id).activatedCharacters).toContain(characterId);
+    expect(getPlayer(next, active.id).diamonds).not.toContain(diamondId);
+    expect(next.characterDeck.discardPile).toContain(diamondId);
+  });
+
+  it("requires the extra spent diamond for the 222 plus diamond requirement", () => {
+    let state = start({ seed: "spent-diamond-requirement" });
+    const active = getActivePlayer(state);
+    const characterId = cardIdForDefinition(state, "character-600-222-1-plus-diamond-p3-d0", []);
+    const pearl2a = cardIdForDefinition(state, "pearl-2", []);
+    const pearl2b = cardIdForDefinition(state, "pearl-2", [pearl2a]);
+    const pearl2c = cardIdForDefinition(state, "pearl-2", [pearl2a, pearl2b]);
+    const diamondId = cardIdForDefinition(state, "character-302-18-p1-d0", [characterId]);
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: [pearl2a, pearl2b, pearl2c],
+      gateCharacters: [characterId],
+      diamonds: [diamondId],
+    });
+
+    const payment = getPaymentPlans(state, active.id, characterId)[0];
+    expect(payment.spentDiamondIds).toEqual([diamondId]);
+    expect(() =>
+      reduceGame(state, {
+        type: "activateGateCharacter",
+        actorId: active.id,
+        characterInstanceId: characterId,
+        payment: { pearlIds: [pearl2a, pearl2b, pearl2c], diamondUses: [] },
+      }),
+    ).toThrow(/satisfy requirement/);
+
+    const next = reduceGame(state, {
+      type: "activateGateCharacter",
+      actorId: active.id,
+      characterInstanceId: characterId,
+      payment,
+    }).state;
+    expect(getPlayer(next, active.id).activatedCharacters).toContain(characterId);
+    expect(next.characterDeck.discardPile).toContain(diamondId);
+  });
+
+  it("grants immediate extra actions from activated extra-action characters", () => {
+    let state = start({ seed: "extra-actions" });
+    const active = getActivePlayer(state);
+    const characterId = cardIdForDefinition(state, "character-701-2468-p2-d0", []);
+    const pearlIds = ["pearl-2", "pearl-4", "pearl-6", "pearl-8"].map((definitionId) =>
+      cardIdForDefinition(state, definitionId as CardDefinitionId, []),
+    );
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: pearlIds,
+      gateCharacters: [characterId],
+    });
+
+    const result = reduceGame(state, {
+      type: "activateGateCharacter",
+      actorId: active.id,
+      characterInstanceId: characterId,
+      payment: getPaymentPlans(state, active.id, characterId)[0],
+    });
+
+    expect(result.state.turn.actionsRemaining).toBe(5);
+    expect(result.events).toContainEqual({
+      type: "actionBonusGranted",
+      playerId: active.id,
+      amount: 3,
+    });
+  });
+
+  it("reclaims one just-used pearl when activating the reclaim character", () => {
+    let state = start({ seed: "reclaim-pearl" });
+    const active = getActivePlayer(state);
+    const characterId = cardIdForDefinition(state, "character-800-345-p1-d0", []);
+    const pearlIds = ["pearl-3", "pearl-4", "pearl-5"].map((definitionId) =>
+      cardIdForDefinition(state, definitionId as CardDefinitionId, []),
+    );
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: pearlIds,
+      gateCharacters: [characterId],
+    });
+
+    const result = reduceGame(state, {
+      type: "activateGateCharacter",
+      actorId: active.id,
+      characterInstanceId: characterId,
+      payment: getPaymentPlans(state, active.id, characterId)[0],
+    });
+
+    expect(getPlayer(result.state, active.id).pearlHand).toEqual([pearlIds[2]]);
+    expect(result.state.pearlDeck.discardPile).toEqual(expect.arrayContaining(pearlIds.slice(0, 2)));
+    expect(result.events).toContainEqual({
+      type: "pearlsReclaimed",
+      playerId: active.id,
+      cardIds: [pearlIds[2]],
+    });
+  });
+
+  it("allows adjacent players to activate a wisp from another gate", () => {
+    let state = start({ totalPlayers: 3, seed: "wisp" });
+    const active = getActivePlayer(state);
+    const neighbor = state.players[1];
+    const wispId = cardIdForDefinition(state, "character-707-333-or-666-p3-d0", []);
+    const pearl3a = cardIdForDefinition(state, "pearl-3", []);
+    const pearl3b = cardIdForDefinition(state, "pearl-3", [pearl3a]);
+    const pearl3c = cardIdForDefinition(state, "pearl-3", [pearl3a, pearl3b]);
+    const pearlIds = [pearl3a, pearl3b, pearl3c];
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: pearlIds,
+    });
+    state = {
+      ...state,
+      cardsById: {
+        ...state.cardsById,
+        [wispId]: { ...state.cardsById[wispId], owner: neighbor.id },
+      },
+      players: state.players.map((player) =>
+        player.id === neighbor.id ? { ...player, gateCharacters: [wispId] } : player,
+      ),
+      characterDeck: removeFromDeckZone(state.characterDeck, [wispId]),
+    };
+
+    const payment = getPaymentPlans(state, active.id, wispId)[0];
+    const next = reduceGame(state, {
+      type: "activateGateCharacter",
+      actorId: active.id,
+      characterInstanceId: wispId,
+      payment,
+    }).state;
+
+    expect(getPlayer(next, active.id).activatedCharacters).toContain(wispId);
+    expect(getPlayer(next, neighbor.id).gateCharacters).not.toContain(wispId);
+    expect(next.cardsById[wispId].owner).toBe(active.id);
+  });
+
   it("plays one full automated round without breaking market or hand-limit invariants", () => {
     let state = start({ totalPlayers: 3, seed: "cycle-test" });
     const startPlayerId = state.turn.startPlayerId;
@@ -195,9 +566,9 @@ describe("basic actions", () => {
       completedTurns += 1;
 
       expect(state.market.pearlMarket).toHaveLength(4);
-      expect(state.market.characterMarket).toHaveLength(2);
+      expect(state.market.characterMarket.length).toBeLessThanOrEqual(2);
       for (const player of state.players) {
-        expect(player.pearlHand.length).toBeLessThanOrEqual(5);
+        expect(player.pearlHand.length).toBeLessThanOrEqual(getHandLimit(state, player.id));
       }
 
       if (completedTurns > state.players.length) {
@@ -209,6 +580,149 @@ describe("basic actions", () => {
     expect(state.turn.roundNumber).toBe(2);
     expect(state.turn.activePlayerId).toBe(startPlayerId);
     expect(state.turn.actionsRemaining).toBe(3);
+  });
+
+  it("plays a complete automated game to game over", () => {
+    let state = start({
+      totalPlayers: 3,
+      seed: "full-game-history",
+      startPlayer: { type: "seededRandom" },
+    });
+    let completedTurns = 0;
+
+    while (state.turn.endGame.status !== "ended") {
+      state = playAutomatedTurn(state);
+      completedTurns += 1;
+
+      expect(state.market.pearlMarket).toHaveLength(4);
+      expect(state.market.characterMarket.length).toBeLessThanOrEqual(2);
+      for (const player of state.players) {
+        expect(player.pearlHand.length).toBeLessThanOrEqual(getHandLimit(state, player.id));
+      }
+
+      if (completedTurns > 100) {
+        throw new Error("Automated game did not reach the end-game state.");
+      }
+    }
+
+    expect(completedTurns).toBe(57);
+    expect(state.turn.roundNumber).toBe(20);
+    expect(state.turn.phase).toBe("gameOver");
+    expect(state.turn.endGame).toEqual({ status: "ended", winnerIds: ["player-1"] });
+    expect(state.players.map((player) => getPlayerPower(state, player.id))).toEqual([
+      15,
+      8,
+      11,
+    ]);
+  });
+
+  it("prefers gathering pearls over blind replacement after filling the gate", () => {
+    let state = start({ seed: "cycle-history" });
+    const active = getActivePlayer(state);
+
+    state = reduceGame(state, {
+      type: "placeCharacterFromMarket",
+      actorId: active.id,
+      marketIndex: 0,
+    }).state;
+    state = reduceGame(state, {
+      type: "placeCharacterFromMarket",
+      actorId: active.id,
+      marketIndex: 0,
+    }).state;
+
+    const action = chooseAiAction(state, active.id);
+    expect(["activateGateCharacter", "gainPearlFromMarket", "refreshPearlMarket"]).toContain(
+      action.type,
+    );
+    if (action.type === "placeCharacterFromMarket" || action.type === "placeCharacterFromDeck") {
+      expect(action.discardGateCharacterId).toBeUndefined();
+    }
+  });
+
+  it("discards less useful pearls before pearls needed by gate characters", () => {
+    let state = start({ seed: "cycle-history" });
+    const active = getActivePlayer(state);
+    const characterId = cardIdForDefinition(state, "character-307-7777-p4-d0", []);
+    const pearl7 = cardIdForDefinition(state, "pearl-7", []);
+    const fillerPearls = ["pearl-1", "pearl-2", "pearl-3", "pearl-4", "pearl-5"].map(
+      (definitionId) => cardIdForDefinition(state, definitionId as CardDefinitionId, []),
+    );
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: [pearl7, ...fillerPearls],
+      gateCharacters: [characterId],
+    });
+
+    const discardIds = choosePearlsToDiscardToLimit(state, active.id);
+    const discardValues = discardIds.map(
+      (cardId) => state.cardsById[cardId].definitionId,
+    );
+
+    expect(discardIds).toHaveLength(1);
+    expect(discardValues).not.toContain("pearl-7");
+  });
+
+  it("prioritizes a payable engine card over an unpayable high-score card in the opening", () => {
+    let state = start({ seed: "ai-engine-placement" });
+    const active = getActivePlayer(state);
+    const highScoreId = cardIdForDefinition(state, "character-307-7777-p4-d0", []);
+    const engineId = cardIdForDefinition(state, "character-603-1111-p0-d0", [highScoreId]);
+    const pearl1a = cardIdForDefinition(state, "pearl-1", []);
+    const pearl1b = cardIdForDefinition(state, "pearl-1", [pearl1a]);
+    const pearl1c = cardIdForDefinition(state, "pearl-1", [pearl1a, pearl1b]);
+    const pearl1d = cardIdForDefinition(state, "pearl-1", [pearl1a, pearl1b, pearl1c]);
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: [pearl1a, pearl1b, pearl1c, pearl1d],
+      gateCharacters: [],
+      activatedCharacters: [],
+      diamonds: [],
+    });
+    state = {
+      ...state,
+      cardsById: {
+        ...state.cardsById,
+        [highScoreId]: { ...state.cardsById[highScoreId], owner: null },
+        [engineId]: { ...state.cardsById[engineId], owner: null },
+      },
+      characterDeck: removeFromDeckZone(state.characterDeck, [highScoreId, engineId]),
+      market: {
+        ...state.market,
+        characterMarket: [highScoreId, engineId],
+      },
+    };
+
+    const action = chooseAiAction(state, active.id);
+    expect(action).toMatchObject({
+      type: "placeCharacterFromMarket",
+      marketIndex: 1,
+    });
+  });
+
+  it("activates a flexible engine card before a high-score card while still building an engine", () => {
+    let state = start({ seed: "ai-engine-activation" });
+    const active = getActivePlayer(state);
+    const engineId = cardIdForDefinition(state, "character-603-1111-p0-d0", []);
+    const highScoreId = cardIdForDefinition(state, "character-307-7777-p4-d0", [engineId]);
+    const pearl1a = cardIdForDefinition(state, "pearl-1", []);
+    const pearl1b = cardIdForDefinition(state, "pearl-1", [pearl1a]);
+    const pearl1c = cardIdForDefinition(state, "pearl-1", [pearl1a, pearl1b]);
+    const pearl1d = cardIdForDefinition(state, "pearl-1", [pearl1a, pearl1b, pearl1c]);
+    const pearl7a = cardIdForDefinition(state, "pearl-7", []);
+    const pearl7b = cardIdForDefinition(state, "pearl-7", [pearl7a]);
+    const pearl7c = cardIdForDefinition(state, "pearl-7", [pearl7a, pearl7b]);
+    const pearl7d = cardIdForDefinition(state, "pearl-7", [pearl7a, pearl7b, pearl7c]);
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: [pearl1a, pearl1b, pearl1c, pearl1d, pearl7a, pearl7b, pearl7c, pearl7d],
+      gateCharacters: [engineId, highScoreId],
+      activatedCharacters: [],
+      diamonds: [],
+    });
+
+    const action = chooseAiAction(state, active.id);
+    expect(action).toMatchObject({
+      type: "activateGateCharacter",
+      characterInstanceId: engineId,
+    });
   });
 });
 
@@ -326,6 +840,134 @@ function findPayableGateSetup(): {
   return null;
 }
 
+function makeDiamondPaymentSetup(): {
+  state: GameState;
+  actorId: string;
+  characterId: CardInstanceId;
+  exactPearlId: CardInstanceId;
+  boostedPearlId: CardInstanceId;
+  diamondId: CardInstanceId;
+} {
+  const state = start({ seed: "diamond-payment" });
+  const active = getActivePlayer(state);
+  const exactPearlId = cardIdForDefinition(state, "pearl-1", []);
+  const boostedPearlId = cardIdForDefinition(state, "pearl-1", [exactPearlId]);
+  const characterId = cardIdForDefinition(state, "character-304-12-p0-d0", []);
+  const diamondId = cardIdForDefinition(state, "character-302-18-p1-d0", [characterId]);
+
+  return {
+    state: {
+      ...state,
+      cardsById: {
+        ...state.cardsById,
+        [exactPearlId]: { ...state.cardsById[exactPearlId], owner: active.id },
+        [boostedPearlId]: { ...state.cardsById[boostedPearlId], owner: active.id },
+        [characterId]: { ...state.cardsById[characterId], owner: active.id },
+        [diamondId]: { ...state.cardsById[diamondId], owner: active.id },
+      },
+      players: state.players.map((player) =>
+        player.id === active.id
+          ? {
+              ...player,
+              pearlHand: [exactPearlId, boostedPearlId],
+              gateCharacters: [characterId],
+              diamonds: [diamondId],
+            }
+          : player,
+      ),
+      pearlDeck: removeFromDeckZone(state.pearlDeck, [exactPearlId, boostedPearlId]),
+      characterDeck: removeFromDeckZone(state.characterDeck, [characterId, diamondId]),
+      market: {
+        pearlMarket: state.market.pearlMarket.filter(
+          (cardId) => cardId !== exactPearlId && cardId !== boostedPearlId,
+        ),
+        characterMarket: state.market.characterMarket.filter(
+          (cardId) => cardId !== characterId && cardId !== diamondId,
+        ),
+      },
+    },
+    actorId: active.id,
+    characterId,
+    exactPearlId,
+    boostedPearlId,
+    diamondId,
+  };
+}
+
+function arrangeActivePlayerCards(
+  state: GameState,
+  cards: Partial<
+    Pick<PlayerState, "pearlHand" | "gateCharacters" | "activatedCharacters" | "diamonds">
+  >,
+): GameState {
+  const active = getActivePlayer(state);
+  const current = getPlayer(state, active.id);
+  const nextActive = {
+    ...current,
+    pearlHand: cards.pearlHand ?? current.pearlHand,
+    gateCharacters: cards.gateCharacters ?? current.gateCharacters,
+    activatedCharacters: cards.activatedCharacters ?? current.activatedCharacters,
+    diamonds: cards.diamonds ?? current.diamonds,
+  };
+  const ownedIds = [
+    ...nextActive.pearlHand,
+    ...nextActive.gateCharacters,
+    ...nextActive.activatedCharacters,
+    ...nextActive.diamonds,
+  ];
+  const cardsById = { ...state.cardsById };
+  for (const cardId of ownedIds) {
+    cardsById[cardId] = { ...cardsById[cardId], owner: active.id };
+  }
+
+  return {
+    ...state,
+    cardsById,
+    players: state.players.map((player) => {
+      if (player.id === active.id) {
+        return nextActive;
+      }
+      return {
+        ...player,
+        pearlHand: player.pearlHand.filter((cardId) => !ownedIds.includes(cardId)),
+        gateCharacters: player.gateCharacters.filter((cardId) => !ownedIds.includes(cardId)),
+        activatedCharacters: player.activatedCharacters.filter((cardId) => !ownedIds.includes(cardId)),
+        diamonds: player.diamonds.filter((cardId) => !ownedIds.includes(cardId)),
+      };
+    }),
+    pearlDeck: removeFromDeckZone(state.pearlDeck, ownedIds),
+    characterDeck: removeFromDeckZone(state.characterDeck, ownedIds),
+    market: {
+      pearlMarket: state.market.pearlMarket.filter((cardId) => !ownedIds.includes(cardId)),
+      characterMarket: state.market.characterMarket.filter((cardId) => !ownedIds.includes(cardId)),
+    },
+  };
+}
+
+function cardIdForDefinition(
+  state: GameState,
+  definitionId: CardDefinitionId,
+  excluded: CardInstanceId[],
+): CardInstanceId {
+  const found = Object.values(state.cardsById).find(
+    (card) => card.definitionId === definitionId && !excluded.includes(card.id),
+  );
+  if (!found) {
+    throw new Error(`Missing card definition in test state: ${definitionId}`);
+  }
+  return found.id;
+}
+
+function removeFromDeckZone(
+  zone: GameState["pearlDeck"],
+  cardIds: CardInstanceId[],
+): GameState["pearlDeck"] {
+  return {
+    drawPile: zone.drawPile.filter((cardId) => !cardIds.includes(cardId)),
+    discardPile: zone.discardPile.filter((cardId) => !cardIds.includes(cardId)),
+  };
+}
+
 function playAutomatedTurn(state: GameState): GameState {
   const actorId = state.turn.activePlayerId;
   let nextState = state;
@@ -335,13 +977,21 @@ function playAutomatedTurn(state: GameState): GameState {
     nextState = reduceGame(nextState, action).state;
   }
 
+  while (nextState.turn.activePlayerId === actorId && nextState.turn.actionsRemaining === 0) {
+    const action = chooseAiAction(nextState, actorId);
+    if (action.type !== "useAbility") {
+      break;
+    }
+    nextState = reduceGame(nextState, action).state;
+  }
+
   const player = getPlayer(nextState, actorId);
-  const excess = Math.max(0, player.pearlHand.length - 5);
+  const excess = Math.max(0, player.pearlHand.length - getHandLimit(nextState, actorId));
   if (excess > 0) {
     nextState = reduceGame(nextState, {
       type: "discardPearlsToLimit",
       actorId,
-      pearlIds: player.pearlHand.slice(0, excess),
+      pearlIds: choosePearlsToDiscardToLimit(nextState, actorId),
     }).state;
   }
 
