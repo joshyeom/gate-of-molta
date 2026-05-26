@@ -652,3 +652,221 @@ Verification:
 Follow-up:
 
 - Diamond-assisted payments and unresolved complex candidate requirements still need verified rule modeling before they should be treated as complete gameplay rules.
+
+## [2026-05-26] implementation | Implement base diamond payment
+
+The documented base diamond rule is now implemented in the engine: a diamond can increase one paid pearl card by exactly +1, cannot be used on an 8, and only one diamond can target each pearl. Used diamonds are removed from the player's diamond area, moved to the character discard pile, and emitted as a discard event. Payment-plan selection, AI activation, quick activation, and the card-detail activation modal now use the same `PaymentPlan` object, so UI and solo logic can activate characters with diamond-assisted payments.
+
+Files touched:
+
+- `src/game/engine/types.ts`
+- `src/game/engine/selectors.ts`
+- `src/game/engine/reducer.ts`
+- `src/game/solo/chooseAiAction.ts`
+- `src/app/App.tsx`
+- `src/game/engine/engine.test.ts`
+- `docs/llm-wiki/log.md`
+- `docs/llm-wiki/session-log.md`
+
+Verification:
+
+- `npm test`
+- `npm run build`
+- Playwright smoke run at 1440x900: game screen loaded, 4 open pearls, 2 open characters, 5-card hand, and no severe console/page errors.
+
+Follow-up:
+
+- The special candidate ability that lowers pearl values with diamonds is still not implemented because it is card-effect-specific and not part of the base diamond rule.
+
+## [2026-05-26] implementation | Add cycle history report and gate-replacement discard event
+
+The game was run through a full one-round cycle with the deterministic engine. During the cycle, full-gate replacement exposed a state-history gap: discarded gate characters moved into the character discard pile but did not clear owner metadata or emit a discard event. The reducer now clears ownership for replaced gate characters and emits `characterDiscarded`. A reusable cycle simulation script records turn-by-turn action/event history for future verification and reporting.
+
+Files touched:
+
+- `scripts/simulate-cycle.mjs`
+- `src/game/engine/types.ts`
+- `src/game/engine/reducer.ts`
+- `src/game/engine/engine.test.ts`
+- `src/app/App.tsx`
+- `docs/llm-wiki/log.md`
+- `docs/llm-wiki/session-log.md`
+
+Verification:
+
+- `node scripts/simulate-cycle.mjs --seed=cycle-history --players=3`
+- Playwright browser run at 1440x900 with seed `cycle-history`: auto-play advanced from round 1 to round 2, returned to the human player with 3 actions, kept 4 open pearl cards and 2 open character cards, and produced no console/page errors.
+- `npm test`
+- `npm run build`
+
+Follow-up:
+
+- Character ability execution remains intentionally unavailable until individual card effects are verified or accepted as prototype rules.
+
+## [2026-05-26] implementation | Improve solo AI pearl and discard choices
+
+The deterministic solo policy was refined after the `cycle-history` replay showed a weak fallback: once a player filled both gate slots, the policy replaced a gate character even when collecting a useful pearl was available. The AI now activates payable characters first, fills open gate slots, collects useful pearls even at hand limit if they improve the hand, refreshes the pearl market when gaining would only force a worse discard, and only then considers full-gate replacement. Automatic hand-limit cleanup now discards the least useful pearls by comparing current gate requirements instead of taking the oldest cards.
+
+Files touched:
+
+- `src/game/solo/chooseAiAction.ts`
+- `src/app/App.tsx`
+- `scripts/simulate-cycle.mjs`
+- `src/game/engine/engine.test.ts`
+- `docs/llm-wiki/log.md`
+- `docs/llm-wiki/session-log.md`
+
+Verification:
+
+- `npm test`
+- `npm run build`
+- `node scripts/simulate-cycle.mjs --seed=cycle-history --players=3`
+- Playwright browser run at 1440x900 with seed `cycle-history`: auto-play advanced from round 1 to round 2, returned to the human player with 3 actions, showed 4 open pearls, 2 open characters, 5 cards in hand, 2 human gate characters, and no console/page errors.
+
+Follow-up:
+
+- The policy is still heuristic; it does not simulate future turn value or unverified character abilities.
+
+## [2026-05-26] implementation | Run full game to game over
+
+The auto-play goal was extended from one cycle to a full game. The old `scripts/simulate-game.ts` was replaced with an executable self-bundling full-game reporter that records turn/action/event history and can write the full report to JSON. A mismatch between fixed-seat simulation and the browser's seeded-random start-player setup was found and corrected so the generated report matches the UI default flow.
+
+Files touched:
+
+- `scripts/simulate-game.mjs`
+- `scripts/simulate-game.ts`
+- `src/game/engine/engine.test.ts`
+- `docs/llm-sources/2026-05-26-full-game-history.json`
+- `docs/llm-wiki/index.md`
+- `docs/llm-wiki/log.md`
+- `docs/llm-wiki/session-log.md`
+
+Verification:
+
+- `node scripts/simulate-game.mjs --seed=full-game-history --players=3 --output=docs/llm-sources/2026-05-26-full-game-history.json`
+- `npm test`
+- `npm run build`
+- Playwright browser run at 1440x900 with seed `full-game-history`, accelerated timers, and auto-play enabled: game-over overlay appeared at round 29, scoreboard showed `나` winning with 14 points and 1 diamond, and no console/page errors were emitted.
+
+Follow-up:
+
+- The completed run is for the current fixture/candidate rule model. Official card effects are still not executed unless separately implemented and verified.
+
+## [2026-05-26] implementation | Render full game history as Markdown
+
+The full game JSON report was converted into a readable Markdown transcript so the then-current 84-turn, 364-action history could be inspected without manually parsing JSON.
+
+Files touched:
+
+- `docs/llm-sources/2026-05-26-full-game-history.md`
+- `docs/llm-wiki/index.md`
+- `docs/llm-wiki/log.md`
+
+Verification:
+
+- Markdown generated from `docs/llm-sources/2026-05-26-full-game-history.json`
+- The history report was later regenerated after strategy-AI tuning; the current Markdown output contains 1,321 lines, 51 turns, and 241 recorded actions.
+
+## [2026-05-26] implementation | Implement prototype character effects
+
+After reviewing why documented effects were not executing, the user explicitly approved implementing all TTS-derived/candidate character effects as prototype behavior. The engine now handles custom candidate requirements, virtual pearl-value sources, pearl value overrides, diamond lowering from the matching activated card, immediate and next-turn action bonuses, after-actions redraw, start-turn peek/swap abilities, pearl-2-to-diamond conversion, opponent hand/gate interaction effects, reclaiming one just-used pearl, and adjacent wisp activation.
+
+Files touched:
+
+- `src/game/engine/abilities.ts`
+- `src/game/engine/types.ts`
+- `src/game/engine/state.ts`
+- `src/game/engine/selectors.ts`
+- `src/game/engine/reducer.ts`
+- `src/game/solo/chooseAiAction.ts`
+- `src/app/App.tsx`
+- `src/game/engine/engine.test.ts`
+- `scripts/simulate-cycle.mjs`
+- `scripts/simulate-game.mjs`
+- `docs/llm-sources/2026-05-26-full-game-history.json`
+- `docs/llm-sources/2026-05-26-full-game-history.md`
+- `docs/llm-sources/2026-05-26-full-game-history.html`
+- `docs/llm-wiki/decisions.md`
+- `docs/llm-wiki/index.md`
+- `docs/llm-wiki/rules.md`
+- `docs/llm-wiki/log.md`
+- `docs/llm-wiki/session-log.md`
+
+Verification:
+
+- `npm test -- --run`
+- `npm run build`
+- `node scripts/simulate-cycle.mjs --seed=cycle-report --players=3`
+- `node scripts/simulate-game.mjs --seed=full-game-history --players=3 --output=docs/llm-sources/2026-05-26-full-game-history.json`
+
+Result:
+
+- At this step, the updated full-game report ended in 66 turns / 318 recorded steps at round 23.
+- `나` and `AI 2` both finish with 15 points, and `AI 2` wins the tie on diamonds, 2 to 0.
+
+Follow-up:
+
+- The implemented effects are still prototype interpretations of candidate text. Explicit UI target-selection prompts are still a future improvement; current ambiguous effects use deterministic defaults.
+
+## [2026-05-26] implementation | Strategy-weighted solo AI and current guide
+
+The user asked to rewrite the strategy after prototype effects were implemented. The strategy now treats the game as an activation-density and engine-building race rather than a raw printed-score race. The solo AI was tuned to follow that principle with staged heuristics for early engine-building, midgame tempo, and endgame 12-point/tiebreaker evaluation.
+
+Files touched:
+
+- `src/game/solo/chooseAiAction.ts`
+- `src/game/engine/engine.test.ts`
+- `docs/llm-wiki/strategy-guide.md`
+- `docs/llm-wiki/decisions.md`
+- `docs/llm-wiki/index.md`
+- `docs/llm-wiki/log.md`
+- `docs/llm-wiki/session-log.md`
+- `docs/llm-wiki/prompt-context.md`
+- `docs/llm-sources/2026-05-26-full-game-history.json`
+- `docs/llm-sources/2026-05-26-full-game-history.md`
+- `docs/llm-sources/2026-05-26-full-game-history.html`
+
+Verification:
+
+- `npm test -- --run`
+- `npm run build`
+- `node scripts/simulate-game.mjs --seed=full-game-history --players=3 --output=docs/llm-sources/2026-05-26-full-game-history.json`
+
+Result:
+
+- The latest `full-game-history` report ends in 51 turns / 241 recorded steps at round 18.
+- `AI 2` wins with 14 points; `나` and `AI 1` each finish with 10 points.
+- `AI 1` no longer stalls at the earlier 2-point result under the previous effect-naive policy.
+
+Follow-up:
+
+- The current guide and AI policy are still tied to prototype candidate effect text. They should be retuned after official card text and explicit target-choice UI are finalized.
+
+## [2026-05-26] implementation | Correct deck composition and card interactions
+
+The user corrected several prototype design assumptions. Pearl values now have 8 cards each, refresh pearl variants can refresh the open character market when revealed into the open pearl row, character discards no longer reshuffle into the character deck, deck-count labels were removed from the main UI, player field status now shows score and diamonds, diamond chips are visible/selectable, the character-deck peek ability opens a modal, and opponent gate identity cards are clickable.
+
+Files touched:
+
+- `src/game/content/pearls.ts`
+- `src/game/content/characters.fixture.ts`
+- `src/game/engine/state.ts`
+- `src/game/engine/reducer.ts`
+- `src/game/engine/selectors.ts`
+- `src/game/engine/types.ts`
+- `src/game/engine/engine.test.ts`
+- `src/app/App.tsx`
+- `src/app/App.css`
+- `docs/llm-wiki/rules.md`
+- `docs/llm-wiki/log.md`
+- `docs/llm-wiki/session-log.md`
+
+Verification:
+
+- `npm test -- --run`
+- `npm run build`
+- Playwright browser smoke check at `http://127.0.0.1:5174/`
+
+Follow-up:
+
+- Confirm the exact official character-card list. The current prototype treats every captured fixture entry as one physical card.

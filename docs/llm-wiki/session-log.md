@@ -238,3 +238,167 @@ The user asked to continue playing the solo game, fix anything wrong, and repeat
 ### Next Likely Task
 
 Model diamond payment plans and the remaining complex character requirements once the card data is verified enough to avoid inventing rules.
+
+### Follow-up Work
+
+The user asked what diamond rules were currently documented, then approved implementing the base rule only: diamonds can increase a paid pearl value by +1, while lowering values remains a separate card-effect candidate.
+
+- Implemented base-rule diamond payment plans in selectors.
+- Updated activation validation so the reducer applies diamond modifiers itself instead of trusting UI/AI-selected plans.
+- Enforced one diamond per pearl, no diamond boost above 8, owned-diamond validation, and base-rule `+1` only.
+- Moved used diamonds from the player's diamond area to the character discard pile.
+- Added a `diamondsDiscarded` event label.
+- Updated AI activation, quick activation, and card-detail activation to pass full `PaymentPlan` objects.
+- Added a regression test for paying `12` using `1` plus `1+다이아`.
+- Verified with `npm test`, `npm run build`, and a Playwright smoke run of the game screen.
+
+Known gap:
+
+- The candidate ability that lets a specific card use diamonds to lower pearl values is still intentionally unimplemented until that card effect is verified or explicitly accepted as prototype behavior.
+
+### Cycle History Pass
+
+The user asked to play one cycle, fix unimplemented or incomplete parts encountered, replay, and report the game history.
+
+- Added `scripts/simulate-cycle.mjs`, a deterministic one-cycle reporter that bundles the TypeScript engine with esbuild and prints action/event history.
+- Ran seed `cycle-history` for 3 players and found that full-gate replacement discarded the old gate character in zone state but did not clear card owner metadata or emit a history event.
+- Added `characterDiscarded` to engine events and UI event labels.
+- Updated market/deck character placement so replacing a full gate emits a discard event and clears ownership for the discarded character.
+- Added a regression test for gate-character replacement ownership and event history.
+- Replayed seed `cycle-history`; the second run completed round 1 and returned to the human player at round 2 with 3 actions, 4 open pearls, 2 open characters, and all players at hand limit.
+- Cross-checked the same seed through Playwright in the browser with no severe console/page errors.
+
+Known gap:
+
+- `useAbility` still throws if called directly because card abilities are not exposed in legal actions and remain unverified candidate effects.
+
+### Solo AI Improvement
+
+After reviewing the cycle history, the user asked to improve the behavior. The main issue was that the solo policy treated full-gate replacement as an early fallback, so the human autopilot filled both gate slots and then replaced a gate character instead of collecting a useful pearl.
+
+- Changed solo action priority to activate payable characters first, fill empty gate slots, collect useful pearls, refresh the pearl market when no gain improves the hand, and only then consider replacing a full gate.
+- Added a shared `choosePearlsToDiscardToLimit` helper so UI auto-turn cleanup, tests, and the cycle reporter discard low-value or currently unneeded pearls first.
+- Replayed seed `cycle-history`: the human autopilot now places two characters, takes `진주 5`, and discards `진주 2` while keeping the `진주 7` needed by a gate character.
+- The same replay shows `AI 1` placing a `2` requirement character, activating it, gaining a diamond reward, and placing another character in the same turn.
+- `AI 2` now refreshes the pearl market instead of gaining a pearl that would immediately be discarded.
+- Added regression tests for preferring useful pearl gain over blind replacement and for smart hand-limit discard.
+- Verified with `npm test`, `npm run build`, `node scripts/simulate-cycle.mjs --seed=cycle-history --players=3`, and Playwright at `http://127.0.0.1:5173/`.
+
+Known gap:
+
+- The AI remains a deterministic heuristic policy and does not evaluate future ability effects while card abilities are still unverified.
+
+### Full Game To Game Over
+
+The active goal was extended to run the game until it fully ends, fix anything wrong during the run, and report the result/history.
+
+- Replaced the old tracked `scripts/simulate-game.ts` with `scripts/simulate-game.mjs`, an executable self-bundling reporter similar to the cycle reporter.
+- The reporter records full turn/action/event history, round summaries, final market/deck state, player gate cards, and activated cards.
+- Generated the full report at `docs/llm-sources/2026-05-26-full-game-history.json`.
+- Found a reproducibility mismatch: the first full-game probe fixed the start player to seat 0, while the browser uses the default seeded-random start player. Updated the reporter and test to match the UI default unless `--start-seat` is explicitly provided.
+- Added an engine regression test that auto-plays seed `full-game-history` to game over.
+- Verified in Playwright with accelerated timers that the browser reaches the game-over overlay for the same seed with no severe console/page errors.
+
+Result under fixture rules before prototype effect implementation:
+
+- Seed: `full-game-history`
+- Players: 3
+- Completed: 364 recorded steps, 84 turns, game-over state at round 29
+- Winner: `나`
+- Final scores: `나` 14 points / 1 diamond, `AI 2` 9 points / 0 diamonds, `AI 1` 2 points / 0 diamonds
+- End-game trigger: in round 27, `나` activated `인물(7788, 점수 3, 다이아 1)` by paying `진주 7, 진주 7, 진주 8, 진주 8`, reaching 14 points and triggering end-game resolution.
+
+Known gap:
+
+- This proved that the then-current prototype loop could complete. It did not prove final official gameplay because candidate character effects had not yet been implemented at that point.
+
+### Prototype Character Effects
+
+The user asked why documented official/candidate effects were not implemented. The repository documentation showed that TTS-derived card metadata had been preserved as verification-only candidate text, so the engine intentionally did not execute it yet. The user then approved implementing all documented effects as prototype behavior.
+
+- Added `src/game/engine/abilities.ts` to centralize effect classification by character definition.
+- Implemented all currently documented custom requirements, including exact digit strings, sum/sequence/same/parity Korean labels, `333/666`, `444/555`, `222+다이아몬드 1장`, two-pair forms, and same-pair-plus-66 forms.
+- Extended `PaymentPlan` for spent diamonds, pearl value overrides, and virtual pearl uses.
+- Implemented base diamond +1 plus the candidate activated-card diamond -1 effect.
+- Implemented virtual reusable pearl values from activated characters and the activated effects that let hand `3` act as any value or hand `1` act as `8`.
+- Implemented `useAbility` for after-actions redraw, start-turn deck peek, start-turn gate/market swap, and discarding pearl `2` for a diamond.
+- Implemented on-activate effects for action bonuses, next-player action bonus, opponent hand steal, opponent gate discard, and reclaiming one just-used pearl.
+- Implemented adjacent activation of wisp cards from another player's gate.
+- Updated AI selection and auto-turn cleanup so free ability actions can run without consuming normal actions.
+- Added manual activated-card detail support for usable abilities.
+- Updated full-game report artifacts after the new effects changed deterministic play.
+- Updated `docs/llm-wiki/rules.md` so the documented prototype effect and diamond behavior matches the engine.
+
+Result immediately after prototype effect implementation, before later strategy-AI tuning:
+
+- Seed: `full-game-history`
+- Players: 3
+- Completed: 318 recorded steps, 66 turns, game-over state at round 23
+- Winner: `AI 2`
+- Final scores: `나` 15 points / 0 diamonds, `AI 2` 15 points / 2 diamonds, `AI 1` 2 points / 0 diamonds
+
+Verification:
+
+- `npm test -- --run`
+- `npm run build`
+- `node scripts/simulate-cycle.mjs --seed=cycle-report --players=3`
+- `node scripts/simulate-game.mjs --seed=full-game-history --players=3 --output=docs/llm-sources/2026-05-26-full-game-history.json`
+
+Known gap:
+
+- These effects are implemented as deterministic prototype interpretations of candidate text, not as final official rules.
+- Ambiguous target-choice effects currently use deterministic defaults instead of interactive choice prompts.
+
+### Strategy Guide And Strategy-Weighted AI
+
+The user asked to rewrite the strategy after the prototype character effects were implemented.
+
+- Added `docs/llm-wiki/strategy-guide.md` with the current play guide: early activation density, midgame engine/tempo cards, endgame 12-point timing, diamond tiebreakers, strong card groups, and cards to avoid or treat conditionally.
+- Updated the normal solo AI policy to value payable engine cards, effect utility, requirement progress, payment cost, and endgame timing instead of mostly chasing raw printed score.
+- Added custom requirement contribution scoring so the AI can recognize useful pearls for exact digit strings, same-value, sequence, parity, sum, two-pair, `333/666`, `444/555`, and diamond-linked requirements.
+- Reduced wasteful `18` hand redraw use by only firing it when the current hand is poor and no gate character is payable.
+- Regenerated the full-game JSON/Markdown/HTML history with the updated strategy policy.
+
+Result under current prototype effect and strategy-AI rules:
+
+- Seed: `full-game-history`
+- Players: 3
+- Completed: 241 recorded steps, 51 turns, game-over state at round 18
+- Winner: `AI 2`
+- Final scores: `나` 10 points / 1 diamond, `AI 1` 10 points / 0 diamonds, `AI 2` 14 points / 0 diamonds
+
+Verification:
+
+- `npm test -- --run`
+- `npm run build`
+- `node scripts/simulate-game.mjs --seed=full-game-history --players=3 --output=docs/llm-sources/2026-05-26-full-game-history.json`
+
+Known gap:
+
+- The strategy guide and AI weights are still based on prototype/candidate effect text.
+- Hard and Expert AI remain future work.
+
+### Deck Composition And Interaction Corrections
+
+The user identified several rule/interaction errors in the current design.
+
+- Changed pearl deck composition to 8 cards for each value 1-8.
+- Added refresh pearl definitions for values 3, 4, and 5 and wired their art assets.
+- Changed character deck creation so every fixture entry is exactly one physical card rather than multiplying definitions.
+- Implemented refresh-pearl behavior: when a refresh pearl enters the open pearl row during play, all open character cards are discarded and replaced from the character deck.
+- Changed character discards so they do not reshuffle into the character deck.
+- Removed visible deck-count labels from the main deck action buttons.
+- Changed player field status from gate/active counts to score and diamond totals.
+- Added visible diamond chips for the human player and activation labels that surface diamond-backed payments.
+- Added a start-of-turn character-deck peek modal for the consecutive-3-card ability, with close preserving the top card and an optional place action.
+- Made opponent gate identity cards genuinely clickable and fixed the z-index issue that was blocking pointer events.
+
+Verification:
+
+- `npm test -- --run`
+- `npm run build`
+- Playwright browser smoke check at `http://127.0.0.1:5174/`
+
+Known gaps:
+
+- The user corrected the earlier duplicate assumption: every current fixture character card is one physical card.
