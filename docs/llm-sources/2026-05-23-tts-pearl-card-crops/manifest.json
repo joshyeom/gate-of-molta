@@ -1,0 +1,230 @@
+{
+  "status": "reference_pearl_card_crops_not_app_assets",
+  "warning": "These files are Steam/TTS-derived source/reference material only. Do not use them as final distributable app assets unless rights are confirmed.",
+  "sourceCropManifest": "../2026-05-23-tts-card-crops/manifest.json",
+  "sourceReferenceManifest": "../2026-05-23-tts-reference-assets/manifest.json",
+  "contactSheet": "contact-sheet.jpg",
+  "pearlCardCount": 11,
+  "cards": [
+    {
+      "fileName": "cards/pearl-1.jpg",
+      "value": 1,
+      "variant": "standard",
+      "hasCharacterRefreshIcon": false,
+      "source": {
+        "cropFileName": "cards/13-card-sheet-face-r1c1.jpg",
+        "sourceSheet": "13-card-sheet-face.jpg",
+        "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+        "row": 1,
+        "column": 1,
+        "cardIndex": 1,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 660,
+          "height": 1024
+        }
+      }
+    },
+    {
+      "fileName": "cards/pearl-2.jpg",
+      "value": 2,
+      "variant": "standard",
+      "hasCharacterRefreshIcon": false,
+      "source": {
+        "cropFileName": "cards/13-card-sheet-face-r1c2.jpg",
+        "sourceSheet": "13-card-sheet-face.jpg",
+        "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+        "row": 1,
+        "column": 2,
+        "cardIndex": 2,
+        "crop": {
+          "x": 660,
+          "y": 0,
+          "width": 660,
+          "height": 1024
+        }
+      }
+    },
+    {
+      "fileName": "cards/pearl-3.jpg",
+      "value": 3,
+      "variant": "standard",
+      "hasCharacterRefreshIcon": false,
+      "source": {
+        "cropFileName": "cards/13-card-sheet-face-r1c3.jpg",
+        "sourceSheet": "13-card-sheet-face.jpg",
+        "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+        "row": 1,
+        "column": 3,
+        "cardIndex": 3,
+        "crop": {
+          "x": 1320,
+          "y": 0,
+          "width": 660,
+          "height": 1024
+        }
+      }
+    },
+    {
+      "fileName": "cards/pearl-4.jpg",
+      "value": 4,
+      "variant": "standard",
+      "hasCharacterRefreshIcon": false,
+      "source": {
+        "cropFileName": "cards/13-card-sheet-face-r2c1.jpg",
+        "sourceSheet": "13-card-sheet-face.jpg",
+        "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+        "row": 2,
+        "column": 1,
+        "cardIndex": 4,
+        "crop": {
+          "x": 0,
+          "y": 1024,
+          "width": 660,
+          "height": 1024
+        }
+      }
+    },
+    {
+      "fileName": "cards/pearl-5.jpg",
+      "value": 5,
+      "variant": "standard",
+      "hasCharacterRefreshIcon": false,
+      "source": {
+        "cropFileName": "cards/13-card-sheet-face-r2c2.jpg",
+        "sourceSheet": "13-card-sheet-face.jpg",
+        "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+        "row": 2,
+        "column": 2,
+        "cardIndex": 5,
+        "crop": {
+          "x": 660,
+          "y": 1024,
+          "width": 660,
+          "height": 1024
+        }
+      }
+    },
+    {
+      "fileName": "cards/pearl-6.jpg",
+      "value": 6,
+      "variant": "standard",
+      "hasCharacterRefreshIcon": false,
+      "source": {
+        "cropFileName": "cards/13-card-sheet-face-r2c3.jpg",
+        "sourceSheet": "13-card-sheet-face.jpg",
+        "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+        "row": 2,
+        "column": 3,
+        "cardIndex": 6,
+        "crop": {
+          "x": 1320,
+          "y": 1024,
+          "width": 660,
+          "height": 1024
+        }
+      }
+    },
+    {
+      "fileName": "cards/pearl-7.jpg",
+      "value": 7,
+      "variant": "standard",
+      "hasCharacterRefreshIcon": false,
+      "source": {
+        "cropFileName": "cards/13-card-sheet-face-r3c1.jpg",
+        "sourceSheet": "13-card-sheet-face.jpg",
+        "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+        "row": 3,
+        "column": 1,
+        "cardIndex": 7,
+        "crop": {
+          "x": 0,
+          "y": 2048,
+          "width": 660,
+          "height": 1024
+        }
+      }
+    },
+    {
+      "fileName": "cards/pearl-8.jpg",
+      "value": 8,
+      "variant": "standard",
+      "hasCharacterRefreshIcon": false,
+      "source": {
+        "cropFileName": "cards/13-card-sheet-face-r3c2.jpg",
+        "sourceSheet": "13-card-sheet-face.jpg",
+        "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+        "row": 3,
+        "column": 2,
+        "cardIndex": 8,
+        "crop": {
+          "x": 660,
+          "y": 2048,
+          "width": 660,
+          "height": 1024
+        }
+      }
+    },
+    {
+      "fileName": "cards/pearl-3-refresh.jpg",
+      "value": 3,
+      "variant": "character-refresh",
+      "hasCharacterRefreshIcon": true,
+      "source": {
+        "cropFileName": "cards/13-card-sheet-face-r3c3.jpg",
+        "sourceSheet": "13-card-sheet-face.jpg",
+        "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+        "row": 3,
+        "column": 3,
+        "cardIndex": 9,
+        "crop": {
+          "x": 1320,
+          "y": 2048,
+          "width": 660,
+          "height": 1024
+        }
+      }
+    },
+    {
+      "fileName": "cards/pearl-4-refresh.jpg",
+      "value": 4,
+      "variant": "character-refresh",
+      "hasCharacterRefreshIcon": true,
+      "source": {
+        "cropFileName": "cards/15-card-sheet-face-r1c1.jpg",
+        "sourceSheet": "15-card-sheet-face.jpg",
+        "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650480802/0CAEDF1F4701D431DAA76FFD6F38B3DE99FE9876/",
+        "row": 1,
+        "column": 1,
+        "cardIndex": 1,
+        "crop": {
+          "x": 0,
+          "y": 0,
+          "width": 659,
+          "height": 1025
+        }
+      }
+    },
+    {
+      "fileName": "cards/pearl-5-refresh.jpg",
+      "value": 5,
+      "variant": "character-refresh",
+      "hasCharacterRefreshIcon": true,
+      "source": {
+        "cropFileName": "cards/15-card-sheet-face-r1c2.jpg",
+        "sourceSheet": "15-card-sheet-face.jpg",
+        "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650480802/0CAEDF1F4701D431DAA76FFD6F38B3DE99FE9876/",
+        "row": 1,
+        "column": 2,
+        "cardIndex": 2,
+        "crop": {
+          "x": 659,
+          "y": 0,
+          "width": 658,
+          "height": 1025
+        }
+      }
+    }
+  ]
+}

@@ -54,6 +54,8 @@ Primary concepts:
 - `AnimationIntent`: visual hints derived from events
 - `GameSeed`: seed for deterministic random outcomes
 
+The detailed draft contract for setup options, state zones, actions, events, and selectors lives in `engine-model.md`.
+
 The reducer shape should be close to:
 
 ```ts
@@ -104,9 +106,12 @@ Use local assets with explicit manifests.
 ```ts
 type CardAsset = {
   cardId: string;
-  image: string;
+  front: string;
+  back?: string;
+  illustration?: string;
   thumbnail?: string;
-  frame?: string;
+  frameVariant?: string;
+  sourceStatus: "original" | "placeholder" | "reference-only";
 };
 ```
 
@@ -114,12 +119,18 @@ Recommended asset folders:
 
 ```text
 src/assets/cards/
+src/assets/card-backs/
+src/assets/icons/
 src/assets/boards/
 src/assets/fx/
 src/assets/audio/
 ```
 
+Final card images should be newly created original replacement art. TTS card crops and downloaded source images may be used only for visual analysis and should stay in `docs/llm-sources/` unless rights are confirmed.
+
 Large original art files should not be mixed with optimized runtime assets unless the project intentionally needs them.
+
+See `assets.md` for the working card-art pipeline and visual direction.
 
 ## Solo Logic
 

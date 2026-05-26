@@ -10,7 +10,9 @@ Do not implement gameplay rules until the relevant section is filled in or other
 - Confirmation source: Korea Boardgames YouTube video "몰타의 관문 게임 소개 영상", accessed 2026-05-23.
 - Source note: `../llm-sources/2026-05-23-gate-of-molta-rule-links.md`
 - BoardLife source status: provided by user but blocked by Cloudflare challenge in the agent environment.
-- Notes: this capture is enough for the core turn loop and pearl number distribution, but not enough for full character card data or solo mode.
+- Character metadata candidate: `../llm-sources/2026-05-23-tts-character-verification.json`
+- Character metadata status: TTS-derived verification checklist only; not canonical rules, final app data, or asset permission.
+- Notes: this capture is enough for the core turn loop and pearl number distribution. Character card data is still incomplete; solo mode is a custom draft in `solo-mode.md`.
 
 ## Components
 
@@ -39,6 +41,7 @@ Do not implement gameplay rules until the relevant section is filled in or other
 - Place the remaining character cards face-down as the character draw pile/acquisition pile.
 - Each player takes one gate card and places it in front of them.
 - No starting hand/resource distribution was identified; the YouTube explanation states players start with only their gate.
+- Current digital prototype exception: the app currently deals 5 pearl cards to each player at setup because the user requested playable starting hands. Treat this as a custom prototype rule until reconciled with an official rulebook or explicit final design.
 - Choose a start player.
 - The start player flips their gate so the start-player symbol is visible.
 - The source says the open-card refresh effect from a pearl card is not applied during initial setup.
@@ -105,6 +108,8 @@ List every legal player action and when it can be taken.
 
 ## Card Effects
 
+Candidate activation requirements and some effect notes for 54 character-card entries have been extracted from a Korean Tabletop Simulator workshop save. This data is useful for checking edge cases and building a verification checklist, but it is not an official source. It does not include reliable card names, power values, diamond rewards, or asset rights.
+
 | Card ID | Name | Type | Effect | Edge Cases |
 | --- | --- | --- | --- | --- |
 | TBD | Red-background abilities | One-time special ability | Must trigger immediately when the character is activated. | Full ability list is not captured yet. |
@@ -134,11 +139,14 @@ Exact ability text and the mapping from character cards to abilities still need 
 - The provided rule source describes the original game as 2-5 players.
 - No official solo mode was captured from the provided sources.
 - For this project, solo play should currently be treated as a custom digital adaptation unless another source proves official solo rules exist.
+- The first digital solo setup should allow 2-5 total participants, with 1 human player and the remaining seats controlled by AI.
+- AI seats should use the same legal actions as human seats through the normal engine reducer.
+- Difficulty should change AI decision quality, not the underlying rules. See `solo-mode.md`.
 - Required future design:
-  - Decide whether the solo opponent is a simulated player, a score clock, or a market-pressure automa.
+  - Decide the default table size.
   - Define solo turn timing relative to the player's turn.
   - Define how the solo system takes pearls, places/activates characters, refreshes markets, and triggers end game.
-  - Define difficulty levels after the base automa works.
+  - Implement and tune Easy, Normal, Hard, and Expert AI policies.
 
 ## Win And Loss Conditions
 
@@ -206,13 +214,13 @@ Potential state zones:
 
 ## Open Questions
 
-- What is the complete character card list?
-- What are every character's pearl requirements, power value, diamonds, and special abilities?
+- What are the official names, power values, and diamond rewards for the 54 candidate character entries?
+- Which TTS-derived activation requirements and effect notes match the official Korean cards?
 - Which pearl cards carry refresh/exchange symbols?
 - Does replacing all 4 open pearl cards trigger character-market refresh if refresh symbols appear?
 - What happens when a draw pile is empty?
 - Are discarded pearl/character cards reshuffled into decks?
 - What is the exact rule for "도깨비불" and why it is placed upside down?
 - What are the further tiebreakers after diamonds, if any?
-- Are there official solo rules, or should this project design a custom automa?
-- Should the digital solo mode automate all market/player bookkeeping or allow manual overrides?
+- Are there official solo rules that should override or coexist with the custom AI design?
+- Should the first UI expose Hard/Expert immediately or after the Normal AI is tuned?

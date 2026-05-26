@@ -1,0 +1,1453 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>몰타의 관문 인물 카드 매칭 확인</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f5f2ec;
+      --panel: #fffaf1;
+      --ink: #24211c;
+      --muted: #70685d;
+      --line: #d9cbb8;
+      --accent: #226b67;
+      --warn: #a24e2a;
+      --ok: #316d3b;
+      --shadow: 0 10px 28px rgba(54, 42, 24, 0.12);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      border-bottom: 1px solid var(--line);
+      background: rgba(245, 242, 236, 0.96);
+      backdrop-filter: blur(10px);
+    }
+
+    .bar {
+      display: grid;
+      gap: 12px;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 16px 18px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+
+    .meta {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: minmax(220px, 1fr) 160px 150px;
+      gap: 8px;
+      align-items: center;
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: #fffef9;
+      color: var(--ink);
+      font: inherit;
+    }
+
+    input,
+    select {
+      min-height: 36px;
+      padding: 0 10px;
+    }
+
+    button {
+      min-height: 32px;
+      padding: 0 10px;
+      cursor: pointer;
+    }
+
+    button[data-next] {
+      background: var(--accent);
+      color: white;
+      border-color: var(--accent);
+    }
+
+    main {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 18px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      display: grid;
+      gap: 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      padding: 12px;
+    }
+
+    .group-header {
+      grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-top: 1px solid var(--line);
+      padding: 16px 2px 2px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .group-header strong {
+      color: var(--ink);
+      font-size: 15px;
+    }
+
+    .card[data-status="ok"] {
+      border-color: rgba(49, 109, 59, 0.55);
+    }
+
+    .card[data-status="issue"] {
+      border-color: rgba(162, 78, 42, 0.65);
+    }
+
+    .topline {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .id {
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .source {
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      min-height: 22px;
+      border: 1px solid var(--line);
+      border-radius: 999px;
+      padding: 0 8px;
+      background: #fffef9;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .photo {
+      width: 100%;
+      aspect-ratio: 660 / 1027;
+      object-fit: contain;
+      border: 1px solid #cbbca8;
+      border-radius: 6px;
+      background: #211f1c;
+    }
+
+    dl {
+      display: grid;
+      grid-template-columns: 64px 1fr;
+      gap: 6px 8px;
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    dt {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    dd {
+      margin: 0;
+    }
+
+    .effect {
+      min-height: 42px;
+    }
+
+    .status {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 6px;
+    }
+
+    .status button[aria-pressed="true"][data-value="ok"] {
+      background: var(--ok);
+      color: white;
+      border-color: var(--ok);
+    }
+
+    .status button[aria-pressed="true"][data-value="issue"] {
+      background: var(--warn);
+      color: white;
+      border-color: var(--warn);
+    }
+
+    .status button[aria-pressed="true"][data-value="unknown"] {
+      background: #5f5a52;
+      color: white;
+      border-color: #5f5a52;
+    }
+
+    textarea {
+      width: 100%;
+      min-height: 58px;
+      resize: vertical;
+      padding: 8px;
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 720px) {
+      .controls {
+        grid-template-columns: 1fr;
+      }
+
+      main {
+        padding: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="bar">
+      <div>
+        <h1>인물 카드 매칭 확인</h1>
+        <div class="meta">
+          TTS 검증용 메타데이터와 개별 카드 crop을 매칭한 화면입니다. 확인 상태와 메모는 이 브라우저의 localStorage에만 저장됩니다.
+        </div>
+      </div>
+      <div class="controls">
+        <input id="search" type="search" placeholder="ID, 비용, 효과 검색">
+        <select id="filter">
+          <option value="all">전체 보기</option>
+          <option value="unknown">미확인만</option>
+          <option value="ok">맞음만</option>
+          <option value="issue">수정 필요만</option>
+        </select>
+        <button type="button" data-next>다음 미확인</button>
+      </div>
+      <div class="meta" id="summary"></div>
+    </div>
+  </header>
+  <main>
+    <section class="grid" id="cards" aria-live="polite"></section>
+  </main>
+
+  <script>
+    const CARDS = [
+      {
+            "cardId": 303,
+            "requirement": "합하면 '10'이 되는 카드들",
+            "effect": "손 카드 제한이 1장 많아짐",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "15-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 1,
+            "imagePath": "cards/15-card-sheet-face-r2c1.jpg",
+            "groupId": 1,
+            "groupSize": 3,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 502,
+            "requirement": "합하면 '10'이 되는 카드들",
+            "effect": "손 카드 제한이 1장 많아짐",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "17-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 1,
+            "column": 3,
+            "imagePath": "cards/17-card-sheet-face-r1c3.jpg",
+            "groupId": 1,
+            "groupSize": 3,
+            "groupIndex": 2
+      },
+      {
+            "cardId": 705,
+            "requirement": "합하면 '10'이 되는 카드들",
+            "effect": "손 카드 제한이 1장 많아짐",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "19-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 3,
+            "imagePath": "cards/19-card-sheet-face-r2c3.jpg",
+            "groupId": 1,
+            "groupSize": 3,
+            "groupIndex": 3
+      },
+      {
+            "cardId": 304,
+            "requirement": "12",
+            "effect": "진주 8로 사용가능",
+            "power": 0,
+            "diamonds": 0,
+            "sourceSheet": "15-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 2,
+            "imagePath": "cards/15-card-sheet-face-r2c2.jpg",
+            "groupId": 2,
+            "groupSize": 2,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 400,
+            "requirement": "12",
+            "effect": "진주 8로 사용가능",
+            "power": 0,
+            "diamonds": 0,
+            "sourceSheet": "12-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 1,
+            "column": 1,
+            "imagePath": "cards/12-card-sheet-face-r1c1.jpg",
+            "groupId": 2,
+            "groupSize": 2,
+            "groupIndex": 2
+      },
+      {
+            "cardId": 305,
+            "requirement": "6688",
+            "effect": "",
+            "power": 3,
+            "diamonds": 0,
+            "sourceSheet": "15-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 3,
+            "imagePath": "cards/15-card-sheet-face-r2c3.jpg",
+            "groupId": 3,
+            "groupSize": 3,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 504,
+            "requirement": "6688",
+            "effect": "",
+            "power": 3,
+            "diamonds": 0,
+            "sourceSheet": "17-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 2,
+            "imagePath": "cards/17-card-sheet-face-r2c2.jpg",
+            "groupId": 3,
+            "groupSize": 3,
+            "groupIndex": 2
+      },
+      {
+            "cardId": 606,
+            "requirement": "6688",
+            "effect": "",
+            "power": 3,
+            "diamonds": 0,
+            "sourceSheet": "18-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 1,
+            "imagePath": "cards/18-card-sheet-face-r3c1.jpg",
+            "groupId": 3,
+            "groupSize": 3,
+            "groupIndex": 3
+      },
+      {
+            "cardId": 307,
+            "requirement": "7777",
+            "effect": "",
+            "power": 4,
+            "diamonds": 0,
+            "sourceSheet": "15-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 2,
+            "imagePath": "cards/15-card-sheet-face-r3c2.jpg",
+            "groupId": 4,
+            "groupSize": 2,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 503,
+            "requirement": "7777",
+            "effect": "",
+            "power": 4,
+            "diamonds": 0,
+            "sourceSheet": "17-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 1,
+            "imagePath": "cards/17-card-sheet-face-r2c1.jpg",
+            "groupId": 4,
+            "groupSize": 2,
+            "groupIndex": 2
+      },
+      {
+            "cardId": 403,
+            "requirement": "같은 카드 2장 + 66",
+            "effect": "",
+            "power": 2,
+            "diamonds": 1,
+            "sourceSheet": "12-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 1,
+            "imagePath": "cards/12-card-sheet-face-r2c1.jpg",
+            "groupId": 5,
+            "groupSize": 2,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 900,
+            "requirement": "같은 카드 2장 + 6카드 2장",
+            "effect": "",
+            "power": 2,
+            "diamonds": 1,
+            "sourceSheet": "21-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 2,
+                  "rows": 2,
+                  "reason": "tts-custom-deck-9"
+            },
+            "row": 1,
+            "column": 1,
+            "imagePath": "cards/21-card-sheet-face-r1c1.jpg",
+            "groupId": 5,
+            "groupSize": 2,
+            "groupIndex": 2
+      },
+      {
+            "cardId": 405,
+            "requirement": "같은 카드 3장",
+            "effect": "",
+            "power": 2,
+            "diamonds": 0,
+            "sourceSheet": "12-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 3,
+            "imagePath": "cards/12-card-sheet-face-r2c3.jpg",
+            "groupId": 6,
+            "groupSize": 2,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 706,
+            "requirement": "같은 카드 3장",
+            "effect": "",
+            "power": 2,
+            "diamonds": 0,
+            "sourceSheet": "19-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 1,
+            "imagePath": "cards/19-card-sheet-face-r3c1.jpg",
+            "groupId": 6,
+            "groupSize": 2,
+            "groupIndex": 2
+      },
+      {
+            "cardId": 406,
+            "requirement": "같은 카드 2장",
+            "effect": "",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "12-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 1,
+            "imagePath": "cards/12-card-sheet-face-r3c1.jpg",
+            "groupId": 7,
+            "groupSize": 3,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 506,
+            "requirement": "같은 카드 2장",
+            "effect": "",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "17-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 1,
+            "imagePath": "cards/17-card-sheet-face-r3c1.jpg",
+            "groupId": 7,
+            "groupSize": 3,
+            "groupIndex": 2
+      },
+      {
+            "cardId": 803,
+            "requirement": "같은 카드 2장",
+            "effect": "",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "20-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 1,
+            "imagePath": "cards/20-card-sheet-face-r2c1.jpg",
+            "groupId": 7,
+            "groupSize": 3,
+            "groupIndex": 3
+      },
+      {
+            "cardId": 501,
+            "requirement": "88",
+            "effect": "",
+            "power": 2,
+            "diamonds": 0,
+            "sourceSheet": "17-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 1,
+            "column": 2,
+            "imagePath": "cards/17-card-sheet-face-r1c2.jpg",
+            "groupId": 8,
+            "groupSize": 2,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 601,
+            "requirement": "88",
+            "effect": "",
+            "power": 2,
+            "diamonds": 0,
+            "sourceSheet": "18-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 1,
+            "column": 2,
+            "imagePath": "cards/18-card-sheet-face-r1c2.jpg",
+            "groupId": 8,
+            "groupSize": 2,
+            "groupIndex": 2
+      },
+      {
+            "cardId": 507,
+            "requirement": "567",
+            "effect": "다른 플레이어 한 명의 손 카드를 보고, 그 중 1장을 가져옴",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "17-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 2,
+            "imagePath": "cards/17-card-sheet-face-r3c2.jpg",
+            "groupId": 9,
+            "groupSize": 2,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 801,
+            "requirement": "567",
+            "effect": "다른 플레이어 한 명의 손 카드를 보고, 그 중 1장을 가져옴",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "20-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 1,
+            "column": 2,
+            "imagePath": "cards/20-card-sheet-face-r1c2.jpg",
+            "groupId": 9,
+            "groupSize": 2,
+            "groupIndex": 2
+      },
+      {
+            "cardId": 602,
+            "requirement": "합하면 7이 되는 카드 3장",
+            "effect": "다른 플레이어 한 명의 관문에 있는 캐릭터 카드 중 1장을 버림",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "18-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 1,
+            "column": 3,
+            "imagePath": "cards/18-card-sheet-face-r1c3.jpg",
+            "groupId": 10,
+            "groupSize": 2,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 807,
+            "requirement": "합하면 7이 되는 카드 3장",
+            "effect": "다른 플레이어 한 명의 관문에 있는 캐릭터 카드 중 1장을 버림",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "20-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 2,
+            "imagePath": "cards/20-card-sheet-face-r3c2.jpg",
+            "groupId": 10,
+            "groupSize": 2,
+            "groupIndex": 2
+      },
+      {
+            "cardId": 605,
+            "requirement": "7788",
+            "effect": "",
+            "power": 3,
+            "diamonds": 1,
+            "sourceSheet": "18-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 3,
+            "imagePath": "cards/18-card-sheet-face-r2c3.jpg",
+            "groupId": 11,
+            "groupSize": 2,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 802,
+            "requirement": "7788",
+            "effect": "",
+            "power": 3,
+            "diamonds": 1,
+            "sourceSheet": "20-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 1,
+            "column": 3,
+            "imagePath": "cards/20-card-sheet-face-r1c3.jpg",
+            "groupId": 11,
+            "groupSize": 2,
+            "groupIndex": 2
+      },
+      {
+            "cardId": 302,
+            "requirement": "18",
+            "effect": "내 차례 종료 직전, 마지막 행동을 끝낸 뒤, 차례마다 한 번, 손에 든 진주 카드를 모두 버린 후 획득 더미에서 버린 수 만큼 새 진주 카드를 획득할 수 있음",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "15-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 1,
+            "column": 3,
+            "imagePath": "cards/15-card-sheet-face-r1c3.jpg",
+            "groupId": 12,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 306,
+            "requirement": "11",
+            "effect": "진주 1로 사용가능",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "15-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 1,
+            "imagePath": "cards/15-card-sheet-face-r3c1.jpg",
+            "groupId": 13,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 308,
+            "requirement": "55",
+            "effect": "진주 5로 사용가능",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "15-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 3,
+            "imagePath": "cards/15-card-sheet-face-r3c3.jpg",
+            "groupId": 14,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 401,
+            "requirement": "357",
+            "effect": "다이아몬드를 사용해서 진주 카드의 값을 1 내릴 수 있음. 단, 진주 카드의 값을 '0'으로 만들 수는 없음. 진주 카드 1장에는 다이아몬드 하나만 사용가능. 사용한 다이아몬드는 버린 캐릭터 더미에 버림.",
+            "power": 1,
+            "diamonds": 1,
+            "sourceSheet": "12-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 1,
+            "column": 2,
+            "imagePath": "cards/12-card-sheet-face-r1c2.jpg",
+            "groupId": 15,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 402,
+            "requirement": "연속되는 카드 3장",
+            "effect": "내 차례 시작 직후, 첫 행동을 시작하기 전에, 캐릭터 획득 더미 맨 위 1장을 살펴볼 수 있음. 살펴본 카드는 제자리에 돌려놓음.",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "12-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 1,
+            "column": 3,
+            "imagePath": "cards/12-card-sheet-face-r1c3.jpg",
+            "groupId": 16,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 404,
+            "requirement": "33",
+            "effect": "진주 3으로 사용가능",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "12-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 2,
+            "imagePath": "cards/12-card-sheet-face-r2c2.jpg",
+            "groupId": 17,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 407,
+            "requirement": "합하면 20이 되는 카드 3장",
+            "effect": "",
+            "power": 2,
+            "diamonds": 0,
+            "sourceSheet": "12-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 2,
+            "imagePath": "cards/12-card-sheet-face-r3c2.jpg",
+            "groupId": 18,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 408,
+            "requirement": "홀수인 카드 3장",
+            "effect": "",
+            "power": 1,
+            "diamonds": 1,
+            "sourceSheet": "12-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 3,
+            "imagePath": "cards/12-card-sheet-face-r3c3.jpg",
+            "groupId": 19,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 500,
+            "requirement": "44",
+            "effect": "진주 4로 사용가능",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "17-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 1,
+            "column": 1,
+            "imagePath": "cards/17-card-sheet-face-r1c1.jpg",
+            "groupId": 20,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 505,
+            "requirement": "8888",
+            "effect": "",
+            "power": 5,
+            "diamonds": 0,
+            "sourceSheet": "17-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 3,
+            "imagePath": "cards/17-card-sheet-face-r2c3.jpg",
+            "groupId": 21,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 508,
+            "requirement": "45678",
+            "effect": "이번 차례를 포함해서, 매 차례마다 행동 1회를 추가로 수행할 수 있음",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "17-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 3,
+            "imagePath": "cards/17-card-sheet-face-r3c3.jpg",
+            "groupId": 22,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 600,
+            "requirement": "222+다이아몬드 1장",
+            "effect": "",
+            "power": 3,
+            "diamonds": 0,
+            "sourceSheet": "18-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 1,
+            "column": 1,
+            "imagePath": "cards/18-card-sheet-face-r1c1.jpg",
+            "groupId": 23,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 603,
+            "requirement": "1111",
+            "effect": "진주 '1~8'중 원하는 수로 사용가능",
+            "power": 0,
+            "diamonds": 0,
+            "sourceSheet": "18-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 1,
+            "imagePath": "cards/18-card-sheet-face-r2c1.jpg",
+            "groupId": 24,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 604,
+            "requirement": "같은 카드 2장씩 두 벌",
+            "effect": "다음 차례의 플레이어는 자신의 차례에 행동 1회를 추가로 수행",
+            "power": 2,
+            "diamonds": 0,
+            "sourceSheet": "18-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 2,
+            "imagePath": "cards/18-card-sheet-face-r2c2.jpg",
+            "groupId": 25,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 607,
+            "requirement": "22",
+            "effect": "진주 2로 사용가능",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "18-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 2,
+            "imagePath": "cards/18-card-sheet-face-r3c2.jpg",
+            "groupId": 26,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 608,
+            "requirement": "333",
+            "effect": "캐릭터를 활성화할 때, 손에 든 '3' 진주 카드를 '1~8' 중 원하는 값으로 사용할 수 있음",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "18-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 3,
+            "imagePath": "cards/18-card-sheet-face-r3c3.jpg",
+            "groupId": 27,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 700,
+            "requirement": "연속되는 카드 5장",
+            "effect": "내 차례 시작 직후, 첫 행동을 시작하기 전에, 내 관문에 있는 캐릭터 카드 1장을 열린 캐릭터 카드 1장과 서로 바꿀 수 있음",
+            "power": 2,
+            "diamonds": 0,
+            "sourceSheet": "19-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 1,
+            "column": 1,
+            "imagePath": "cards/19-card-sheet-face-r1c1.jpg",
+            "groupId": 28,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 701,
+            "requirement": "2468",
+            "effect": "추가 행동 3회를 즉시 수행",
+            "power": 2,
+            "diamonds": 0,
+            "sourceSheet": "19-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 1,
+            "column": 2,
+            "imagePath": "cards/19-card-sheet-face-r1c2.jpg",
+            "groupId": 29,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 702,
+            "requirement": "1357",
+            "effect": "추가 행동 3회를 즉시 수행",
+            "power": 2,
+            "diamonds": 0,
+            "sourceSheet": "19-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 1,
+            "column": 3,
+            "imagePath": "cards/19-card-sheet-face-r1c3.jpg",
+            "groupId": 30,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 703,
+            "requirement": "짝수인 카드 3장",
+            "effect": "",
+            "power": 1,
+            "diamonds": 1,
+            "sourceSheet": "19-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 1,
+            "imagePath": "cards/19-card-sheet-face-r2c1.jpg",
+            "groupId": 31,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 704,
+            "requirement": "같은 카드 4장",
+            "effect": "",
+            "power": 3,
+            "diamonds": 0,
+            "sourceSheet": "19-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 2,
+            "imagePath": "cards/19-card-sheet-face-r2c2.jpg",
+            "groupId": 32,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 707,
+            "requirement": "333/666",
+            "effect": "도깨비불은 관문에 거꾸로 놓는 유일한 캐릭터 카드임. 내 관문에 놓은 도깨비불을 내 양 옆 플레이어가 활성화시킬 수도 있음. 도깨비불을 활성화한 플레이어는 그 도깨비불을 가져가서 자신의 관문 오른쪽에 놓고 힘 3점을 얻음.",
+            "power": 3,
+            "diamonds": 0,
+            "sourceSheet": "19-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 2,
+            "imagePath": "cards/19-card-sheet-face-r3c2.jpg",
+            "groupId": 33,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 708,
+            "requirement": "합이 10이 되는 카드 3장",
+            "effect": "캐릭터를 활성화할 때, 손에 든 '1' 진주 카드를 '8'인 것처럼 사용할 수 있음",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "19-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 3,
+            "imagePath": "cards/19-card-sheet-face-r3c3.jpg",
+            "groupId": 34,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 800,
+            "requirement": "345",
+            "effect": "방금 사용한 진주 카드 중 1장을 다시 가져옴",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "20-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 1,
+            "column": 1,
+            "imagePath": "cards/20-card-sheet-face-r1c1.jpg",
+            "groupId": 35,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 804,
+            "requirement": "66",
+            "effect": "진주 6으로 사용가능",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "20-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 2,
+            "imagePath": "cards/20-card-sheet-face-r2c2.jpg",
+            "groupId": 36,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 805,
+            "requirement": "77",
+            "effect": "진주 7로 사용가능",
+            "power": 1,
+            "diamonds": 0,
+            "sourceSheet": "20-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 2,
+            "column": 3,
+            "imagePath": "cards/20-card-sheet-face-r2c3.jpg",
+            "groupId": 37,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 806,
+            "requirement": "2",
+            "effect": "손에 든 '2' 진주 카드 1장을 버리고 다이아몬드 1개를 가져올 수 있음",
+            "power": 0,
+            "diamonds": 1,
+            "sourceSheet": "20-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 1,
+            "imagePath": "cards/20-card-sheet-face-r3c1.jpg",
+            "groupId": 38,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 808,
+            "requirement": "1234",
+            "effect": "",
+            "power": 1,
+            "diamonds": 2,
+            "sourceSheet": "20-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 3,
+                  "rows": 3,
+                  "reason": "default-card-sheet"
+            },
+            "row": 3,
+            "column": 3,
+            "imagePath": "cards/20-card-sheet-face-r3c3.jpg",
+            "groupId": 39,
+            "groupSize": 1,
+            "groupIndex": 1
+      },
+      {
+            "cardId": 901,
+            "requirement": "444/555",
+            "effect": "도깨비불은 관문에 거꾸로 놓는 유일한 캐릭터 카드임. 내 관문에 놓은 도깨비불을 내 양 옆 플레이어가 활성화시킬 수도 있음. 도깨비불을 활성화한 플레이어는 그 도깨비불을 가져가서 자신의 관문 오른쪽에 놓고 힘 3점을 얻음.",
+            "power": 3,
+            "diamonds": 0,
+            "sourceSheet": "21-card-sheet-face.jpg",
+            "grid": {
+                  "columns": 2,
+                  "rows": 2,
+                  "reason": "tts-custom-deck-9"
+            },
+            "row": 1,
+            "column": 2,
+            "imagePath": "cards/21-card-sheet-face-r1c2.jpg",
+            "groupId": 40,
+            "groupSize": 1,
+            "groupIndex": 1
+      }
+];
+    const STORAGE_KEY = "gate-of-molta-character-review-v1";
+
+    const state = loadState();
+    const cardsEl = document.querySelector("#cards");
+    const searchEl = document.querySelector("#search");
+    const filterEl = document.querySelector("#filter");
+    const summaryEl = document.querySelector("#summary");
+
+    document.querySelector("[data-next]").addEventListener("click", () => {
+      const next = [...document.querySelectorAll('.card[data-status="unknown"]:not(.hidden)')][0];
+      if (next) {
+        next.scrollIntoView({ block: "center", behavior: "smooth" });
+      }
+    });
+
+    searchEl.addEventListener("input", render);
+    filterEl.addEventListener("change", render);
+
+    render();
+
+    function loadState() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+      } catch {
+        return {};
+      }
+    }
+
+    function saveState() {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+      updateSummary();
+    }
+
+    function reviewFor(cardId) {
+      state[cardId] ||= { status: "unknown", note: "" };
+      return state[cardId];
+    }
+
+    function render() {
+      const query = searchEl.value.trim().toLowerCase();
+      const filter = filterEl.value;
+
+      cardsEl.innerHTML = "";
+      let lastVisibleGroupId = null;
+      for (const card of CARDS) {
+        const review = reviewFor(card.cardId);
+        const searchable = [
+          card.cardId,
+          card.requirement,
+          card.power,
+          card.diamonds,
+          card.effect,
+          card.sourceSheet,
+          card.imagePath,
+        ].join(" ").toLowerCase();
+        const visibleByQuery = !query || searchable.includes(query);
+        const visibleByFilter = filter === "all" || review.status === filter;
+
+        if (visibleByQuery && visibleByFilter && card.groupId !== lastVisibleGroupId) {
+          const groupHeader = document.createElement("div");
+          groupHeader.className = "group-header";
+          const label = card.groupSize > 1 ? `동일 후보 ${card.groupSize}장` : "단일 카드";
+          groupHeader.innerHTML = `<strong>그룹 ${card.groupId}</strong><span>${label}</span>`;
+          cardsEl.append(groupHeader);
+          lastVisibleGroupId = card.groupId;
+        }
+
+        const article = document.createElement("article");
+        article.className = "card";
+        article.dataset.cardId = card.cardId;
+        article.dataset.status = review.status;
+        if (!visibleByQuery || !visibleByFilter) continue;
+
+        article.innerHTML = cardMarkup(card, review);
+        bindCard(article, card);
+        cardsEl.append(article);
+      }
+
+      updateSummary();
+    }
+
+    function cardMarkup(card, review) {
+      return `
+      <div class="topline">
+        <div class="id">#${card.cardId}</div>
+          <div class="source">${card.sourceSheet} r${card.row}c${card.column}</div>
+        </div>
+        ${card.groupSize > 1 ? `<div class="badge">동일 후보 ${card.groupIndex}/${card.groupSize}</div>` : ""}
+        <img class="photo" src="${card.imagePath}" alt="카드 #${card.cardId} 이미지">
+        <dl>
+          <dt>비용</dt>
+          <dd>${escapeHtml(card.requirement || "-")}</dd>
+          <dt>점수</dt>
+          <dd>${card.power === null || card.power === undefined ? "미확인" : escapeHtml(card.power)}</dd>
+          <dt>다이아</dt>
+          <dd>${card.diamonds === null || card.diamonds === undefined ? "미확인" : escapeHtml(card.diamonds)}</dd>
+          <dt>효과</dt>
+          <dd class="effect">${escapeHtml(card.effect || "효과 메모 없음")}</dd>
+        </dl>
+        <div class="status" role="group" aria-label="확인 상태">
+          ${statusButton("unknown", "미확인", review.status)}
+          ${statusButton("ok", "맞음", review.status)}
+          ${statusButton("issue", "수정 필요", review.status)}
+        </div>
+        <textarea placeholder="확인 메모">${escapeHtml(review.note || "")}</textarea>
+      `;
+    }
+
+    function statusButton(value, label, current) {
+      return `<button type="button" data-value="${value}" aria-pressed="${value === current}">${label}</button>`;
+    }
+
+    function bindCard(article, card) {
+      article.querySelectorAll("button[data-value]").forEach((button) => {
+        button.addEventListener("click", () => {
+          const review = reviewFor(card.cardId);
+          review.status = button.dataset.value;
+          saveState();
+          render();
+        });
+      });
+
+      article.querySelector("textarea").addEventListener("input", (event) => {
+        const review = reviewFor(card.cardId);
+        review.note = event.target.value;
+        saveState();
+      });
+    }
+
+    function updateSummary() {
+      const counts = { unknown: 0, ok: 0, issue: 0 };
+      for (const card of CARDS) {
+        counts[reviewFor(card.cardId).status] += 1;
+      }
+      const visible = document.querySelectorAll(".card:not(.hidden)").length;
+      summaryEl.textContent =
+        `총 ${CARDS.length}장 · 표시 ${visible}장 · 미확인 ${counts.unknown} · 맞음 ${counts.ok} · 수정 필요 ${counts.issue}`;
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+  </script>
+</body>
+</html>

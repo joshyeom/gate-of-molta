@@ -1,0 +1,121 @@
+{
+  "status": "generated_imagegen_reference_derivatives_not_app_assets",
+  "warning": "These files are AI-generated restorations derived from Steam/TTS pearl-card source crops. Treat them as reference material only and do not ship as final app assets unless rights are confirmed.",
+  "createdAt": "2026-05-23",
+  "generationMode": "built-in image_gen image-to-image restoration from local pearl crop previews",
+  "sourcePearlManifest": "../manifest.json",
+  "contactSheet": "contact-sheet.png",
+  "generatedCardCount": 11,
+  "cards": [
+    {
+      "fileName": "cards/pearl-1.png",
+      "assetName": "pearl-1",
+      "sourceFileName": "cards/pearl-1.jpg",
+      "value": 1,
+      "variant": "standard",
+      "hasCharacterRefreshIcon": false,
+      "sourceCropFileName": "cards/13-card-sheet-face-r1c1.jpg",
+      "sha256": "a904f73ca6dc6425dcee66381b620a779956ba7f5945e72b589c4d09afe7821b"
+    },
+    {
+      "fileName": "cards/pearl-2.png",
+      "assetName": "pearl-2",
+      "sourceFileName": "cards/pearl-2.jpg",
+      "value": 2,
+      "variant": "standard",
+      "hasCharacterRefreshIcon": false,
+      "sourceCropFileName": "cards/13-card-sheet-face-r1c2.jpg",
+      "sha256": "080c3791593bcc0c08772a5a3617384f422a05de35a5f28a2dacf803dbc5af61"
+    },
+    {
+      "fileName": "cards/pearl-3.png",
+      "assetName": "pearl-3",
+      "sourceFileName": "cards/pearl-3.jpg",
+      "value": 3,
+      "variant": "standard",
+      "hasCharacterRefreshIcon": false,
+      "sourceCropFileName": "cards/13-card-sheet-face-r1c3.jpg",
+      "sha256": "1cbb7241375a4d687ef3390a756b2fd194050b106caa07451028224d8403160d"
+    },
+    {
+      "fileName": "cards/pearl-4.png",
+      "assetName": "pearl-4",
+      "sourceFileName": "cards/pearl-4.jpg",
+      "value": 4,
+      "variant": "standard",
+      "hasCharacterRefreshIcon": false,
+      "sourceCropFileName": "cards/13-card-sheet-face-r2c1.jpg",
+      "sha256": "6e189ee908c4b38cd64754860938c1df288ebb93f246e4274da5039ae4786bb3"
+    },
+    {
+      "fileName": "cards/pearl-5.png",
+      "assetName": "pearl-5",
+      "sourceFileName": "cards/pearl-5.jpg",
+      "value": 5,
+      "variant": "standard",
+      "hasCharacterRefreshIcon": false,
+      "sourceCropFileName": "cards/13-card-sheet-face-r2c2.jpg",
+      "sha256": "acdc3873c343f477f787a8dee99719cd694bc6be46ef6975c2fc689f2c831ecb"
+    },
+    {
+      "fileName": "cards/pearl-6.png",
+      "assetName": "pearl-6",
+      "sourceFileName": "cards/pearl-6.jpg",
+      "value": 6,
+      "variant": "standard",
+      "hasCharacterRefreshIcon": false,
+      "sourceCropFileName": "cards/13-card-sheet-face-r2c3.jpg",
+      "sha256": "d6c68350a9d528745537f21236cd67c037a4d4e72474b2cc3bf7b2d2a070861d"
+    },
+    {
+      "fileName": "cards/pearl-7.png",
+      "assetName": "pearl-7",
+      "sourceFileName": "cards/pearl-7.jpg",
+      "value": 7,
+      "variant": "standard",
+      "hasCharacterRefreshIcon": false,
+      "sourceCropFileName": "cards/13-card-sheet-face-r3c1.jpg",
+      "sha256": "5bb2face51487528cc7a7057b6290a5a6b876085a23af662cda8f1caa11db1f3"
+    },
+    {
+      "fileName": "cards/pearl-8.png",
+      "assetName": "pearl-8",
+      "sourceFileName": "cards/pearl-8.jpg",
+      "value": 8,
+      "variant": "standard",
+      "hasCharacterRefreshIcon": false,
+      "sourceCropFileName": "cards/13-card-sheet-face-r3c2.jpg",
+      "sha256": "9e848874ea372e81bade2dc87d07799f934abfbca4a3ec1e54e66ce16c666c55"
+    },
+    {
+      "fileName": "cards/pearl-3-refresh.png",
+      "assetName": "pearl-3-refresh",
+      "sourceFileName": "cards/pearl-3-refresh.jpg",
+      "value": 3,
+      "variant": "character-refresh",
+      "hasCharacterRefreshIcon": true,
+      "sourceCropFileName": "cards/13-card-sheet-face-r3c3.jpg",
+      "sha256": "df976ffc9cc5841ab90c68376760e6665311a018324c1ad02a4148691d062345"
+    },
+    {
+      "fileName": "cards/pearl-4-refresh.png",
+      "assetName": "pearl-4-refresh",
+      "sourceFileName": "cards/pearl-4-refresh.jpg",
+      "value": 4,
+      "variant": "character-refresh",
+      "hasCharacterRefreshIcon": true,
+      "sourceCropFileName": "cards/15-card-sheet-face-r1c1.jpg",
+      "sha256": "73d15b7b945c95d6fa03103337fa471f5479ee5553b0a2ddcdaa5251dec541e5"
+    },
+    {
+      "fileName": "cards/pearl-5-refresh.png",
+      "assetName": "pearl-5-refresh",
+      "sourceFileName": "cards/pearl-5-refresh.jpg",
+      "value": 5,
+      "variant": "character-refresh",
+      "hasCharacterRefreshIcon": true,
+      "sourceCropFileName": "cards/15-card-sheet-face-r1c2.jpg",
+      "sha256": "a9df6f26c158b71a838ba16233a2f82894845bef30b41bcce17505f478730528"
+    }
+  ]
+}

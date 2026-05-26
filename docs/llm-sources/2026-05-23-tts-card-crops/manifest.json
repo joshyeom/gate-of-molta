@@ -1,0 +1,4308 @@
+{
+  "status": "reference_card_crops_not_app_assets",
+  "warning": "These cropped files are reference/source material only. Do not use them as final distributable app assets unless rights are confirmed.",
+  "sourceManifest": "../2026-05-23-tts-reference-assets/manifest.json",
+  "sourceSheetCount": 8,
+  "croppedCardCount": 67,
+  "cards": [
+    {
+      "fileName": "cards/12-card-sheet-face-r1c1.jpg",
+      "sourceSheet": "12-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649319813/E264D2114447EB7FE8237C8D8599FFDC8F1DEF8B/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[9].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[13].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[14].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[17].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[33].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[37].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[40].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[42].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[24].CustomDeck.4.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 1,
+      "cardIndex": 1,
+      "crop": {
+        "x": 0,
+        "y": 0,
+        "width": 660,
+        "height": 1027
+      }
+    },
+    {
+      "fileName": "cards/12-card-sheet-face-r1c2.jpg",
+      "sourceSheet": "12-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649319813/E264D2114447EB7FE8237C8D8599FFDC8F1DEF8B/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[9].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[13].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[14].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[17].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[33].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[37].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[40].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[42].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[24].CustomDeck.4.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 2,
+      "cardIndex": 2,
+      "crop": {
+        "x": 660,
+        "y": 0,
+        "width": 660,
+        "height": 1027
+      }
+    },
+    {
+      "fileName": "cards/12-card-sheet-face-r1c3.jpg",
+      "sourceSheet": "12-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649319813/E264D2114447EB7FE8237C8D8599FFDC8F1DEF8B/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[9].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[13].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[14].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[17].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[33].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[37].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[40].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[42].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[24].CustomDeck.4.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 3,
+      "cardIndex": 3,
+      "crop": {
+        "x": 1320,
+        "y": 0,
+        "width": 660,
+        "height": 1027
+      }
+    },
+    {
+      "fileName": "cards/12-card-sheet-face-r2c1.jpg",
+      "sourceSheet": "12-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649319813/E264D2114447EB7FE8237C8D8599FFDC8F1DEF8B/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[9].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[13].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[14].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[17].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[33].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[37].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[40].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[42].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[24].CustomDeck.4.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 1,
+      "cardIndex": 4,
+      "crop": {
+        "x": 0,
+        "y": 1027,
+        "width": 660,
+        "height": 1026
+      }
+    },
+    {
+      "fileName": "cards/12-card-sheet-face-r2c2.jpg",
+      "sourceSheet": "12-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649319813/E264D2114447EB7FE8237C8D8599FFDC8F1DEF8B/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[9].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[13].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[14].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[17].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[33].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[37].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[40].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[42].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[24].CustomDeck.4.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 2,
+      "cardIndex": 5,
+      "crop": {
+        "x": 660,
+        "y": 1027,
+        "width": 660,
+        "height": 1026
+      }
+    },
+    {
+      "fileName": "cards/12-card-sheet-face-r2c3.jpg",
+      "sourceSheet": "12-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649319813/E264D2114447EB7FE8237C8D8599FFDC8F1DEF8B/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[9].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[13].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[14].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[17].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[33].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[37].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[40].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[42].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[24].CustomDeck.4.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 3,
+      "cardIndex": 6,
+      "crop": {
+        "x": 1320,
+        "y": 1027,
+        "width": 660,
+        "height": 1026
+      }
+    },
+    {
+      "fileName": "cards/12-card-sheet-face-r3c1.jpg",
+      "sourceSheet": "12-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649319813/E264D2114447EB7FE8237C8D8599FFDC8F1DEF8B/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[9].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[13].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[14].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[17].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[33].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[37].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[40].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[42].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[24].CustomDeck.4.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 1,
+      "cardIndex": 7,
+      "crop": {
+        "x": 0,
+        "y": 2053,
+        "width": 660,
+        "height": 1027
+      }
+    },
+    {
+      "fileName": "cards/12-card-sheet-face-r3c2.jpg",
+      "sourceSheet": "12-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649319813/E264D2114447EB7FE8237C8D8599FFDC8F1DEF8B/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[9].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[13].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[14].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[17].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[33].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[37].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[40].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[42].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[24].CustomDeck.4.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 2,
+      "cardIndex": 8,
+      "crop": {
+        "x": 660,
+        "y": 2053,
+        "width": 660,
+        "height": 1027
+      }
+    },
+    {
+      "fileName": "cards/12-card-sheet-face-r3c3.jpg",
+      "sourceSheet": "12-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649319813/E264D2114447EB7FE8237C8D8599FFDC8F1DEF8B/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[9].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[13].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[14].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[17].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[33].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[37].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[40].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[42].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[24].CustomDeck.4.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 3,
+      "cardIndex": 9,
+      "crop": {
+        "x": 1320,
+        "y": 2053,
+        "width": 660,
+        "height": 1027
+      }
+    },
+    {
+      "fileName": "cards/13-card-sheet-face-r1c1.jpg",
+      "sourceSheet": "13-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[0].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[1].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[2].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[3].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[9].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[10].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[14].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[27].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[29].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[32].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[44].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[47].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[16].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[17].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[18].CustomDeck.1.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 1,
+      "cardIndex": 1,
+      "crop": {
+        "x": 0,
+        "y": 0,
+        "width": 660,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/13-card-sheet-face-r1c2.jpg",
+      "sourceSheet": "13-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[0].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[1].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[2].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[3].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[9].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[10].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[14].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[27].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[29].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[32].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[44].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[47].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[16].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[17].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[18].CustomDeck.1.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 2,
+      "cardIndex": 2,
+      "crop": {
+        "x": 660,
+        "y": 0,
+        "width": 660,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/13-card-sheet-face-r1c3.jpg",
+      "sourceSheet": "13-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[0].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[1].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[2].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[3].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[9].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[10].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[14].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[27].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[29].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[32].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[44].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[47].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[16].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[17].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[18].CustomDeck.1.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 3,
+      "cardIndex": 3,
+      "crop": {
+        "x": 1320,
+        "y": 0,
+        "width": 660,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/13-card-sheet-face-r2c1.jpg",
+      "sourceSheet": "13-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[0].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[1].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[2].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[3].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[9].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[10].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[14].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[27].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[29].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[32].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[44].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[47].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[16].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[17].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[18].CustomDeck.1.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 1,
+      "cardIndex": 4,
+      "crop": {
+        "x": 0,
+        "y": 1024,
+        "width": 660,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/13-card-sheet-face-r2c2.jpg",
+      "sourceSheet": "13-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[0].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[1].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[2].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[3].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[9].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[10].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[14].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[27].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[29].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[32].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[44].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[47].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[16].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[17].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[18].CustomDeck.1.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 2,
+      "cardIndex": 5,
+      "crop": {
+        "x": 660,
+        "y": 1024,
+        "width": 660,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/13-card-sheet-face-r2c3.jpg",
+      "sourceSheet": "13-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[0].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[1].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[2].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[3].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[9].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[10].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[14].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[27].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[29].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[32].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[44].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[47].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[16].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[17].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[18].CustomDeck.1.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 3,
+      "cardIndex": 6,
+      "crop": {
+        "x": 1320,
+        "y": 1024,
+        "width": 660,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/13-card-sheet-face-r3c1.jpg",
+      "sourceSheet": "13-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[0].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[1].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[2].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[3].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[9].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[10].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[14].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[27].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[29].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[32].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[44].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[47].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[16].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[17].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[18].CustomDeck.1.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 1,
+      "cardIndex": 7,
+      "crop": {
+        "x": 0,
+        "y": 2048,
+        "width": 660,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/13-card-sheet-face-r3c2.jpg",
+      "sourceSheet": "13-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[0].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[1].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[2].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[3].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[9].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[10].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[14].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[27].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[29].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[32].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[44].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[47].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[16].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[17].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[18].CustomDeck.1.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 2,
+      "cardIndex": 8,
+      "crop": {
+        "x": 660,
+        "y": 2048,
+        "width": 660,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/13-card-sheet-face-r3c3.jpg",
+      "sourceSheet": "13-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[0].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[1].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[2].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[3].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[9].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[10].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[14].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[27].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[29].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[32].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[44].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[47].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[16].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[17].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[18].CustomDeck.1.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 3,
+      "cardIndex": 9,
+      "crop": {
+        "x": 1320,
+        "y": 2048,
+        "width": 660,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/15-card-sheet-face-r1c1.jpg",
+      "sourceSheet": "15-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650480802/0CAEDF1F4701D431DAA76FFD6F38B3DE99FE9876/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[20].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[26].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[1].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[7].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[20].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[24].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[25].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[47].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[50].CustomDeck.3.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 1,
+      "cardIndex": 1,
+      "crop": {
+        "x": 0,
+        "y": 0,
+        "width": 659,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/15-card-sheet-face-r1c2.jpg",
+      "sourceSheet": "15-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650480802/0CAEDF1F4701D431DAA76FFD6F38B3DE99FE9876/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[20].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[26].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[1].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[7].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[20].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[24].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[25].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[47].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[50].CustomDeck.3.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 2,
+      "cardIndex": 2,
+      "crop": {
+        "x": 659,
+        "y": 0,
+        "width": 658,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/15-card-sheet-face-r1c3.jpg",
+      "sourceSheet": "15-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650480802/0CAEDF1F4701D431DAA76FFD6F38B3DE99FE9876/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[20].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[26].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[1].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[7].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[20].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[24].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[25].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[47].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[50].CustomDeck.3.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 3,
+      "cardIndex": 3,
+      "crop": {
+        "x": 1317,
+        "y": 0,
+        "width": 659,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/15-card-sheet-face-r2c1.jpg",
+      "sourceSheet": "15-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650480802/0CAEDF1F4701D431DAA76FFD6F38B3DE99FE9876/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[20].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[26].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[1].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[7].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[20].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[24].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[25].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[47].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[50].CustomDeck.3.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 1,
+      "cardIndex": 4,
+      "crop": {
+        "x": 0,
+        "y": 1025,
+        "width": 659,
+        "height": 1026
+      }
+    },
+    {
+      "fileName": "cards/15-card-sheet-face-r2c2.jpg",
+      "sourceSheet": "15-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650480802/0CAEDF1F4701D431DAA76FFD6F38B3DE99FE9876/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[20].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[26].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[1].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[7].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[20].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[24].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[25].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[47].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[50].CustomDeck.3.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 2,
+      "cardIndex": 5,
+      "crop": {
+        "x": 659,
+        "y": 1025,
+        "width": 658,
+        "height": 1026
+      }
+    },
+    {
+      "fileName": "cards/15-card-sheet-face-r2c3.jpg",
+      "sourceSheet": "15-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650480802/0CAEDF1F4701D431DAA76FFD6F38B3DE99FE9876/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[20].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[26].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[1].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[7].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[20].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[24].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[25].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[47].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[50].CustomDeck.3.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 3,
+      "cardIndex": 6,
+      "crop": {
+        "x": 1317,
+        "y": 1025,
+        "width": 659,
+        "height": 1026
+      }
+    },
+    {
+      "fileName": "cards/15-card-sheet-face-r3c1.jpg",
+      "sourceSheet": "15-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650480802/0CAEDF1F4701D431DAA76FFD6F38B3DE99FE9876/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[20].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[26].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[1].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[7].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[20].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[24].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[25].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[47].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[50].CustomDeck.3.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 1,
+      "cardIndex": 7,
+      "crop": {
+        "x": 0,
+        "y": 2051,
+        "width": 659,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/15-card-sheet-face-r3c2.jpg",
+      "sourceSheet": "15-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650480802/0CAEDF1F4701D431DAA76FFD6F38B3DE99FE9876/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[20].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[26].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[1].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[7].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[20].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[24].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[25].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[47].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[50].CustomDeck.3.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 2,
+      "cardIndex": 8,
+      "crop": {
+        "x": 659,
+        "y": 2051,
+        "width": 658,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/15-card-sheet-face-r3c3.jpg",
+      "sourceSheet": "15-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650480802/0CAEDF1F4701D431DAA76FFD6F38B3DE99FE9876/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[20].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[26].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[1].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[7].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[20].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[24].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[25].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[47].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[50].CustomDeck.3.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 3,
+      "cardIndex": 9,
+      "crop": {
+        "x": 1317,
+        "y": 2051,
+        "width": 659,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/17-card-sheet-face-r1c1.jpg",
+      "sourceSheet": "17-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650492287/09F4398F757782C2176548D49B3F1993D3BB8829/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[0].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[2].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[4].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[10].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[16].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[41].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[48].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[49].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[25].CustomDeck.5.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 1,
+      "cardIndex": 1,
+      "crop": {
+        "x": 0,
+        "y": 0,
+        "width": 660,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/17-card-sheet-face-r1c2.jpg",
+      "sourceSheet": "17-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650492287/09F4398F757782C2176548D49B3F1993D3BB8829/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[0].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[2].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[4].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[10].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[16].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[41].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[48].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[49].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[25].CustomDeck.5.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 2,
+      "cardIndex": 2,
+      "crop": {
+        "x": 660,
+        "y": 0,
+        "width": 660,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/17-card-sheet-face-r1c3.jpg",
+      "sourceSheet": "17-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650492287/09F4398F757782C2176548D49B3F1993D3BB8829/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[0].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[2].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[4].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[10].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[16].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[41].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[48].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[49].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[25].CustomDeck.5.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 3,
+      "cardIndex": 3,
+      "crop": {
+        "x": 1320,
+        "y": 0,
+        "width": 660,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/17-card-sheet-face-r2c1.jpg",
+      "sourceSheet": "17-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650492287/09F4398F757782C2176548D49B3F1993D3BB8829/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[0].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[2].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[4].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[10].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[16].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[41].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[48].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[49].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[25].CustomDeck.5.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 1,
+      "cardIndex": 4,
+      "crop": {
+        "x": 0,
+        "y": 1025,
+        "width": 660,
+        "height": 1026
+      }
+    },
+    {
+      "fileName": "cards/17-card-sheet-face-r2c2.jpg",
+      "sourceSheet": "17-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650492287/09F4398F757782C2176548D49B3F1993D3BB8829/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[0].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[2].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[4].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[10].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[16].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[41].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[48].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[49].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[25].CustomDeck.5.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 2,
+      "cardIndex": 5,
+      "crop": {
+        "x": 660,
+        "y": 1025,
+        "width": 660,
+        "height": 1026
+      }
+    },
+    {
+      "fileName": "cards/17-card-sheet-face-r2c3.jpg",
+      "sourceSheet": "17-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650492287/09F4398F757782C2176548D49B3F1993D3BB8829/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[0].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[2].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[4].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[10].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[16].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[41].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[48].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[49].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[25].CustomDeck.5.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 3,
+      "cardIndex": 6,
+      "crop": {
+        "x": 1320,
+        "y": 1025,
+        "width": 660,
+        "height": 1026
+      }
+    },
+    {
+      "fileName": "cards/17-card-sheet-face-r3c1.jpg",
+      "sourceSheet": "17-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650492287/09F4398F757782C2176548D49B3F1993D3BB8829/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[0].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[2].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[4].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[10].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[16].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[41].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[48].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[49].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[25].CustomDeck.5.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 1,
+      "cardIndex": 7,
+      "crop": {
+        "x": 0,
+        "y": 2051,
+        "width": 660,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/17-card-sheet-face-r3c2.jpg",
+      "sourceSheet": "17-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650492287/09F4398F757782C2176548D49B3F1993D3BB8829/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[0].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[2].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[4].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[10].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[16].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[41].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[48].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[49].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[25].CustomDeck.5.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 2,
+      "cardIndex": 8,
+      "crop": {
+        "x": 660,
+        "y": 2051,
+        "width": 660,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/17-card-sheet-face-r3c3.jpg",
+      "sourceSheet": "17-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650492287/09F4398F757782C2176548D49B3F1993D3BB8829/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[0].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[2].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[4].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[10].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[16].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[41].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[48].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[49].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[25].CustomDeck.5.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 3,
+      "cardIndex": 9,
+      "crop": {
+        "x": 1320,
+        "y": 2051,
+        "width": 660,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/18-card-sheet-face-r1c1.jpg",
+      "sourceSheet": "18-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650493621/48AC8609670198C445DEE1DA0A1A0E28E8394426/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[3].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[11].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[19].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[26].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[29].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[30].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[38].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[43].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[45].CustomDeck.6.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 1,
+      "cardIndex": 1,
+      "crop": {
+        "x": 0,
+        "y": 0,
+        "width": 660,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/18-card-sheet-face-r1c2.jpg",
+      "sourceSheet": "18-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650493621/48AC8609670198C445DEE1DA0A1A0E28E8394426/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[3].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[11].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[19].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[26].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[29].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[30].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[38].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[43].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[45].CustomDeck.6.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 2,
+      "cardIndex": 2,
+      "crop": {
+        "x": 660,
+        "y": 0,
+        "width": 660,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/18-card-sheet-face-r1c3.jpg",
+      "sourceSheet": "18-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650493621/48AC8609670198C445DEE1DA0A1A0E28E8394426/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[3].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[11].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[19].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[26].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[29].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[30].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[38].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[43].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[45].CustomDeck.6.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 3,
+      "cardIndex": 3,
+      "crop": {
+        "x": 1320,
+        "y": 0,
+        "width": 660,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/18-card-sheet-face-r2c1.jpg",
+      "sourceSheet": "18-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650493621/48AC8609670198C445DEE1DA0A1A0E28E8394426/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[3].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[11].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[19].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[26].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[29].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[30].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[38].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[43].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[45].CustomDeck.6.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 1,
+      "cardIndex": 4,
+      "crop": {
+        "x": 0,
+        "y": 1025,
+        "width": 660,
+        "height": 1026
+      }
+    },
+    {
+      "fileName": "cards/18-card-sheet-face-r2c2.jpg",
+      "sourceSheet": "18-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650493621/48AC8609670198C445DEE1DA0A1A0E28E8394426/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[3].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[11].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[19].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[26].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[29].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[30].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[38].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[43].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[45].CustomDeck.6.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 2,
+      "cardIndex": 5,
+      "crop": {
+        "x": 660,
+        "y": 1025,
+        "width": 660,
+        "height": 1026
+      }
+    },
+    {
+      "fileName": "cards/18-card-sheet-face-r2c3.jpg",
+      "sourceSheet": "18-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650493621/48AC8609670198C445DEE1DA0A1A0E28E8394426/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[3].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[11].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[19].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[26].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[29].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[30].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[38].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[43].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[45].CustomDeck.6.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 3,
+      "cardIndex": 6,
+      "crop": {
+        "x": 1320,
+        "y": 1025,
+        "width": 660,
+        "height": 1026
+      }
+    },
+    {
+      "fileName": "cards/18-card-sheet-face-r3c1.jpg",
+      "sourceSheet": "18-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650493621/48AC8609670198C445DEE1DA0A1A0E28E8394426/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[3].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[11].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[19].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[26].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[29].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[30].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[38].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[43].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[45].CustomDeck.6.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 1,
+      "cardIndex": 7,
+      "crop": {
+        "x": 0,
+        "y": 2051,
+        "width": 660,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/18-card-sheet-face-r3c2.jpg",
+      "sourceSheet": "18-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650493621/48AC8609670198C445DEE1DA0A1A0E28E8394426/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[3].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[11].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[19].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[26].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[29].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[30].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[38].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[43].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[45].CustomDeck.6.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 2,
+      "cardIndex": 8,
+      "crop": {
+        "x": 660,
+        "y": 2051,
+        "width": 660,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/18-card-sheet-face-r3c3.jpg",
+      "sourceSheet": "18-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650493621/48AC8609670198C445DEE1DA0A1A0E28E8394426/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[3].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[11].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[19].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[26].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[29].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[30].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[38].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[43].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[45].CustomDeck.6.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 3,
+      "cardIndex": 9,
+      "crop": {
+        "x": 1320,
+        "y": 2051,
+        "width": 660,
+        "height": 1025
+      }
+    },
+    {
+      "fileName": "cards/19-card-sheet-face-r1c1.jpg",
+      "sourceSheet": "19-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650494885/56A97D7338EC31F1266B11AD0F81ED64AC2891EF/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[5].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[6].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[8].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[12].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[21].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[28].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[31].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[36].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[44].CustomDeck.7.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 1,
+      "cardIndex": 1,
+      "crop": {
+        "x": 0,
+        "y": 0,
+        "width": 659,
+        "height": 1023
+      }
+    },
+    {
+      "fileName": "cards/19-card-sheet-face-r1c2.jpg",
+      "sourceSheet": "19-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650494885/56A97D7338EC31F1266B11AD0F81ED64AC2891EF/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[5].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[6].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[8].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[12].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[21].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[28].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[31].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[36].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[44].CustomDeck.7.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 2,
+      "cardIndex": 2,
+      "crop": {
+        "x": 659,
+        "y": 0,
+        "width": 658,
+        "height": 1023
+      }
+    },
+    {
+      "fileName": "cards/19-card-sheet-face-r1c3.jpg",
+      "sourceSheet": "19-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650494885/56A97D7338EC31F1266B11AD0F81ED64AC2891EF/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[5].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[6].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[8].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[12].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[21].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[28].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[31].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[36].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[44].CustomDeck.7.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 3,
+      "cardIndex": 3,
+      "crop": {
+        "x": 1317,
+        "y": 0,
+        "width": 659,
+        "height": 1023
+      }
+    },
+    {
+      "fileName": "cards/19-card-sheet-face-r2c1.jpg",
+      "sourceSheet": "19-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650494885/56A97D7338EC31F1266B11AD0F81ED64AC2891EF/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[5].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[6].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[8].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[12].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[21].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[28].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[31].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[36].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[44].CustomDeck.7.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 1,
+      "cardIndex": 4,
+      "crop": {
+        "x": 0,
+        "y": 1023,
+        "width": 659,
+        "height": 1022
+      }
+    },
+    {
+      "fileName": "cards/19-card-sheet-face-r2c2.jpg",
+      "sourceSheet": "19-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650494885/56A97D7338EC31F1266B11AD0F81ED64AC2891EF/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[5].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[6].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[8].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[12].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[21].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[28].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[31].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[36].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[44].CustomDeck.7.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 2,
+      "cardIndex": 5,
+      "crop": {
+        "x": 659,
+        "y": 1023,
+        "width": 658,
+        "height": 1022
+      }
+    },
+    {
+      "fileName": "cards/19-card-sheet-face-r2c3.jpg",
+      "sourceSheet": "19-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650494885/56A97D7338EC31F1266B11AD0F81ED64AC2891EF/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[5].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[6].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[8].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[12].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[21].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[28].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[31].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[36].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[44].CustomDeck.7.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 3,
+      "cardIndex": 6,
+      "crop": {
+        "x": 1317,
+        "y": 1023,
+        "width": 659,
+        "height": 1022
+      }
+    },
+    {
+      "fileName": "cards/19-card-sheet-face-r3c1.jpg",
+      "sourceSheet": "19-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650494885/56A97D7338EC31F1266B11AD0F81ED64AC2891EF/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[5].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[6].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[8].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[12].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[21].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[28].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[31].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[36].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[44].CustomDeck.7.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 1,
+      "cardIndex": 7,
+      "crop": {
+        "x": 0,
+        "y": 2045,
+        "width": 659,
+        "height": 1023
+      }
+    },
+    {
+      "fileName": "cards/19-card-sheet-face-r3c2.jpg",
+      "sourceSheet": "19-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650494885/56A97D7338EC31F1266B11AD0F81ED64AC2891EF/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[5].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[6].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[8].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[12].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[21].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[28].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[31].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[36].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[44].CustomDeck.7.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 2,
+      "cardIndex": 8,
+      "crop": {
+        "x": 659,
+        "y": 2045,
+        "width": 658,
+        "height": 1023
+      }
+    },
+    {
+      "fileName": "cards/19-card-sheet-face-r3c3.jpg",
+      "sourceSheet": "19-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650494885/56A97D7338EC31F1266B11AD0F81ED64AC2891EF/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[5].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[6].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[8].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[12].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[21].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[28].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[31].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[36].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[44].CustomDeck.7.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 3,
+      "cardIndex": 9,
+      "crop": {
+        "x": 1317,
+        "y": 2045,
+        "width": 659,
+        "height": 1023
+      }
+    },
+    {
+      "fileName": "cards/20-card-sheet-face-r1c1.jpg",
+      "sourceSheet": "20-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650496213/25F9ED8992380D3CBC3A3C881CE76F476F7EE8F2/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[15].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[18].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[22].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[34].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[35].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[39].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[46].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[51].CustomDeck.8.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 1,
+      "cardIndex": 1,
+      "crop": {
+        "x": 0,
+        "y": 0,
+        "width": 661,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/20-card-sheet-face-r1c2.jpg",
+      "sourceSheet": "20-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650496213/25F9ED8992380D3CBC3A3C881CE76F476F7EE8F2/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[15].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[18].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[22].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[34].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[35].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[39].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[46].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[51].CustomDeck.8.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 2,
+      "cardIndex": 2,
+      "crop": {
+        "x": 661,
+        "y": 0,
+        "width": 662,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/20-card-sheet-face-r1c3.jpg",
+      "sourceSheet": "20-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650496213/25F9ED8992380D3CBC3A3C881CE76F476F7EE8F2/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[15].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[18].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[22].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[34].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[35].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[39].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[46].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[51].CustomDeck.8.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 1,
+      "column": 3,
+      "cardIndex": 3,
+      "crop": {
+        "x": 1323,
+        "y": 0,
+        "width": 661,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/20-card-sheet-face-r2c1.jpg",
+      "sourceSheet": "20-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650496213/25F9ED8992380D3CBC3A3C881CE76F476F7EE8F2/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[15].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[18].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[22].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[34].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[35].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[39].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[46].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[51].CustomDeck.8.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 1,
+      "cardIndex": 4,
+      "crop": {
+        "x": 0,
+        "y": 1024,
+        "width": 661,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/20-card-sheet-face-r2c2.jpg",
+      "sourceSheet": "20-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650496213/25F9ED8992380D3CBC3A3C881CE76F476F7EE8F2/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[15].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[18].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[22].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[34].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[35].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[39].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[46].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[51].CustomDeck.8.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 2,
+      "cardIndex": 5,
+      "crop": {
+        "x": 661,
+        "y": 1024,
+        "width": 662,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/20-card-sheet-face-r2c3.jpg",
+      "sourceSheet": "20-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650496213/25F9ED8992380D3CBC3A3C881CE76F476F7EE8F2/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[15].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[18].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[22].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[34].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[35].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[39].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[46].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[51].CustomDeck.8.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 2,
+      "column": 3,
+      "cardIndex": 6,
+      "crop": {
+        "x": 1323,
+        "y": 1024,
+        "width": 661,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/20-card-sheet-face-r3c1.jpg",
+      "sourceSheet": "20-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650496213/25F9ED8992380D3CBC3A3C881CE76F476F7EE8F2/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[15].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[18].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[22].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[34].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[35].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[39].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[46].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[51].CustomDeck.8.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 1,
+      "cardIndex": 7,
+      "crop": {
+        "x": 0,
+        "y": 2048,
+        "width": 661,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/20-card-sheet-face-r3c2.jpg",
+      "sourceSheet": "20-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650496213/25F9ED8992380D3CBC3A3C881CE76F476F7EE8F2/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[15].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[18].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[22].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[34].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[35].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[39].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[46].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[51].CustomDeck.8.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 2,
+      "cardIndex": 8,
+      "crop": {
+        "x": 661,
+        "y": 2048,
+        "width": 662,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/20-card-sheet-face-r3c3.jpg",
+      "sourceSheet": "20-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650496213/25F9ED8992380D3CBC3A3C881CE76F476F7EE8F2/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[15].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[18].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[22].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[34].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[35].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[39].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[46].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[51].CustomDeck.8.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 3,
+        "rows": 3,
+        "reason": "default-card-sheet"
+      },
+      "row": 3,
+      "column": 3,
+      "cardIndex": 9,
+      "crop": {
+        "x": 1323,
+        "y": 2048,
+        "width": 661,
+        "height": 1024
+      }
+    },
+    {
+      "fileName": "cards/21-card-sheet-face-r1c1.jpg",
+      "sourceSheet": "21-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650497219/7B8EE1B38CA89D79D7300D42F25EFA78FC23DAE7/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.9.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[27].CustomDeck.9.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[32].CustomDeck.9.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 2,
+        "rows": 2,
+        "reason": "tts-custom-deck-9"
+      },
+      "row": 1,
+      "column": 1,
+      "cardIndex": 1,
+      "crop": {
+        "x": 0,
+        "y": 0,
+        "width": 654,
+        "height": 1022
+      }
+    },
+    {
+      "fileName": "cards/21-card-sheet-face-r1c2.jpg",
+      "sourceSheet": "21-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650497219/7B8EE1B38CA89D79D7300D42F25EFA78FC23DAE7/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.9.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[27].CustomDeck.9.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[32].CustomDeck.9.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 2,
+        "rows": 2,
+        "reason": "tts-custom-deck-9"
+      },
+      "row": 1,
+      "column": 2,
+      "cardIndex": 2,
+      "crop": {
+        "x": 654,
+        "y": 0,
+        "width": 654,
+        "height": 1022
+      }
+    },
+    {
+      "fileName": "cards/21-card-sheet-face-r2c1.jpg",
+      "sourceSheet": "21-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650497219/7B8EE1B38CA89D79D7300D42F25EFA78FC23DAE7/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.9.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[27].CustomDeck.9.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[32].CustomDeck.9.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 2,
+        "rows": 2,
+        "reason": "tts-custom-deck-9"
+      },
+      "row": 2,
+      "column": 1,
+      "cardIndex": 3,
+      "crop": {
+        "x": 0,
+        "y": 1022,
+        "width": 654,
+        "height": 1022
+      }
+    },
+    {
+      "fileName": "cards/21-card-sheet-face-r2c2.jpg",
+      "sourceSheet": "21-card-sheet-face.jpg",
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650497219/7B8EE1B38CA89D79D7300D42F25EFA78FC23DAE7/",
+      "sourceContexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.9.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[27].CustomDeck.9.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[32].CustomDeck.9.FaceURL"
+        }
+      ],
+      "grid": {
+        "columns": 2,
+        "rows": 2,
+        "reason": "tts-custom-deck-9"
+      },
+      "row": 2,
+      "column": 2,
+      "cardIndex": 4,
+      "crop": {
+        "x": 654,
+        "y": 1022,
+        "width": 654,
+        "height": 1022
+      }
+    }
+  ]
+}
