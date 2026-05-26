@@ -678,6 +678,26 @@ button:disabled {
   font-style: normal;
 }
 
+button.gate-identity-card {
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+}
+
+.gate-identity-card.clickable {
+  transition:
+    border-color 150ms ease,
+    box-shadow 150ms ease,
+    transform 150ms ease;
+}
+
+.gate-identity-card.clickable:hover {
+  border-color: rgba(101, 236, 130, 0.78);
+  box-shadow:
+    inset 0 0 0 1px rgba(255, 255, 255, 0.12),
+    0 0 18px rgba(101, 236, 130, 0.18);
+}
+
 .gate-slots {
   display: grid;
   grid-template-columns: repeat(2, minmax(110px, 1fr));
@@ -971,6 +991,33 @@ button:disabled {
   background-size: cover;
 }
 
+.orientation-guard {
+  display: none;
+}
+
+.orientation-device {
+  width: 88px;
+  height: 132px;
+  display: grid;
+  place-items: end center;
+  border: 4px solid rgba(245, 235, 217, 0.86);
+  border-radius: 18px;
+  background:
+    linear-gradient(145deg, rgba(29, 45, 49, 0.9), rgba(12, 15, 14, 0.96)),
+    radial-gradient(circle at 50% 32%, rgba(242, 200, 107, 0.32), transparent 42%);
+  box-shadow:
+    inset 0 0 0 6px rgba(0, 0, 0, 0.26),
+    0 18px 42px rgba(0, 0, 0, 0.36);
+}
+
+.orientation-device span {
+  width: 26px;
+  height: 5px;
+  margin-bottom: 10px;
+  border-radius: 999px;
+  background: rgba(245, 235, 217, 0.78);
+}
+
 .arena-shell {
   position: relative;
   width: min(1500px, calc(100vw - 24px));
@@ -996,6 +1043,60 @@ button:disabled {
     0 24px 70px rgba(0, 0, 0, 0.56);
   overflow: hidden;
   padding: 12px;
+}
+
+@media (orientation: portrait) and (hover: none) and (pointer: coarse),
+  (orientation: portrait) and (max-width: 900px) {
+  .game-screen {
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    overflow: hidden;
+  }
+
+  .game-screen .arena-shell {
+    display: none;
+  }
+
+  .orientation-guard {
+    width: min(460px, calc(100vw - 32px));
+    min-height: min(620px, calc(100dvh - 48px));
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 22px;
+    padding: 34px 24px;
+    border: 1px solid rgba(242, 200, 107, 0.42);
+    border-radius: 10px;
+    color: #f5ebd9;
+    text-align: center;
+    background:
+      linear-gradient(rgba(12, 15, 14, 0.86), rgba(12, 15, 14, 0.94)),
+      url("/src/assets/boards/placeholder-board.svg");
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.44);
+  }
+
+  .orientation-guard h1 {
+    max-width: 11ch;
+    margin: 8px auto 12px;
+    font-size: clamp(30px, 9vw, 46px);
+    line-height: 1.05;
+    letter-spacing: 0;
+  }
+
+  .orientation-guard p {
+    max-width: 30ch;
+    margin: 0 auto;
+    color: #d8cbb7;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+  }
+
+  .orientation-guard .kicker {
+    color: #f2c86b;
+  }
 }
 
 .arena-shell::before {
@@ -2141,6 +2242,13 @@ button:disabled {
   overflow-wrap: anywhere;
 }
 
+.detail-payment.diamond-selection {
+  border-color: rgba(101, 236, 130, 0.34);
+  background:
+    radial-gradient(ellipse at 50% 0%, rgba(101, 236, 130, 0.12), transparent 62%),
+    rgba(255, 255, 255, 0.035);
+}
+
 .detail-effect span {
   color: #8cff9f;
   font-size: 13px;
@@ -2409,6 +2517,52 @@ button:disabled {
   color: #8cff9f;
 }
 
+.diamond-bank {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  overflow-x: auto;
+  padding-bottom: 1px;
+}
+
+.diamond-chip {
+  flex: 0 0 auto;
+  min-width: 30px;
+  height: 26px;
+  display: inline-grid;
+  grid-template-columns: auto auto;
+  place-content: center;
+  align-items: center;
+  gap: 2px;
+  border: 1px solid rgba(139, 217, 255, 0.34);
+  border-radius: 7px;
+  color: #d8f2ff;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(160, 227, 255, 0.22), transparent 55%),
+    rgba(9, 22, 29, 0.7);
+  font-size: 13px;
+  font-weight: 900;
+}
+
+button.diamond-chip {
+  cursor: pointer;
+}
+
+.diamond-chip span {
+  color: #9bd9ff;
+  font-size: 10px;
+}
+
+.diamond-chip.selected {
+  border-color: rgba(101, 236, 130, 0.9);
+  color: #8cff9f;
+  background:
+    radial-gradient(circle at 50% 30%, rgba(101, 236, 130, 0.28), transparent 58%),
+    rgba(10, 42, 24, 0.82);
+  box-shadow: 0 0 0 2px rgba(101, 236, 130, 0.16);
+}
+
 .player-field-grid {
   min-width: 0;
   display: grid;
@@ -2653,7 +2807,8 @@ button:disabled {
 }
 
 .opponent-seat-grid {
-  z-index: 2;
+  position: relative;
+  z-index: 6;
   grid-area: opponent;
   display: grid;
   gap: 10px 14px;
@@ -3022,4 +3177,58 @@ button:disabled {
   border-color: rgba(118, 200, 158, 0.7);
   background: rgba(40, 80, 60, 0.6);
   color: #b9efd2;
+}
+
+@media (orientation: portrait) and (hover: none) and (pointer: coarse),
+  (orientation: portrait) and (max-width: 900px) {
+  .game-screen {
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    overflow: hidden;
+  }
+
+  .game-screen .arena-shell {
+    display: none;
+  }
+
+  .orientation-guard {
+    width: min(460px, calc(100vw - 32px));
+    min-height: min(620px, calc(100dvh - 48px));
+    display: grid;
+    align-content: center;
+    justify-items: center;
+    gap: 22px;
+    padding: 34px 24px;
+    border: 1px solid rgba(242, 200, 107, 0.42);
+    border-radius: 10px;
+    color: #f5ebd9;
+    text-align: center;
+    background:
+      linear-gradient(rgba(12, 15, 14, 0.86), rgba(12, 15, 14, 0.94)),
+      url("/src/assets/boards/placeholder-board.svg");
+    background-position: center;
+    background-size: cover;
+    box-shadow: 0 24px 70px rgba(0, 0, 0, 0.44);
+  }
+
+  .orientation-guard h1 {
+    max-width: 11ch;
+    margin: 8px auto 12px;
+    font-size: clamp(30px, 9vw, 46px);
+    line-height: 1.05;
+    letter-spacing: 0;
+  }
+
+  .orientation-guard p {
+    max-width: 30ch;
+    margin: 0 auto;
+    color: #d8cbb7;
+    line-height: 1.65;
+    overflow-wrap: anywhere;
+  }
+
+  .orientation-guard .kicker {
+    color: #f2c86b;
+  }
 }
