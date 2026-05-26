@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.git/
+.codex-tmp/
+.playwright-mcp/
+docs/
+scripts/
+npm-debug.log*
+.DS_Store

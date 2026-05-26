@@ -9,3 +9,4 @@ npm-debug.log*
 *.png
 !src/assets/**
 !docs/**
+.vercel
