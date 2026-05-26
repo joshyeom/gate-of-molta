@@ -822,3 +822,7 @@ export const fixtureCharacterDefinitions: Record<
 export function getFixtureCharacterDefinitionIds(): CardDefinitionId[] {
   return fixtureCharacters.map((card) => card.id);
 }
+
+export function getFixtureCharacterDeckDefinitionIds(): CardDefinitionId[] {
+  return getFixtureCharacterDefinitionIds();
+}

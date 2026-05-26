@@ -1,8 +1,8 @@
 import { fixtureCatalog } from "../content/catalog";
 import {
-  getFixtureCharacterDefinitionIds,
+  getFixtureCharacterDeckDefinitionIds,
 } from "../content/characters.fixture";
-import { getPearlDefinitionIds, PEARL_COPIES_PER_VALUE } from "../content/pearls";
+import { getPearlDeckDefinitionIds } from "../content/pearls";
 import { nextInt, seedToRngState, shuffleWithRng } from "./rng";
 import type {
   CardDefinitionId,
@@ -25,7 +25,6 @@ export const defaultSetupOptions: GameSetupOptions = {
 };
 
 export const STARTING_PEARL_HAND_SIZE = 5;
-const FIXTURE_CHARACTER_COPIES_PER_DEFINITION = 9;
 
 type DrawResult = {
   drawn: CardInstanceId[];
@@ -50,20 +49,24 @@ function createCardInstance(
   };
 }
 
+function createInstancesFromDeckDefinitionIds(
+  definitionIds: CardDefinitionId[],
+): CardInstance[] {
+  const copyCountByDefinition = new Map<CardDefinitionId, number>();
+
+  return definitionIds.map((definitionId) => {
+    const nextCopyCount = (copyCountByDefinition.get(definitionId) ?? 0) + 1;
+    copyCountByDefinition.set(definitionId, nextCopyCount);
+    return createCardInstance(definitionId, String(nextCopyCount).padStart(2, "0"));
+  });
+}
+
 function createPearlInstances(): CardInstance[] {
-  return getPearlDefinitionIds().flatMap((definitionId) =>
-    Array.from({ length: PEARL_COPIES_PER_VALUE }, (_, index) =>
-      createCardInstance(definitionId, String(index + 1).padStart(2, "0")),
-    ),
-  );
+  return createInstancesFromDeckDefinitionIds(getPearlDeckDefinitionIds());
 }
 
 function createCharacterInstances(): CardInstance[] {
-  return getFixtureCharacterDefinitionIds().flatMap((definitionId) =>
-    Array.from({ length: FIXTURE_CHARACTER_COPIES_PER_DEFINITION }, (_, index) =>
-      createCardInstance(definitionId, String(index + 1).padStart(2, "0")),
-    ),
-  );
+  return createInstancesFromDeckDefinitionIds(getFixtureCharacterDeckDefinitionIds());
 }
 
 function createGateInstance(seatIndex: number, owner: string): CardInstance {
@@ -211,6 +214,8 @@ export function createInitialGameState(
       actionsRemaining: 3,
       phase: "action",
       endGame: { status: "notTriggered" },
+      actionBonuses: {},
+      usedAbilityIds: [],
     },
     cardsById,
     pearlDeck: {
