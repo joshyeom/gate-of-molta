@@ -20,9 +20,9 @@ Do not implement gameplay rules until the relevant section is filled in or other
 - Play time: about 45 minutes.
 - Board: no central board identified; play uses shared open-card rows and each player's gate card/tableau.
 - Cards:
-  - Pearl cards: 56.
-  - Pearl cards are numbered 1-8, with 7 cards of each number.
-  - Character cards: 54.
+  - Pearl cards: 64.
+  - Pearl cards are numbered 1-8, with 8 cards of each number.
+  - Character cards: current prototype deck uses every fixture card entry as exactly one physical card.
   - Player gate cards: 5.
 - Tokens:
   - No separate physical token type confirmed from the source.
@@ -78,7 +78,7 @@ List every legal player action and when it can be taken.
 ### Pearl Card Gain Details
 
 - If the active player takes an open pearl card, immediately refill the open pearl row from the pearl draw pile.
-- If the refilled pearl card has the refresh/exchange symbol, discard all open character cards and reveal 2 new open character cards.
+- If any pearl card with the refresh/exchange symbol enters the open pearl row, discard all open character cards and reveal 2 new open character cards.
 - This refresh effect is not applied during initial setup.
 - At the end of the active player's turn, they may keep at most 5 pearl cards in hand and must discard extras.
 
@@ -108,17 +108,32 @@ List every legal player action and when it can be taken.
 
 ## Card Effects
 
-Candidate activation requirements and some effect notes for 54 character-card entries have been extracted from a Korean Tabletop Simulator workshop save. This data is useful for checking edge cases and building a verification checklist, but it is not an official source. It does not include reliable card names, power values, diamond rewards, or asset rights.
+Candidate activation requirements and effect notes for 54 character-card entries have been extracted from a Korean Tabletop Simulator workshop save. This data is still not an official source, but the current playable prototype executes these candidate effects after explicit user approval. The implemented mapping lives in `src/game/engine/abilities.ts`, payment planning in `src/game/engine/selectors.ts`, and state changes in `src/game/engine/reducer.ts`.
 
-| Card ID | Name | Type | Effect | Edge Cases |
-| --- | --- | --- | --- | --- |
-| TBD | Red-background abilities | One-time special ability | Must trigger immediately when the character is activated. | Full ability list is not captured yet. |
-| TBD | Blue-background abilities | Persistent special ability | Gained immediately on activation and remains usable until game end. | Timing depends on card icon position. Full ability list is not captured yet. |
+Implemented prototype effect groups:
+
+- Passive hand-limit bonuses.
+- Reusable virtual pearl values from activated characters.
+- Pearl value overrides: hand `3` as any value, and hand `1` as `8`.
+- Diamond `+1` base rule and the activated candidate effect that can lower a pearl by `1`.
+- Immediate action bonuses and next-player action bonuses.
+- Start-of-turn peek and gate/market swap abilities.
+- During-turn pearl `2` discard for a diamond.
+- After-actions discard/redraw hand ability.
+- Opponent hand steal and opponent gate discard effects.
+- Reclaiming one just-used pearl.
+- Adjacent activation of upside-down wisp cards.
+
+Unresolved for final rules:
+
+- These are prototype interpretations of candidate text, not verified official rules.
+- Ambiguous target choices currently use deterministic defaults until interactive choice prompts are added.
 
 ### Diamond Rules
 
 - Diamonds can increase a pearl card's number by 1 when paying a requirement.
-- Diamonds cannot decrease a number.
+- Diamonds cannot decrease a number by the base rule.
+- Prototype exception: an activated `character-401-357-p1-d1` lets its owner use a diamond to lower a paid pearl by 1, but not below 1.
 - Only 1 diamond can be used per pearl card.
 - Used diamonds are discarded.
 - A pearl card value cannot be increased above 8.
@@ -132,7 +147,7 @@ The source describes timing with a moon icon position on the activated card:
 - Moon in the middle: usable any time during the player's turn.
 - Moon on the right: usable after the player's actions.
 
-Exact ability text and the mapping from character cards to abilities still need card-level capture.
+The current prototype maps the captured candidate effect text by character definition ID. Official card names, final timing icons, and final target-choice wording still need verification.
 
 ## Solo Mode
 
@@ -167,7 +182,9 @@ Exact ability text and the mapping from character cards to abilities still need 
 
 - Shuffle rules:
   - Pearl deck and character deck are shuffled separately during setup.
-  - Pearl deck composition is 1-8, 7 copies each.
+- Pearl deck composition is 1-8, 8 copies each.
+- Current prototype refresh-pearl composition: one refresh variant each for values 3, 4, and 5; all other copies of those values are normal pearl cards.
+- Discarded character cards do not reshuffle into the character draw pile in the current prototype.
 - Draw rules:
   - Pearl row starts with 4 open cards.
   - Character row starts with 2 open cards.
@@ -216,8 +233,8 @@ Potential state zones:
 
 - What are the official names, power values, and diamond rewards for the 54 candidate character entries?
 - Which TTS-derived activation requirements and effect notes match the official Korean cards?
-- Which pearl cards carry refresh/exchange symbols?
-- Does replacing all 4 open pearl cards trigger character-market refresh if refresh symbols appear?
+- Confirm whether the current refresh-pearl values 3, 4, and 5 exactly match the official physical deck.
+- Confirm whether the current fixture character-card entries exactly match the official physical deck list.
 - What happens when a draw pile is empty?
 - Are discarded pearl/character cards reshuffled into decks?
 - What is the exact rule for "도깨비불" and why it is placed upside down?

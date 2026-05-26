@@ -8,7 +8,7 @@ This plan translates the roadmap and MVP scope into an execution order now that 
 - There is no frontend scaffold yet: no `package.json`, no `src/`, and no runnable app.
 - The core multiplayer turn loop is partially captured, but card-level data and solo behavior are not complete.
 - Character-card metadata exists only as a verification checklist, not canonical app content.
-- Pearl-card distribution is captured as values 1-8 with 7 copies each, but refresh-symbol distribution and edge behavior still need verification.
+- Pearl-card distribution is captured as values 1-8 with 8 copies each; the current prototype models refresh variants for values 3, 4, and 5.
 - No official solo mode has been captured, so solo play is a custom digital adaptation unless a future source changes that.
 
 ## Guardrails

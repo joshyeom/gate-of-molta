@@ -209,3 +209,56 @@ Consequences:
 
 - UI text should say `점수`.
 - Internal schema names can remain stable until a broader data-model rename is worth the migration.
+
+## 2026-05-26: Execute TTS-derived character effects as prototype rules
+
+The TTS-derived character effect text remains non-canonical source material, but the current playable prototype now executes those documented candidate effects deterministically after explicit user approval.
+
+Reason:
+
+- The user asked why documented effects were not implemented and then requested that all of them be implemented.
+- The prototype needs playable coverage for activation effects, reusable pearl-value effects, custom requirements, and AI evaluation before final official verification is available.
+- Keeping the effects isolated in engine selectors/reducer logic lets future official corrections replace these interpretations without UI rewrites.
+
+Consequences:
+
+- Candidate effect text is accepted as prototype behavior, not as final official rules.
+- Payment planning supports virtual pearl values, pearl value overrides, diamond +1 and candidate diamond -1, and custom TTS requirements.
+- `useAbility` is now part of the engine action surface for start-of-turn, during-turn, and after-actions effects.
+- Ambiguous target choices use deterministic defaults until the UI adds explicit choice prompts.
+- Future official rule ingestion must reconcile these prototype interpretations instead of assuming they are authoritative.
+
+## 2026-05-26: Use staged strategy heuristics for the current normal AI
+
+The current normal solo policy uses deterministic staged heuristics rather than a full search. It separates early engine-building, midgame tempo, and endgame scoring/tiebreaker priorities.
+
+Reason:
+
+- Full card effects now change the value of low-point engine cards, so raw point-first activation and placement made weak choices.
+- The strategy guide identifies activation density, reusable pearl values, extra actions, hand repair, and diamond timing as stronger predictors than printed score alone.
+- A deterministic heuristic remains easier to test and debug than a rollout AI while the card text is still prototype/candidate data.
+
+Consequences:
+
+- The AI values payable engine cards over hard unpayable high-score cards in the opening.
+- Activation scoring accounts for effect value, payment cost, extra actions, current stage, 12-point trigger timing, and diamond tiebreakers.
+- Pearl collection and discard choices are tied to visible gate requirements instead of generic high/low pearl values.
+- The policy remains a normal-difficulty heuristic; hard/expert AI should be separate future work with bounded lookahead or rollouts.
+
+## 2026-05-26: Correct prototype deck composition and discard behavior
+
+The current prototype treats pearl values 1-8 as 8 physical cards each, models refresh pearl variants for values 3, 4, and 5, and keeps discarded character cards out of the character draw pile.
+
+Reason:
+
+- The user corrected the previous 7-copy pearl assumption.
+- The user clarified that refresh pearl cards should immediately replace open character cards when they enter the open pearl row.
+- The user clarified that discarded character cards should not return to the character deck.
+- The previous fixture multiplied every character definition by 9, which created far too many character cards for play.
+
+Consequences:
+
+- `src/game/content/pearls.ts` defines 8 cards per pearl value and separate refresh definitions.
+- `src/game/engine/reducer.ts` refreshes the character market when refresh pearls are revealed during play.
+- Character discards are terminal for the character draw pile under the current prototype.
+- The fixture character deck uses every captured character entry as exactly one physical card unless a later official source proves otherwise.

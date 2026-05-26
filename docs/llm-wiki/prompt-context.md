@@ -869,3 +869,111 @@ Full source preserved at `../llm-sources/2026-05-22-llm-wiki-pattern.md`.
 **Bottleneck / Reflection**
 
 - The effect metadata is still a TTS-derived verification candidate, not an official final card database.
+
+### 2026-05-26 KST - Full Auto-Play To Game Over
+
+**User Prompt**
+
+> 게임이 종료될때까지 게임을 진행하면서 잘못된 부분이 있으면 개선하고 게임이 모두 종료되었을 때 결과와 히스토리를 공유해줘
+
+**Intent**
+
+- Continue beyond a one-round cycle and prove the current prototype can actually reach a game-over state.
+- Fix any broken automation, history, or rule-flow issue encountered while running to completion.
+- Share both final result and game history.
+
+**Outcome**
+
+- Replaced the old full-game simulation script with an executable `.mjs` reporter.
+- Generated a full deterministic history JSON for seed `full-game-history`.
+- Added a regression test for full auto-play to game over.
+- Verified the same seed in the browser through the game-over overlay.
+
+**Bottleneck / Reflection**
+
+- The completed history is still fixture-rule evidence, not proof of final official card-effect correctness.
+
+### 2026-05-26 KST - Prototype Character Effects
+
+**User Prompt**
+
+> 공식효과가 왜 제대로 구현되어있지 않은거야? 이미 문서로는 작성되어있는데 확인해줘
+>
+> 모두 구현해줘
+
+**Intent**
+
+- Audit why documented character effects were visible in data/detail views but not executed by the engine.
+- Treat the documented candidate effects as accepted prototype behavior and implement the full set.
+- Preserve deterministic engine behavior while adding effect coverage.
+
+**Outcome**
+
+- Confirmed that the prior wiki decision treated TTS-derived effect text as verification-only, so `useAbility` intentionally threw and passive/on-activate effects were mostly not executed.
+- Added centralized ability classification and expanded payment planning for virtual pearls, pearl overrides, spent diamonds, and candidate diamond lowering.
+- Implemented custom requirements, passive effects, on-activate effects, once-per-turn ability actions, wisp activation, AI use of abilities, UI ability buttons for activated cards, and updated auto-turn cleanup.
+- Regenerated full-game JSON/Markdown/HTML history under the new prototype effect rules.
+- Verified with tests, production build, cycle simulation, and full-game simulation.
+
+**Bottleneck / Reflection**
+
+- These are deterministic prototype interpretations of candidate text, not final official rules.
+- Effects with ambiguous targets currently use default deterministic choices rather than interactive target prompts.
+
+### 2026-05-26 KST - Rewrite Strategy After Effect Implementation
+
+**User Prompt**
+
+> 이제 다시 공략을 작성해봐
+
+**Intent**
+
+- Reassess the game strategy after prototype character effects and strategy-weighted AI behavior are available.
+- Turn observations about good activation cards, cards to avoid, 12-point timing, and AI weaknesses into a durable guide.
+
+**Outcome**
+
+- Added `docs/llm-wiki/strategy-guide.md`.
+- Framed the current game plan around activation density, early engine cards, midgame tempo, endgame trigger timing, and diamond tiebreakers.
+- Classified strong engine cards, strong scoring cards, conditional cards, and cards to avoid.
+- Regenerated the full-game history under the updated strategy AI: seed `full-game-history` ended in 51 turns / 241 recorded steps, with `AI 2` winning at 14 points.
+
+**Bottleneck / Reflection**
+
+- The guide is for the current prototype effect implementation. It must be retuned after final official card wording and target-choice UI are available.
+
+### 2026-05-26 KST - Deck And Interaction Corrections
+
+**User Prompt**
+
+> 설계가 몇개 잘못된게 있어
+>
+> 1. 인물카드가 너무 많아 2장 있는 카드는 정해져있고 나머지는 모두 한장씩이야
+> 2. 진주카드는 1부터 8까지 모두 8장이야
+> 3. 진주카드 인물카드 카운트는 셀 필요가 없어
+> 4. 진주카드 중에는 관문에 올라온 카드를 자동으로 변경하는 카드가 있는데 그게 활성화가 안되어있어 이 카드가 오픈 진주카드에 올라오는 순간 오픈 인물카드는 모두 바뀌고 인물카드는 버리는덱으로 들어가
+> 5. 버리는 덱으로 들어간 카드는 다시 인물카드에 들어오지 않게 해줘 버리는 카드는 화면 상에서 아예 안보이는거야 카운트도 필요없어
+> 6. 3 연속 숫자 진주를 사용해서 인물덱에 카드를 한장 미리 볼 수 있는 카드가 있는데, 이 카드는 활성화되면 다음 카드를 모달로 띄워주고 닫기하면 다시 인물카드 맨위로 들어가고 아니면 원하면 배치가 가능하게끔 변경해줘
+> 7. 관문 2/2 활성 5 이렇게 현황판을 보여주지 말고 점수 및 다이아로 환산해줘
+> 8. 있는 다이아를 사용할 수 있게끔 인터렉션을 넣어줘 지금은 다이아를 사용할 수 없어
+> 9. 상대방 관문 카드를 클릭하게 변경해줘
+
+**Intent**
+
+- Correct prototype deck composition and remove misleading deck-count UI.
+- Make refresh pearl cards affect the open character market as soon as they enter the open pearl row.
+- Keep discarded character cards out of future character draws.
+- Add missing UI flows for character-deck peek, diamonds, score/diamond status, and opponent gate clicks.
+
+**Outcome**
+
+- Pearl deck now has 8 cards per value, with refresh variants modeled for values 3, 4, and 5.
+- Character deck instances no longer multiply each definition; every current fixture character entry is treated as one physical card.
+- Refresh pearls discard open character cards and reveal replacements.
+- Character discards are no longer reshuffled into the character deck.
+- The UI now hides deck counts, shows score/diamond status, exposes diamond chips, supports the peek modal, and makes opponent gate identities clickable.
+- Verified with unit tests, production build, and Playwright browser smoke.
+
+**Bottleneck / Reflection**
+
+- The user later corrected the duplicate interpretation: every current fixture character entry should be one physical card.
