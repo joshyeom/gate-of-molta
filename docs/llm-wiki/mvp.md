@@ -49,6 +49,12 @@ The MVP cannot start implementation until these are captured:
 - Win/loss conditions
 - Solo rules or custom automa rules
 
+## Implementation Gate Clarification
+
+Project scaffolding, folder setup, type shells, engine fixtures, and static UI mock states may begin before every card effect is verified.
+
+A complete playable MVP still requires verified or explicitly designed rules for character effects, solo behavior, and unresolved edge cases. Any temporary data used before that point must be marked as fixture, candidate, or placeholder data.
+
 ## First Screens
 
 ### Game Start
@@ -178,3 +184,5 @@ Do not scaffold gameplay code until `rules.md` contains enough real game informa
 - phase list
 - card schema
 - win/loss conditions
+
+Scaffolding that only creates the app shell, test harness, pure engine interfaces, and non-canonical fixtures can proceed as a separate step.

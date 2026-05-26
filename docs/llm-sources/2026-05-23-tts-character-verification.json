@@ -1,0 +1,1003 @@
+{
+  "status": "verification_only_not_canonical",
+  "warning": "Use this file only to build a rule/effect verification checklist. Do not treat it as official rules, final app content, or asset permission.",
+  "accessedDate": "2026-05-23",
+  "source": {
+    "workshopId": "1198835784",
+    "workshopPage": "https://steamcommunity.com/sharedfiles/filedetails/?id=1198835784",
+    "title": "몰타의 관문 한글판",
+    "creatorSteamId": "76561198282716873",
+    "consumerAppId": 286160,
+    "fileSizeBytes": 116138,
+    "ttsSaveName": "몰타의 관문 한글판",
+    "ttsSaveDate": "4/11/2019 10:57:54 PM"
+  },
+  "extractionPolicy": {
+    "saved": [
+      "TTS card object id",
+      "activation requirement text from card nickname",
+      "effect note text from card description"
+    ],
+    "notSaved": [
+      "card images",
+      "image URLs",
+      "TTS save binary",
+      "custom deck face/back URLs"
+    ]
+  },
+  "characterCardCount": 54,
+  "characterCards": [
+    {
+      "cardId": 302,
+      "sourceDeckId": 3,
+      "sourceSheetIndex": 2,
+      "activationRequirement": "18",
+      "effectNote": "내 차례 종료 직전, 마지막 행동을 끝낸 뒤, 차례마다 한 번, 손에 든 진주 카드를 모두 버린 후 획득 더미에서 버린 수 만큼 새 진주 카드를 획득할 수 있음",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 303,
+      "sourceDeckId": 3,
+      "sourceSheetIndex": 3,
+      "activationRequirement": "합하면 '10'이 되는 카드들",
+      "effectNote": "손 카드 제한이 1장 많아짐",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 304,
+      "sourceDeckId": 3,
+      "sourceSheetIndex": 4,
+      "activationRequirement": "12",
+      "effectNote": "진주 8로 사용가능",
+      "power": 0,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 305,
+      "sourceDeckId": 3,
+      "sourceSheetIndex": 5,
+      "activationRequirement": "6688",
+      "effectNote": null,
+      "power": 3,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 306,
+      "sourceDeckId": 3,
+      "sourceSheetIndex": 6,
+      "activationRequirement": "11",
+      "effectNote": "진주 1로 사용가능",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 307,
+      "sourceDeckId": 3,
+      "sourceSheetIndex": 7,
+      "activationRequirement": "7777",
+      "effectNote": null,
+      "power": 4,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 308,
+      "sourceDeckId": 3,
+      "sourceSheetIndex": 8,
+      "activationRequirement": "55",
+      "effectNote": "진주 5로 사용가능",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 400,
+      "sourceDeckId": 4,
+      "sourceSheetIndex": 0,
+      "activationRequirement": "12",
+      "effectNote": "진주 8로 사용가능",
+      "power": 0,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 401,
+      "sourceDeckId": 4,
+      "sourceSheetIndex": 1,
+      "activationRequirement": "357",
+      "effectNote": "다이아몬드를 사용해서 진주 카드의 값을 1 내릴 수 있음. 단, 진주 카드의 값을 '0'으로 만들 수는 없음. 진주 카드 1장에는 다이아몬드 하나만 사용가능. 사용한 다이아몬드는 버린 캐릭터 더미에 버림.",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 1,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 402,
+      "sourceDeckId": 4,
+      "sourceSheetIndex": 2,
+      "activationRequirement": "연속되는 카드 3장",
+      "effectNote": "내 차례 시작 직후, 첫 행동을 시작하기 전에, 캐릭터 획득 더미 맨 위 1장을 살펴볼 수 있음. 살펴본 카드는 제자리에 돌려놓음.",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 403,
+      "sourceDeckId": 4,
+      "sourceSheetIndex": 3,
+      "activationRequirement": "같은 카드 2장 + 66",
+      "effectNote": null,
+      "power": 2,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 1,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 404,
+      "sourceDeckId": 4,
+      "sourceSheetIndex": 4,
+      "activationRequirement": "33",
+      "effectNote": "진주 3으로 사용가능",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 405,
+      "sourceDeckId": 4,
+      "sourceSheetIndex": 5,
+      "activationRequirement": "같은 카드 3장",
+      "effectNote": null,
+      "power": 2,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 406,
+      "sourceDeckId": 4,
+      "sourceSheetIndex": 6,
+      "activationRequirement": "같은 카드 2장",
+      "effectNote": null,
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 407,
+      "sourceDeckId": 4,
+      "sourceSheetIndex": 7,
+      "activationRequirement": "합하면 20이 되는 카드 3장",
+      "effectNote": null,
+      "power": 2,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 408,
+      "sourceDeckId": 4,
+      "sourceSheetIndex": 8,
+      "activationRequirement": "홀수인 카드 3장",
+      "effectNote": null,
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 1,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 500,
+      "sourceDeckId": 5,
+      "sourceSheetIndex": 0,
+      "activationRequirement": "44",
+      "effectNote": "진주 4로 사용가능",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 501,
+      "sourceDeckId": 5,
+      "sourceSheetIndex": 1,
+      "activationRequirement": "88",
+      "effectNote": null,
+      "power": 2,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 502,
+      "sourceDeckId": 5,
+      "sourceSheetIndex": 2,
+      "activationRequirement": "합하면 '10'이 되는 카드들",
+      "effectNote": "손 카드 제한이 1장 많아짐",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 503,
+      "sourceDeckId": 5,
+      "sourceSheetIndex": 3,
+      "activationRequirement": "7777",
+      "effectNote": null,
+      "power": 4,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 504,
+      "sourceDeckId": 5,
+      "sourceSheetIndex": 4,
+      "activationRequirement": "6688",
+      "effectNote": null,
+      "power": 3,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 505,
+      "sourceDeckId": 5,
+      "sourceSheetIndex": 5,
+      "activationRequirement": "8888",
+      "effectNote": null,
+      "power": 5,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 506,
+      "sourceDeckId": 5,
+      "sourceSheetIndex": 6,
+      "activationRequirement": "같은 카드 2장",
+      "effectNote": null,
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 507,
+      "sourceDeckId": 5,
+      "sourceSheetIndex": 7,
+      "activationRequirement": "567",
+      "effectNote": "다른 플레이어 한 명의 손 카드를 보고, 그 중 1장을 가져옴",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 508,
+      "sourceDeckId": 5,
+      "sourceSheetIndex": 8,
+      "activationRequirement": "45678",
+      "effectNote": "이번 차례를 포함해서, 매 차례마다 행동 1회를 추가로 수행할 수 있음",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 600,
+      "sourceDeckId": 6,
+      "sourceSheetIndex": 0,
+      "activationRequirement": "222+다이아몬드 1장",
+      "effectNote": null,
+      "power": 3,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 601,
+      "sourceDeckId": 6,
+      "sourceSheetIndex": 1,
+      "activationRequirement": "88",
+      "effectNote": null,
+      "power": 2,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 602,
+      "sourceDeckId": 6,
+      "sourceSheetIndex": 2,
+      "activationRequirement": "합하면 7이 되는 카드 3장",
+      "effectNote": "다른 플레이어 한 명의 관문에 있는 캐릭터 카드 중 1장을 버림",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 603,
+      "sourceDeckId": 6,
+      "sourceSheetIndex": 3,
+      "activationRequirement": "1111",
+      "effectNote": "진주 '1~8'중 원하는 수로 사용가능",
+      "power": 0,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 604,
+      "sourceDeckId": 6,
+      "sourceSheetIndex": 4,
+      "activationRequirement": "같은 카드 2장씩 두 벌",
+      "effectNote": "다음 차례의 플레이어는 자신의 차례에 행동 1회를 추가로 수행",
+      "power": 2,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 605,
+      "sourceDeckId": 6,
+      "sourceSheetIndex": 5,
+      "activationRequirement": "7788",
+      "effectNote": null,
+      "power": 3,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 1,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 606,
+      "sourceDeckId": 6,
+      "sourceSheetIndex": 6,
+      "activationRequirement": "6688",
+      "effectNote": null,
+      "power": 3,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 607,
+      "sourceDeckId": 6,
+      "sourceSheetIndex": 7,
+      "activationRequirement": "22",
+      "effectNote": "진주 2로 사용가능",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 608,
+      "sourceDeckId": 6,
+      "sourceSheetIndex": 8,
+      "activationRequirement": "333",
+      "effectNote": "캐릭터를 활성화할 때, 손에 든 '3' 진주 카드를 '1~8' 중 원하는 값으로 사용할 수 있음",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 700,
+      "sourceDeckId": 7,
+      "sourceSheetIndex": 0,
+      "activationRequirement": "연속되는 카드 5장",
+      "effectNote": "내 차례 시작 직후, 첫 행동을 시작하기 전에, 내 관문에 있는 캐릭터 카드 1장을 열린 캐릭터 카드 1장과 서로 바꿀 수 있음",
+      "power": 2,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 701,
+      "sourceDeckId": 7,
+      "sourceSheetIndex": 1,
+      "activationRequirement": "2468",
+      "effectNote": "추가 행동 3회를 즉시 수행",
+      "power": 2,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 702,
+      "sourceDeckId": 7,
+      "sourceSheetIndex": 2,
+      "activationRequirement": "1357",
+      "effectNote": "추가 행동 3회를 즉시 수행",
+      "power": 2,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 703,
+      "sourceDeckId": 7,
+      "sourceSheetIndex": 3,
+      "activationRequirement": "짝수인 카드 3장",
+      "effectNote": null,
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 1,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 704,
+      "sourceDeckId": 7,
+      "sourceSheetIndex": 4,
+      "activationRequirement": "같은 카드 4장",
+      "effectNote": null,
+      "power": 3,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 705,
+      "sourceDeckId": 7,
+      "sourceSheetIndex": 5,
+      "activationRequirement": "합하면 '10'이 되는 카드들",
+      "effectNote": "손 카드 제한이 1장 많아짐",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 706,
+      "sourceDeckId": 7,
+      "sourceSheetIndex": 6,
+      "activationRequirement": "같은 카드 3장",
+      "effectNote": null,
+      "power": 2,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 707,
+      "sourceDeckId": 7,
+      "sourceSheetIndex": 7,
+      "activationRequirement": "333/666",
+      "effectNote": "도깨비불은 관문에 거꾸로 놓는 유일한 캐릭터 카드임. 내 관문에 놓은 도깨비불을 내 양 옆 플레이어가 활성화시킬 수도 있음. 도깨비불을 활성화한 플레이어는 그 도깨비불을 가져가서 자신의 관문 오른쪽에 놓고 힘 3점을 얻음.",
+      "power": 3,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 708,
+      "sourceDeckId": 7,
+      "sourceSheetIndex": 8,
+      "activationRequirement": "합이 10이 되는 카드 3장",
+      "effectNote": "캐릭터를 활성화할 때, 손에 든 '1' 진주 카드를 '8'인 것처럼 사용할 수 있음",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 800,
+      "sourceDeckId": 8,
+      "sourceSheetIndex": 0,
+      "activationRequirement": "345",
+      "effectNote": "방금 사용한 진주 카드 중 1장을 다시 가져옴",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 801,
+      "sourceDeckId": 8,
+      "sourceSheetIndex": 1,
+      "activationRequirement": "567",
+      "effectNote": "다른 플레이어 한 명의 손 카드를 보고, 그 중 1장을 가져옴",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 802,
+      "sourceDeckId": 8,
+      "sourceSheetIndex": 2,
+      "activationRequirement": "7788",
+      "effectNote": null,
+      "power": 3,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 1,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 803,
+      "sourceDeckId": 8,
+      "sourceSheetIndex": 3,
+      "activationRequirement": "같은 카드 2장",
+      "effectNote": null,
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 804,
+      "sourceDeckId": 8,
+      "sourceSheetIndex": 4,
+      "activationRequirement": "66",
+      "effectNote": "진주 6으로 사용가능",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 805,
+      "sourceDeckId": 8,
+      "sourceSheetIndex": 5,
+      "activationRequirement": "77",
+      "effectNote": "진주 7로 사용가능",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 806,
+      "sourceDeckId": 8,
+      "sourceSheetIndex": 6,
+      "activationRequirement": "2",
+      "effectNote": "손에 든 '2' 진주 카드 1장을 버리고 다이아몬드 1개를 가져올 수 있음",
+      "power": 0,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 1,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 807,
+      "sourceDeckId": 8,
+      "sourceSheetIndex": 7,
+      "activationRequirement": "합하면 7이 되는 카드 3장",
+      "effectNote": "다른 플레이어 한 명의 관문에 있는 캐릭터 카드 중 1장을 버림",
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 808,
+      "sourceDeckId": 8,
+      "sourceSheetIndex": 8,
+      "activationRequirement": "1234",
+      "effectNote": null,
+      "power": 1,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 2,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 900,
+      "sourceDeckId": 9,
+      "sourceSheetIndex": 0,
+      "activationRequirement": "같은 카드 2장 + 6카드 2장",
+      "effectNote": null,
+      "power": 2,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 1,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    },
+    {
+      "cardId": 901,
+      "sourceDeckId": 9,
+      "sourceSheetIndex": 1,
+      "activationRequirement": "444/555",
+      "effectNote": "도깨비불은 관문에 거꾸로 놓는 유일한 캐릭터 카드임. 내 관문에 놓은 도깨비불을 내 양 옆 플레이어가 활성화시킬 수도 있음. 도깨비불을 활성화한 플레이어는 그 도깨비불을 가져가서 자신의 관문 오른쪽에 놓고 힘 3점을 얻음.",
+      "power": 3,
+      "powerSource": "read_from_tts_reference_image",
+      "diamonds": 0,
+      "diamondsSource": "read_from_tts_reference_image",
+      "verificationStatus": "tts_metadata_unverified",
+      "verificationNeeds": [
+        "official card photo or rulebook check",
+        "card name confirmation",
+        "power value confirmation",
+        "diamond reward confirmation"
+      ]
+    }
+  ]
+}

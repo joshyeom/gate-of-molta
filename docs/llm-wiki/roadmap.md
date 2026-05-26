@@ -8,7 +8,7 @@ Gate of Molta should progress in this order:
 
 1. Stabilize project memory.
 2. Capture the real board-game rules.
-3. Define the first playable MVP.
+3. Define the first playable MVP and implementation plan.
 4. Scaffold the frontend app.
 5. Build the deterministic rules engine.
 6. Connect a plain playable UI.
@@ -35,7 +35,7 @@ Exit criteria:
 
 ## Phase 1: Rule Capture
 
-Status: next.
+Status: active; core loop partially captured.
 
 Goals:
 
@@ -59,7 +59,7 @@ Exit criteria:
 
 ## Phase 2: MVP Design
 
-Status: started.
+Status: active; MVP scope and implementation plan now exist.
 
 Goals:
 
@@ -70,11 +70,12 @@ Goals:
 Exit criteria:
 
 - `mvp.md` defines scope, non-scope, screens, and acceptance tests.
+- `implementation-plan.md` defines workstreams, milestones, and implementation gates.
 - MVP can be implemented without revisiting product strategy.
 
 ## Phase 3: App Scaffold
 
-Status: pending.
+Status: complete.
 
 Goals:
 
@@ -88,9 +89,14 @@ Exit criteria:
 - `npm test` or equivalent runs.
 - A placeholder board screen renders.
 
+Boundary:
+
+- The scaffold may include fixture data, type shells, and placeholder screens.
+- It must not encode unverified card effects as final gameplay.
+
 ## Phase 4: Deterministic Game Engine
 
-Status: pending.
+Status: active; first fixture-only slice implemented.
 
 Goals:
 
@@ -105,9 +111,17 @@ Exit criteria:
 - Engine tests prove deterministic behavior.
 - Invalid actions are rejected predictably.
 
+Current implemented slice:
+
+- Setup for 2-5 total participants with one human and AI seats.
+- Seeded pearl/character deck shuffle.
+- Pearl and character markets.
+- Basic pearl gain, pearl market refresh, character placement, and turn rotation.
+- Tests for setup, deterministic shuffle, legal actions, invalid inactive-player actions, and turn progression.
+
 ## Phase 5: Plain Playable UI
 
-Status: pending.
+Status: active; minimal fixture UI exists.
 
 Goals:
 
@@ -119,6 +133,12 @@ Exit criteria:
 
 - The player can complete a game with minimal visuals.
 - The UI does not contain rule logic.
+
+Current implemented slice:
+
+- Setup panel for player count, AI difficulty, and seed.
+- Board view for markets, player states, actions remaining, and simple event status.
+- Manual AI action button using a deterministic legal-action policy shell.
 
 ## Phase 6: Solo System
 

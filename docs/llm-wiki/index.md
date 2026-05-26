@@ -24,8 +24,12 @@ Content-oriented catalog for the Gate of Molta LLM Wiki.
 | Page | Purpose | Status |
 | --- | --- | --- |
 | [architecture](architecture.md) | Technical architecture for frontend-only solo play | Initial |
+| [assets](assets.md) | Original replacement-asset direction and card-art pipeline | Active |
 | [roadmap](roadmap.md) | Staged work plan from project memory through online readiness | Active |
 | [mvp](mvp.md) | First playable version scope, non-scope, and acceptance criteria | Active |
+| [implementation-plan](implementation-plan.md) | Workstream-based execution plan for the first runnable app and engine | Active |
+| [solo-mode](solo-mode.md) | Player-count setup and AI difficulty design for solo play | Draft |
+| [engine-model](engine-model.md) | Draft TypeScript-facing setup, state, action, event, and selector contracts | Draft |
 | [decisions](decisions.md) | Durable decisions and consequences | Active |
 
 ## Rules And Content
@@ -47,6 +51,12 @@ Content-oriented catalog for the Gate of Molta LLM Wiki.
 | --- | --- | --- |
 | [LLM Wiki pattern](../llm-sources/2026-05-22-llm-wiki-pattern.md) | User-provided source describing persistent LLM-maintained wikis | 2026-05-22 |
 | [Gate of Molta rule links](../llm-sources/2026-05-23-gate-of-molta-rule-links.md) | Source metadata for user-provided rule explanation links | 2026-05-23 |
+| [TTS character verification source](../llm-sources/2026-05-23-tts-character-verification-source.md) | Source metadata and policy for TTS-derived character-card verification checklist | 2026-05-23 |
+| [TTS character verification JSON](../llm-sources/2026-05-23-tts-character-verification.json) | Sanitized candidate activation/effect metadata for 54 character entries; verification-only | 2026-05-23 |
+| [TTS reference assets](../llm-sources/2026-05-23-tts-reference-assets/README.md) | Downloaded TTS image references for visual/card-layout study; not app assets | 2026-05-23 |
+| [TTS card crops](../llm-sources/2026-05-23-tts-card-crops/README.md) | Individual card crops split from TTS face sheets; reference-only | 2026-05-23 |
+| [Generated ImageGen card restorations](../llm-sources/2026-05-23-tts-card-crops/generated-imagegen/README.md) | AI image-to-image restoration derivatives for all 67 cropped references, including named review copies; reference-only | 2026-05-24 |
+| [TTS pearl card crops](../llm-sources/2026-05-23-tts-pearl-card-crops/README.md) | Pearl-card subset with value-based filenames, sharpened readability derivatives, and image-generation restoration prompts; reference-only | 2026-05-23 |
 
 ## Current Design Pillars
 
@@ -54,6 +64,7 @@ Content-oriented catalog for the Gate of Molta LLM Wiki.
 - No backend and no external database
 - Pure TypeScript game engine
 - Static card/content manifest
+- Card definitions separated from physical card instances
 - Event-driven animation layer
 - Local save support through browser storage
 - Future online support through deterministic state/action design
@@ -61,10 +72,20 @@ Content-oriented catalog for the Gate of Molta LLM Wiki.
 - LLM-maintained persistent wiki with raw sources, schema, index, and log
 - Rule capture before gameplay implementation
 - MVP loop before production-level animation polish
+- Workstream-based implementation plan before app scaffolding
+- Configurable 2-5 participant setup with one human plus AI seats for the first solo release
+- Draft engine model for setup options, state zones, actions, events, and selectors
+- Current prototype deals 5 starting pearl cards and uses manual discard-to-5 for the human player
+- Card-table UI anchors the human player at the bottom and distributes AI seats around the table
+- Newly created original replacement art for final card assets
 
 ## Known Gaps
 
 - The core "몰타의 관문" turn loop has been partially captured from WING Board Game.
-- Card list, card effects, card distributions, and solo-mode algorithm are not defined yet.
+- Character-card activation/effect candidates exist from TTS metadata, but official names, power values, diamond rewards, and final card data remain unverified.
+- Solo-mode difficulty design is drafted, but implementation and tuning have not started yet.
+- App scaffold and first fixture-only engine slice exist; full gameplay is still incomplete.
+- The 5-card starting hand is a user-directed prototype rule and must be reconciled with any later official setup source.
 - Visual identity, asset dimensions, and animation timing standards are not defined yet.
+- Original card-art style guide and first pilot card are not defined yet.
 - Prompt timestamps are approximate unless a future tool or workflow records exact message times.

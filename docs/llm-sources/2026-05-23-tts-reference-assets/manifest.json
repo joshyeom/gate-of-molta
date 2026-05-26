@@ -1,0 +1,917 @@
+{
+  "status": "reference_assets_not_app_assets",
+  "warning": "These files are source/reference material only. Do not use them as final distributable app assets unless rights are confirmed.",
+  "accessedDate": "2026-05-23",
+  "source": {
+    "workshopId": "1198835784",
+    "workshopPage": "https://steamcommunity.com/sharedfiles/filedetails/?id=1198835784",
+    "title": "몰타의 관문 한글판",
+    "creatorSteamId": "76561198282716873",
+    "consumerAppId": 286160,
+    "fileSizeBytes": 116138,
+    "ttsSaveName": "몰타의 관문 한글판",
+    "ttsSaveDate": "4/11/2019 10:57:54 PM"
+  },
+  "extractionPolicy": {
+    "saved": [
+      "unique image files referenced by the TTS save",
+      "manifest with source URLs and object contexts"
+    ],
+    "notSaved": [
+      "TTS save binary"
+    ],
+    "usageLimit": "Use as visual reference for creating new original assets; keep out of src/assets until rights/final asset status is decided."
+  },
+  "assetCount": 21,
+  "assets": [
+    {
+      "fileName": "01-table-reference.jpg",
+      "kind": "table-reference",
+      "contentType": "application/octet-stream",
+      "sizeBytes": 840373,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/957468055304819970/1B4527492F1673471C1C69056C471589FE1D7A25/",
+      "contexts": [
+        {
+          "key": "TableURL",
+          "path": "root.TableURL"
+        }
+      ]
+    },
+    {
+      "fileName": "02-reference-image.jpg",
+      "kind": "reference-image",
+      "contentType": "application/octet-stream",
+      "sizeBytes": 4286237,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649300371/C1DAE7D1D00B8FFFBB4F2908F951B35E1B3EAFAB/",
+      "contexts": [
+        {
+          "key": "ImageURL",
+          "path": "root.ObjectStates[9].CustomImage.ImageURL"
+        }
+      ]
+    },
+    {
+      "fileName": "03-reference-image.jpg",
+      "kind": "reference-image",
+      "contentType": "application/octet-stream",
+      "sizeBytes": 4311889,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649300956/3981476265777E9FC9DD301C7641F6EF629F9341/",
+      "contexts": [
+        {
+          "key": "ImageSecondaryURL",
+          "path": "root.ObjectStates[9].CustomImage.ImageSecondaryURL"
+        }
+      ]
+    },
+    {
+      "fileName": "04-reference-image.jpg",
+      "kind": "reference-image",
+      "contentType": "image/jpeg",
+      "sizeBytes": 4543357,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649304669/8AF1FF3A43809BBC7F3CF75F2E712914A0C1D6C9/",
+      "contexts": [
+        {
+          "key": "ImageURL",
+          "path": "root.ObjectStates[8].CustomImage.ImageURL"
+        }
+      ]
+    },
+    {
+      "fileName": "05-reference-image.jpg",
+      "kind": "reference-image",
+      "contentType": "image/jpeg",
+      "sizeBytes": 4489639,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649305323/E491DF34D8C26620E9752D355270CDC9EB37599D/",
+      "contexts": [
+        {
+          "key": "ImageSecondaryURL",
+          "path": "root.ObjectStates[8].CustomImage.ImageSecondaryURL"
+        }
+      ]
+    },
+    {
+      "fileName": "06-reference-image.jpg",
+      "kind": "reference-image",
+      "contentType": "image/jpeg",
+      "sizeBytes": 4518361,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649307187/55DB100F40B7E2CB047E56338783BCB700AFBC32/",
+      "contexts": [
+        {
+          "key": "ImageURL",
+          "path": "root.ObjectStates[10].CustomImage.ImageURL"
+        }
+      ]
+    },
+    {
+      "fileName": "07-reference-image.jpg",
+      "kind": "reference-image",
+      "contentType": "image/jpeg",
+      "sizeBytes": 4384795,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649307685/9745F9817EEE05E058363F2528AC75E771E10FE2/",
+      "contexts": [
+        {
+          "key": "ImageSecondaryURL",
+          "path": "root.ObjectStates[10].CustomImage.ImageSecondaryURL"
+        }
+      ]
+    },
+    {
+      "fileName": "08-reference-image.jpg",
+      "kind": "reference-image",
+      "contentType": "image/jpeg",
+      "sizeBytes": 4225622,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649309074/09E46B3EB18318EBDE99D28343607BC834246DEA/",
+      "contexts": [
+        {
+          "key": "ImageURL",
+          "path": "root.ObjectStates[11].CustomImage.ImageURL"
+        }
+      ]
+    },
+    {
+      "fileName": "09-reference-image.jpg",
+      "kind": "reference-image",
+      "contentType": "application/octet-stream",
+      "sizeBytes": 4244399,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649309548/AE80EA2C1BEDFCC8854E2591D27B386235D07D07/",
+      "contexts": [
+        {
+          "key": "ImageSecondaryURL",
+          "path": "root.ObjectStates[11].CustomImage.ImageSecondaryURL"
+        }
+      ]
+    },
+    {
+      "fileName": "10-reference-image.jpg",
+      "kind": "reference-image",
+      "contentType": "application/octet-stream",
+      "sizeBytes": 4882117,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649310764/0419B2F90061A141A717F115613528B1484E88F6/",
+      "contexts": [
+        {
+          "key": "ImageURL",
+          "path": "root.ObjectStates[12].CustomImage.ImageURL"
+        }
+      ]
+    },
+    {
+      "fileName": "11-reference-image.jpg",
+      "kind": "reference-image",
+      "contentType": "image/jpeg",
+      "sizeBytes": 4810408,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649311426/95093985DE62AF0C1D94F6A44A93128DF9FD99FC/",
+      "contexts": [
+        {
+          "key": "ImageSecondaryURL",
+          "path": "root.ObjectStates[12].CustomImage.ImageSecondaryURL"
+        }
+      ]
+    },
+    {
+      "fileName": "12-card-sheet-face.jpg",
+      "kind": "card-sheet-face",
+      "contentType": "application/octet-stream",
+      "sizeBytes": 11287812,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738878649319813/E264D2114447EB7FE8237C8D8599FFDC8F1DEF8B/",
+      "contexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[9].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[13].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[14].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[17].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[33].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[37].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[40].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[42].CustomDeck.4.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[24].CustomDeck.4.FaceURL"
+        }
+      ]
+    },
+    {
+      "fileName": "13-card-sheet-face.jpg",
+      "kind": "card-sheet-face",
+      "contentType": "image/jpeg",
+      "sizeBytes": 11541466,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650476924/BE8097FDBBBF3E427E1CE0864A73055162CC9E51/",
+      "contexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[0].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[1].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[2].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[3].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[9].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[10].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[14].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[27].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[29].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[32].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[44].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[47].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[15].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[16].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[17].CustomDeck.1.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[18].CustomDeck.1.FaceURL"
+        }
+      ]
+    },
+    {
+      "fileName": "14-card-sheet-back.jpg",
+      "kind": "card-sheet-back",
+      "contentType": "image/jpeg",
+      "sizeBytes": 1215261,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650477735/EAEF6450154BC005D4D796F043DFAE012649FB96/",
+      "contexts": [
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[13].CustomDeck.1.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[13].CustomDeck.2.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[13].ContainedObjects[0].CustomDeck.1.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[13].ContainedObjects[1].CustomDeck.1.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[13].ContainedObjects[2].CustomDeck.1.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[13].ContainedObjects[3].CustomDeck.1.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[13].ContainedObjects[9].CustomDeck.1.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[13].ContainedObjects[10].CustomDeck.1.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[13].ContainedObjects[14].CustomDeck.1.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[13].ContainedObjects[15].CustomDeck.1.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[13].ContainedObjects[20].CustomDeck.2.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[13].ContainedObjects[26].CustomDeck.2.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[13].ContainedObjects[27].CustomDeck.1.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[13].ContainedObjects[29].CustomDeck.1.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[13].ContainedObjects[32].CustomDeck.1.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[13].ContainedObjects[44].CustomDeck.1.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[13].ContainedObjects[47].CustomDeck.1.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[15].CustomDeck.1.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[16].CustomDeck.1.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[17].CustomDeck.1.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[18].CustomDeck.1.BackURL"
+        }
+      ]
+    },
+    {
+      "fileName": "15-card-sheet-face.jpg",
+      "kind": "card-sheet-face",
+      "contentType": "image/jpeg",
+      "sizeBytes": 11301202,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650480802/0CAEDF1F4701D431DAA76FFD6F38B3DE99FE9876/",
+      "contexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[20].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[13].ContainedObjects[26].CustomDeck.2.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[1].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[7].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[20].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[24].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[25].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[47].CustomDeck.3.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[50].CustomDeck.3.FaceURL"
+        }
+      ]
+    },
+    {
+      "fileName": "16-card-sheet-back.jpg",
+      "kind": "card-sheet-back",
+      "contentType": "image/jpeg",
+      "sizeBytes": 1129099,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650482447/C24734E2F9B8D3816ADD9EC51259623D8CA44AE0/",
+      "contexts": [
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].CustomDeck.3.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].CustomDeck.4.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].CustomDeck.5.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].CustomDeck.6.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].CustomDeck.7.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].CustomDeck.8.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].CustomDeck.9.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[0].CustomDeck.5.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[1].CustomDeck.3.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[2].CustomDeck.5.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[3].CustomDeck.6.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[4].CustomDeck.5.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[5].CustomDeck.7.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[6].CustomDeck.7.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[7].CustomDeck.3.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[8].CustomDeck.7.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[9].CustomDeck.4.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[10].CustomDeck.5.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[11].CustomDeck.6.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[12].CustomDeck.7.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[13].CustomDeck.4.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[14].CustomDeck.4.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[15].CustomDeck.8.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[16].CustomDeck.5.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[17].CustomDeck.4.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[18].CustomDeck.8.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[19].CustomDeck.6.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[20].CustomDeck.3.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[21].CustomDeck.7.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[22].CustomDeck.8.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[23].CustomDeck.8.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[24].CustomDeck.3.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[25].CustomDeck.3.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[26].CustomDeck.6.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[27].CustomDeck.9.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[28].CustomDeck.7.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[29].CustomDeck.6.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[30].CustomDeck.6.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[31].CustomDeck.7.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[32].CustomDeck.9.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[33].CustomDeck.4.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[34].CustomDeck.8.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[35].CustomDeck.8.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[36].CustomDeck.7.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[37].CustomDeck.4.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[38].CustomDeck.6.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[39].CustomDeck.8.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[40].CustomDeck.4.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[41].CustomDeck.5.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[42].CustomDeck.4.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[43].CustomDeck.6.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[44].CustomDeck.7.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[45].CustomDeck.6.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[46].CustomDeck.8.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[47].CustomDeck.3.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[48].CustomDeck.5.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[49].CustomDeck.5.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[50].CustomDeck.3.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[23].ContainedObjects[51].CustomDeck.8.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[24].CustomDeck.4.BackURL"
+        },
+        {
+          "key": "BackURL",
+          "path": "root.ObjectStates[25].CustomDeck.5.BackURL"
+        }
+      ]
+    },
+    {
+      "fileName": "17-card-sheet-face.jpg",
+      "kind": "card-sheet-face",
+      "contentType": "image/jpeg",
+      "sizeBytes": 11281230,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650492287/09F4398F757782C2176548D49B3F1993D3BB8829/",
+      "contexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[0].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[2].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[4].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[10].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[16].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[41].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[48].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[49].CustomDeck.5.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[25].CustomDeck.5.FaceURL"
+        }
+      ]
+    },
+    {
+      "fileName": "18-card-sheet-face.jpg",
+      "kind": "card-sheet-face",
+      "contentType": "image/jpeg",
+      "sizeBytes": 11222645,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650493621/48AC8609670198C445DEE1DA0A1A0E28E8394426/",
+      "contexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[3].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[11].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[19].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[26].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[29].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[30].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[38].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[43].CustomDeck.6.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[45].CustomDeck.6.FaceURL"
+        }
+      ]
+    },
+    {
+      "fileName": "19-card-sheet-face.jpg",
+      "kind": "card-sheet-face",
+      "contentType": "image/jpeg",
+      "sizeBytes": 11231170,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650494885/56A97D7338EC31F1266B11AD0F81ED64AC2891EF/",
+      "contexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[5].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[6].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[8].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[12].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[21].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[28].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[31].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[36].CustomDeck.7.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[44].CustomDeck.7.FaceURL"
+        }
+      ]
+    },
+    {
+      "fileName": "20-card-sheet-face.jpg",
+      "kind": "card-sheet-face",
+      "contentType": "image/jpeg",
+      "sizeBytes": 11194496,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650496213/25F9ED8992380D3CBC3A3C881CE76F476F7EE8F2/",
+      "contexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[15].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[18].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[22].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[23].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[34].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[35].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[39].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[46].CustomDeck.8.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[51].CustomDeck.8.FaceURL"
+        }
+      ]
+    },
+    {
+      "fileName": "21-card-sheet-face.jpg",
+      "kind": "card-sheet-face",
+      "contentType": "application/octet-stream",
+      "sizeBytes": 4971387,
+      "sourceUrl": "http://cloud-3.steamusercontent.com/ugc/959738968650497219/7B8EE1B38CA89D79D7300D42F25EFA78FC23DAE7/",
+      "contexts": [
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].CustomDeck.9.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[27].CustomDeck.9.FaceURL"
+        },
+        {
+          "key": "FaceURL",
+          "path": "root.ObjectStates[23].ContainedObjects[32].CustomDeck.9.FaceURL"
+        }
+      ]
+    }
+  ]
+}
