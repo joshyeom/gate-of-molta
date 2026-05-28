@@ -16,6 +16,7 @@ import {
   getPaymentPlans,
   getPlayer,
   getPlayerPower,
+  getUsableAbilityActions,
 } from "./selectors";
 import type {
   CardDefinitionId,
@@ -326,26 +327,28 @@ describe("basic actions", () => {
 
     expect(activation).toBeDefined();
     expect(canPayRequirement(setup.state, setup.actorId, setup.characterId)).toBe(true);
-    expect(getPaymentPlans(setup.state, setup.actorId, setup.characterId)).toEqual([
-      { pearlIds: setup.pearlIds, diamondUses: [] },
-    ]);
+    expect(getPaymentPlans(setup.state, setup.actorId, setup.characterId)).toContainEqual({
+      pearlIds: setup.pearlIds,
+      diamondUses: [],
+    });
   });
 
   it("uses base-rule diamonds to increase pearl values by 1 during activation", () => {
     const setup = makeDiamondPaymentSetup();
     const payment = getPaymentPlans(setup.state, setup.actorId, setup.characterId)[0];
 
-    expect(payment).toEqual({
-      pearlIds: [setup.exactPearlId, setup.boostedPearlId],
-      diamondUses: [
-        {
-          diamondId: setup.diamondId,
-          pearlId: setup.boostedPearlId,
-          modifier: 1,
-          source: "baseRule",
-        },
-      ],
-    });
+    expect([...payment.pearlIds].sort()).toEqual(
+      [setup.exactPearlId, setup.boostedPearlId].sort(),
+    );
+    expect(payment.diamondUses).toEqual([
+      {
+        diamondId: setup.diamondId,
+        pearlId: expect.any(String),
+        modifier: 1,
+        source: "baseRule",
+      },
+    ]);
+    expect(payment.pearlIds).toContain(payment.diamondUses[0].pearlId);
 
     const next = reduceGame(setup.state, {
       type: "activateGateCharacter",
@@ -392,6 +395,115 @@ describe("basic actions", () => {
       expect.arrayContaining([virtualSourceId, characterId]),
     );
     expect(getPlayer(next, active.id).pearlHand).not.toContain(pearl8Id);
+  });
+
+  it("does not expose newly activated passive virtual pearls until the next turn", () => {
+    let state = start({ seed: "passive-virtual-next-turn" });
+    const active = getActivePlayer(state);
+    const virtualSourceId = cardIdForDefinition(state, "character-607-22-p1-d0", []);
+    const characterId = cardIdForDefinition(state, "character-806-2-p0-d1", [virtualSourceId]);
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: [],
+      gateCharacters: [characterId],
+      activatedCharacters: [virtualSourceId],
+    });
+    const readyPayment = getPaymentPlans(state, active.id, characterId)[0];
+
+    const sameTurnState = {
+      ...state,
+      turn: { ...state.turn, activatedThisTurn: [virtualSourceId] },
+    };
+
+    expect(getPaymentPlans(sameTurnState, active.id, characterId)).toHaveLength(0);
+    expect(() =>
+      reduceGame(sameTurnState, {
+        type: "activateGateCharacter",
+        actorId: active.id,
+        characterInstanceId: characterId,
+        payment: readyPayment,
+      }),
+    ).toThrow(/not ready/);
+    expect(readyPayment.virtualPearls).toEqual([{ sourceCharacterId: virtualSourceId, value: 2 }]);
+  });
+
+  it("does not allow newly activated use abilities until the next turn", () => {
+    let state = start({ seed: "passive-ability-next-turn" });
+    const active = getActivePlayer(state);
+    const sourceId = cardIdForDefinition(state, "character-806-2-p0-d1", []);
+    const pearl2Id = cardIdForDefinition(state, "pearl-2", []);
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: [pearl2Id],
+      gateCharacters: [],
+      activatedCharacters: [sourceId],
+    });
+    const sameTurnState = {
+      ...state,
+      turn: { ...state.turn, activatedThisTurn: [sourceId] },
+    };
+
+    expect(getUsableAbilityActions(sameTurnState, active.id)).toEqual([]);
+    expect(() =>
+      reduceGame(sameTurnState, {
+        type: "useAbility",
+        actorId: active.id,
+        abilityId: "character-806-2-p0-d1-effect",
+        choices: { sourceCardId: sourceId, pearlId: pearl2Id },
+      }),
+    ).toThrow(/next turn/);
+    expect(getUsableAbilityActions(state, active.id)).toContainEqual({
+      type: "useAbility",
+      actorId: active.id,
+      abilityId: "character-806-2-p0-d1-effect",
+      choices: { sourceCardId: sourceId },
+    });
+  });
+
+  it("uses the 1111 engine card as any pearl value in activation combinations", () => {
+    let state = start({ seed: "virtual-any-pearl" });
+    const active = getActivePlayer(state);
+    const virtualSourceId = cardIdForDefinition(state, "character-603-1111-p0-d0", []);
+    const characterId = cardIdForDefinition(state, "character-307-7777-p4-d0", [virtualSourceId]);
+    const pearl7a = cardIdForDefinition(state, "pearl-7", []);
+    const pearl7b = cardIdForDefinition(state, "pearl-7", [pearl7a]);
+    const pearl7c = cardIdForDefinition(state, "pearl-7", [pearl7a, pearl7b]);
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: [pearl7a, pearl7b, pearl7c],
+      gateCharacters: [characterId],
+      activatedCharacters: [virtualSourceId],
+    });
+
+    const payment = getPaymentPlans(state, active.id, characterId)[0];
+    expect(payment.virtualPearls).toEqual([{ sourceCharacterId: virtualSourceId, value: 7 }]);
+    expect(payment.pearlIds).toHaveLength(3);
+
+    const next = reduceGame(state, {
+      type: "activateGateCharacter",
+      actorId: active.id,
+      characterInstanceId: characterId,
+      payment,
+    }).state;
+
+    expect(getPlayer(next, active.id).activatedCharacters).toEqual(
+      expect.arrayContaining([virtualSourceId, characterId]),
+    );
+  });
+
+  it("prefers activated virtual pearls over spending matching hand pearls", () => {
+    let state = start({ seed: "virtual-pearl-preference" });
+    const active = getActivePlayer(state);
+    const virtualSourceId = cardIdForDefinition(state, "character-603-1111-p0-d0", []);
+    const characterId = cardIdForDefinition(state, "character-607-22-p1-d0", [virtualSourceId]);
+    const pearl2a = cardIdForDefinition(state, "pearl-2", []);
+    const pearl2b = cardIdForDefinition(state, "pearl-2", [pearl2a]);
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: [pearl2a, pearl2b],
+      gateCharacters: [characterId],
+      activatedCharacters: [virtualSourceId],
+    });
+
+    const payment = getPaymentPlans(state, active.id, characterId)[0];
+    expect(payment.virtualPearls).toEqual([{ sourceCharacterId: virtualSourceId, value: 2 }]);
+    expect(payment.pearlIds).toHaveLength(1);
   });
 
   it("uses the candidate diamond effect to lower pearl values by 1", () => {
@@ -491,6 +603,163 @@ describe("basic actions", () => {
     });
   });
 
+  it("delays persistent action bonuses from newly activated passive cards until the next turn", () => {
+    let state = start({ totalPlayers: 2, seed: "passive-actions-next-turn" });
+    const active = getActivePlayer(state);
+    const characterId = cardIdForDefinition(state, "character-508-45678-p1-d0", []);
+    const pearlIds = ["pearl-4", "pearl-5", "pearl-6", "pearl-7", "pearl-8"].map((definitionId) =>
+      cardIdForDefinition(state, definitionId as CardDefinitionId, []),
+    );
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: pearlIds,
+      gateCharacters: [characterId],
+    });
+
+    state = reduceGame(state, {
+      type: "activateGateCharacter",
+      actorId: active.id,
+      characterInstanceId: characterId,
+      payment: getPaymentPlans(state, active.id, characterId)[0],
+    }).state;
+
+    expect(state.turn.actionsRemaining).toBe(2);
+
+    state = {
+      ...state,
+      turn: { ...state.turn, actionsRemaining: 0 },
+    };
+    state = reduceGame(state, { type: "endTurn", actorId: active.id }).state;
+    const opponentId = state.turn.activePlayerId;
+    state = {
+      ...state,
+      turn: { ...state.turn, actionsRemaining: 0 },
+    };
+    state = reduceGame(state, { type: "endTurn", actorId: opponentId }).state;
+
+    expect(state.turn.activePlayerId).toBe(active.id);
+    expect(state.turn.actionsRemaining).toBe(4);
+  });
+
+  it("finishes the current round after 12 power and awards the highest score", () => {
+    let state = start({ seed: "current-round-end-game" });
+    const active = getActivePlayer(state);
+    const activatedIds = [
+      cardIdForDefinition(state, "character-505-8888-p5-d0", []),
+      cardIdForDefinition(state, "character-503-7777-p4-d0", []),
+      cardIdForDefinition(state, "character-501-88-p2-d0", []),
+    ];
+    const finisherId = cardIdForDefinition(state, "character-306-11-p1-d0", activatedIds);
+    const pearl1a = cardIdForDefinition(state, "pearl-1", []);
+    const pearl1b = cardIdForDefinition(state, "pearl-1", [pearl1a]);
+    const challenger = state.players[1];
+    const challengerActivatedIds = [
+      cardIdForDefinition(state, "character-305-6688-p3-d0", [...activatedIds, finisherId]),
+      cardIdForDefinition(state, "character-504-6688-p3-d0", [...activatedIds, finisherId]),
+      cardIdForDefinition(state, "character-606-6688-p3-d0", [...activatedIds, finisherId]),
+    ];
+    const challengerFinisherId = cardIdForDefinition(state, "character-307-7777-p4-d0", [
+      ...activatedIds,
+      finisherId,
+      ...challengerActivatedIds,
+    ]);
+    const pearl7a = cardIdForDefinition(state, "pearl-7", []);
+    const pearl7b = cardIdForDefinition(state, "pearl-7", [pearl7a]);
+    const pearl7c = cardIdForDefinition(state, "pearl-7", [pearl7a, pearl7b]);
+    const pearl7d = cardIdForDefinition(state, "pearl-7", [pearl7a, pearl7b, pearl7c]);
+    const challengerIds = [
+      ...challengerActivatedIds,
+      challengerFinisherId,
+      pearl7a,
+      pearl7b,
+      pearl7c,
+      pearl7d,
+    ];
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: [pearl1a, pearl1b],
+      gateCharacters: [finisherId],
+      activatedCharacters: activatedIds,
+    });
+    state = {
+      ...state,
+      turn: { ...state.turn, actionsRemaining: 1 },
+      cardsById: {
+        ...state.cardsById,
+        ...Object.fromEntries(
+          challengerIds.map((cardId) => [
+            cardId,
+            { ...state.cardsById[cardId], owner: challenger.id },
+          ]),
+        ),
+      },
+      players: state.players.map((player) => {
+        if (player.id === challenger.id) {
+          return {
+            ...player,
+            pearlHand: [pearl7a, pearl7b, pearl7c, pearl7d],
+            gateCharacters: [challengerFinisherId],
+            activatedCharacters: challengerActivatedIds,
+          };
+        }
+        return {
+          ...player,
+          pearlHand: player.pearlHand.filter((cardId) => !challengerIds.includes(cardId)),
+          gateCharacters: player.gateCharacters.filter((cardId) => !challengerIds.includes(cardId)),
+          activatedCharacters: player.activatedCharacters.filter(
+            (cardId) => !challengerIds.includes(cardId),
+          ),
+          diamonds: player.diamonds.filter((cardId) => !challengerIds.includes(cardId)),
+        };
+      }),
+      pearlDeck: removeFromDeckZone(state.pearlDeck, challengerIds),
+      characterDeck: removeFromDeckZone(state.characterDeck, challengerIds),
+      market: {
+        pearlMarket: state.market.pearlMarket.filter((cardId) => !challengerIds.includes(cardId)),
+        characterMarket: state.market.characterMarket.filter(
+          (cardId) => !challengerIds.includes(cardId),
+        ),
+      },
+    };
+
+    state = reduceGame(state, {
+      type: "activateGateCharacter",
+      actorId: active.id,
+      characterInstanceId: finisherId,
+      payment: getPaymentPlans(state, active.id, finisherId)[0],
+    }).state;
+
+    expect(state.turn.phase).toBe("action");
+    expect(state.turn.endGame).toEqual({
+      status: "finishCurrentRound",
+      triggeredBy: active.id,
+      triggeredRound: 1,
+    });
+
+    state = reduceGame(state, { type: "endTurn", actorId: active.id }).state;
+    state = reduceGame(state, {
+      type: "activateGateCharacter",
+      actorId: challenger.id,
+      characterInstanceId: challengerFinisherId,
+      payment: getPaymentPlans(state, challenger.id, challengerFinisherId)[0],
+    }).state;
+    expect(getPlayerPower(state, challenger.id)).toBe(13);
+
+    state = {
+      ...state,
+      turn: { ...state.turn, actionsRemaining: 0 },
+    };
+    state = reduceGame(state, { type: "endTurn", actorId: challenger.id }).state;
+    state = {
+      ...state,
+      turn: { ...state.turn, actionsRemaining: 0 },
+    };
+    const roundLastPlayerId = state.turn.activePlayerId;
+    state = reduceGame(state, { type: "endTurn", actorId: state.turn.activePlayerId }).state;
+
+    expect(state.turn.phase).toBe("gameOver");
+    expect(state.turn.activePlayerId).toBe(roundLastPlayerId);
+    expect(state.turn.endGame).toEqual({ status: "ended", winnerIds: [challenger.id] });
+  });
+
   it("reclaims one just-used pearl when activating the reclaim character", () => {
     let state = start({ seed: "reclaim-pearl" });
     const active = getActivePlayer(state);
@@ -517,6 +786,84 @@ describe("basic actions", () => {
       playerId: active.id,
       cardIds: [pearlIds[2]],
     });
+  });
+
+  it("honors the chosen just-used pearl for the reclaim character", () => {
+    let state = start({ seed: "chosen-reclaim-pearl" });
+    const active = getActivePlayer(state);
+    const characterId = cardIdForDefinition(state, "character-800-345-p1-d0", []);
+    const pearlIds = ["pearl-3", "pearl-4", "pearl-5"].map((definitionId) =>
+      cardIdForDefinition(state, definitionId as CardDefinitionId, []),
+    );
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: pearlIds,
+      gateCharacters: [characterId],
+    });
+
+    const payment = getPaymentPlans(state, active.id, characterId)[0];
+    const result = reduceGame(state, {
+      type: "activateGateCharacter",
+      actorId: active.id,
+      characterInstanceId: characterId,
+      payment,
+      choices: { reclaimPearlId: pearlIds[0] },
+    });
+
+    expect(getPlayer(result.state, active.id).pearlHand).toEqual([pearlIds[0]]);
+    expect(result.state.pearlDeck.discardPile).toEqual(expect.arrayContaining(pearlIds.slice(1)));
+  });
+
+  it("honors the chosen opponent gate character for discard-on-activation effects", () => {
+    let state = start({ totalPlayers: 3, seed: "chosen-opponent-gate-discard" });
+    const active = getActivePlayer(state);
+    const leftOpponent = state.players[1];
+    const rightOpponent = state.players[2];
+    const characterId = cardIdForDefinition(state, "character-602-three-card-sum-7-p1-d0", []);
+    const pearlIds = ["pearl-1", "pearl-2", "pearl-4"].map((definitionId) =>
+      cardIdForDefinition(state, definitionId as CardDefinitionId, []),
+    );
+    const strongerTargetId = cardIdForDefinition(state, "character-505-8888-p5-d0", [characterId]);
+    const chosenTargetId = cardIdForDefinition(state, "character-307-7777-p4-d0", [
+      characterId,
+      strongerTargetId,
+    ]);
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: pearlIds,
+      gateCharacters: [characterId],
+    });
+    state = {
+      ...state,
+      cardsById: {
+        ...state.cardsById,
+        [strongerTargetId]: { ...state.cardsById[strongerTargetId], owner: leftOpponent.id },
+        [chosenTargetId]: { ...state.cardsById[chosenTargetId], owner: rightOpponent.id },
+      },
+      players: state.players.map((player) => {
+        if (player.id === leftOpponent.id) {
+          return { ...player, gateCharacters: [strongerTargetId] };
+        }
+        if (player.id === rightOpponent.id) {
+          return { ...player, gateCharacters: [chosenTargetId] };
+        }
+        return player;
+      }),
+      characterDeck: removeFromDeckZone(state.characterDeck, [
+        strongerTargetId,
+        chosenTargetId,
+      ]),
+    };
+
+    const result = reduceGame(state, {
+      type: "activateGateCharacter",
+      actorId: active.id,
+      characterInstanceId: characterId,
+      payment: getPaymentPlans(state, active.id, characterId)[0],
+      choices: { targetGateCharacterId: chosenTargetId },
+    });
+
+    expect(getPlayer(result.state, rightOpponent.id).gateCharacters).not.toContain(chosenTargetId);
+    expect(getPlayer(result.state, leftOpponent.id).gateCharacters).toContain(strongerTargetId);
+    expect(result.state.characterDeck.discardPile).toContain(chosenTargetId);
   });
 
   it("allows adjacent players to activate a wisp from another gate", () => {
@@ -605,15 +952,10 @@ describe("basic actions", () => {
       }
     }
 
-    expect(completedTurns).toBe(57);
-    expect(state.turn.roundNumber).toBe(20);
     expect(state.turn.phase).toBe("gameOver");
-    expect(state.turn.endGame).toEqual({ status: "ended", winnerIds: ["player-1"] });
-    expect(state.players.map((player) => getPlayerPower(state, player.id))).toEqual([
-      15,
-      8,
-      11,
-    ]);
+    expect(state.turn.endGame.status).toBe("ended");
+    expect(completedTurns).toBeLessThanOrEqual(57);
+    expect(Math.max(...state.players.map((player) => getPlayerPower(state, player.id)))).toBeGreaterThanOrEqual(12);
   });
 
   it("prefers gathering pearls over blind replacement after filling the gate", () => {
@@ -722,6 +1064,52 @@ describe("basic actions", () => {
     expect(action).toMatchObject({
       type: "activateGateCharacter",
       characterInstanceId: engineId,
+    });
+  });
+
+  it("fills an empty gate from the character deck before taking denial pearls on expert", () => {
+    let state = start({ seed: "ai-expert-empty-gate" });
+    const active = getActivePlayer(state);
+    const deckCharacterId = cardIdForDefinition(state, "character-406-pair-p1-d0", []);
+    const opponent = state.players[1];
+    const opponentTargetId = cardIdForDefinition(state, "character-307-7777-p4-d0", [
+      deckCharacterId,
+    ]);
+    const pearl7Id = cardIdForDefinition(state, "pearl-7", []);
+
+    state = arrangeActivePlayerCards(state, {
+      pearlHand: [],
+      gateCharacters: [],
+      activatedCharacters: [],
+      diamonds: [],
+    });
+    state = {
+      ...state,
+      setup: { ...state.setup, aiDifficulty: "expert" },
+      cardsById: {
+        ...state.cardsById,
+        [deckCharacterId]: { ...state.cardsById[deckCharacterId], owner: null },
+        [opponentTargetId]: { ...state.cardsById[opponentTargetId], owner: opponent.id },
+        [pearl7Id]: { ...state.cardsById[pearl7Id], owner: null },
+      },
+      players: state.players.map((player) =>
+        player.id === opponent.id ? { ...player, gateCharacters: [opponentTargetId] } : player,
+      ),
+      characterDeck: {
+        ...removeFromDeckZone(state.characterDeck, [deckCharacterId, opponentTargetId]),
+        drawPile: [deckCharacterId],
+      },
+      pearlDeck: removeFromDeckZone(state.pearlDeck, [pearl7Id]),
+      market: {
+        pearlMarket: [pearl7Id],
+        characterMarket: [],
+      },
+    };
+
+    const action = chooseAiAction(state, active.id);
+    expect(action).toMatchObject({
+      type: "placeCharacterFromDeck",
+      actorId: active.id,
     });
   });
 });

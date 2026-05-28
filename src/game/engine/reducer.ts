@@ -16,13 +16,13 @@ import {
   STEAL_HAND_IDS,
   SWAP_GATE_MARKET_IDS,
   THREE_AS_ANY_IDS,
-  TURN_ACTION_BONUS_IDS,
   VIRTUAL_PEARL_VALUE_BY_DEFINITION,
 } from "./abilities";
 import { createInitialGameState } from "./state";
 import { shuffleWithRng } from "./rng";
 import { getHandLimit, getPlayer, getTurnActionCount } from "./selectors";
 import type {
+  AbilityChoices,
   AnimationIntent,
   CardInstanceId,
   CardDefinitionId,
@@ -599,8 +599,12 @@ function activateGateCharacter(
     );
   }
 
+  const requestedReclaimPearlId =
+    typeof action.choices?.reclaimPearlId === "string"
+      ? action.choices.reclaimPearlId
+      : undefined;
   const reclaimedPearlIds = RECLAIM_USED_PEARL_IDS.has(definition.id)
-    ? chooseReclaimedPearls(state, pearlIds, 1)
+    ? chooseReclaimedPearls(state, pearlIds, 1, requestedReclaimPearlId)
     : [];
   const reclaimedPearlSet = new Set(reclaimedPearlIds);
   const discardedPearlIds = pearlIds.filter((pearlId) => !reclaimedPearlSet.has(pearlId));
@@ -711,12 +715,19 @@ function activateGateCharacter(
       },
       characterDeck: diamondDraw.characterDeck,
       rngState: diamondDraw.rngState,
-      turn: spent.turn,
+      turn: {
+        ...spent.turn,
+        activatedThisTurn: [
+          ...state.turn.activatedThisTurn,
+          action.characterInstanceId,
+        ],
+      },
     };
   const activated = applyOnActivateEffects(
     baseState,
     action.actorId,
     definition.id,
+    action.choices,
   );
 
   return result(
@@ -786,7 +797,8 @@ function applyDiamondUsesToPayment(
     }
     if (
       use.modifier === -1 &&
-      (use.source !== "candidateAbility" || !hasActiveDefinition(player, state, DOWN_DIAMOND_IDS))
+      (use.source !== "candidateAbility" ||
+        !hasReadyActiveDefinition(player, state, DOWN_DIAMOND_IDS))
     ) {
       throw new Error("Lowering a pearl with a diamond requires the matching activated character.");
     }
@@ -800,6 +812,9 @@ function applyDiamondUsesToPayment(
     }
     if (!player.activatedCharacters.includes(override.sourceCharacterId)) {
       throw new Error(`Override source is not activated: ${override.sourceCharacterId}`);
+    }
+    if (isActivatedThisTurn(state, override.sourceCharacterId)) {
+      throw new Error(`Override source is not ready until next turn: ${override.sourceCharacterId}`);
     }
     const sourceDefinitionId = getDefinitionId(state, override.sourceCharacterId);
     const baseValue = pearlValueOfInstance(state, override.pearlId);
@@ -849,7 +864,14 @@ function chooseReclaimedPearls(
   state: GameState,
   pearlIds: CardInstanceId[],
   count: number,
+  requestedPearlId?: CardInstanceId,
 ): CardInstanceId[] {
+  if (requestedPearlId) {
+    if (!pearlIds.includes(requestedPearlId)) {
+      throw new Error(`Reclaimed pearl was not used in payment: ${requestedPearlId}`);
+    }
+    return [requestedPearlId];
+  }
   return [...pearlIds]
     .sort((left, right) => {
       const rightValue = pearlValueOfInstance(state, right);
@@ -859,12 +881,17 @@ function chooseReclaimedPearls(
     .slice(0, count);
 }
 
-function hasActiveDefinition(
+function isActivatedThisTurn(state: GameState, cardId: CardInstanceId): boolean {
+  return state.turn.activatedThisTurn.includes(cardId);
+}
+
+function hasReadyActiveDefinition(
   player: PlayerState,
   state: GameState,
   definitionIds: Set<CardDefinitionId>,
 ): boolean {
   return player.activatedCharacters.some((cardId) => {
+    if (isActivatedThisTurn(state, cardId)) return false;
     const definitionId = getDefinitionId(state, cardId);
     return Boolean(definitionId && definitionIds.has(definitionId));
   });
@@ -877,6 +904,9 @@ function validateVirtualPearlUse(
 ): void {
   if (!player.activatedCharacters.includes(virtualPearl.sourceCharacterId)) {
     throw new Error(`Virtual pearl source is not activated: ${virtualPearl.sourceCharacterId}`);
+  }
+  if (isActivatedThisTurn(state, virtualPearl.sourceCharacterId)) {
+    throw new Error(`Virtual pearl source is not ready until next turn: ${virtualPearl.sourceCharacterId}`);
   }
   const sourceDefinitionId = getDefinitionId(state, virtualPearl.sourceCharacterId);
   const allowedValue =
@@ -893,13 +923,11 @@ function applyOnActivateEffects(
   state: GameState,
   actorId: PlayerId,
   definitionId: CardDefinitionId,
+  choices?: AbilityChoices,
 ): { state: GameState; events: GameEvent[] } {
   let nextState = state;
   const events: GameEvent[] = [];
 
-  if (TURN_ACTION_BONUS_IDS.has(definitionId)) {
-    nextState = grantImmediateActions(nextState, actorId, 1, events);
-  }
   if (IMMEDIATE_EXTRA_ACTION_IDS.has(definitionId)) {
     nextState = grantImmediateActions(nextState, actorId, 3, events);
   }
@@ -946,7 +974,11 @@ function applyOnActivateEffects(
     }
   }
   if (DISCARD_OPPONENT_GATE_IDS.has(definitionId)) {
-    const target = chooseOpponentGateCharacterToDiscard(nextState, actorId);
+    const requestedTargetId =
+      typeof choices?.targetGateCharacterId === "string"
+        ? choices.targetGateCharacterId
+        : undefined;
+    const target = chooseOpponentGateCharacterToDiscard(nextState, actorId, requestedTargetId);
     if (target) {
       nextState = {
         ...nextState,
@@ -1023,6 +1055,7 @@ function chooseOpponentPearlToSteal(
 function chooseOpponentGateCharacterToDiscard(
   state: GameState,
   actorId: PlayerId,
+  requestedCardId?: CardInstanceId,
 ): { ownerId: PlayerId; cardId: CardInstanceId } | null {
   const candidates = state.players
     .filter((player) => player.id !== actorId)
@@ -1032,8 +1065,15 @@ function chooseOpponentGateCharacterToDiscard(
         cardId,
         power: getCharacterPower(state, cardId),
       })),
-    )
-    .sort((left, right) => right.power - left.power || left.cardId.localeCompare(right.cardId));
+    );
+  if (requestedCardId) {
+    const requested = candidates.find((candidate) => candidate.cardId === requestedCardId);
+    if (!requested) {
+      throw new Error(`Invalid opponent gate discard target: ${requestedCardId}`);
+    }
+    return requested;
+  }
+  candidates.sort((left, right) => right.power - left.power || left.cardId.localeCompare(right.cardId));
   return candidates[0] ?? null;
 }
 
@@ -1236,6 +1276,9 @@ function useAbility(state: GameState, action: Extract<GameAction, { type: "useAb
   const definitionId = getDefinitionId(state, sourceCardId);
   if (!definitionId) {
     throw new Error(`Unknown ability source: ${sourceCardId}`);
+  }
+  if (isActivatedThisTurn(state, sourceCardId)) {
+    throw new Error("Ability source is not ready until the next turn.");
   }
 
   if (DISCARD_REDRAW_HAND_IDS.has(definitionId)) {
@@ -1542,6 +1585,25 @@ function endTurn(state: GameState, action: Extract<GameAction, { type: "endTurn"
   const activeIndex = state.players.findIndex((candidate) => candidate.id === action.actorId);
   const nextIndex = (activeIndex + 1) % state.players.length;
   const nextPlayer = state.players[nextIndex];
+  if (
+    state.turn.endGame.status === "finishCurrentRound" &&
+    nextPlayer.id === state.turn.startPlayerId
+  ) {
+    const winnerIds = getEndGameWinnerIds(state, fixtureCatalog);
+    return result(
+      {
+        ...state,
+        turn: {
+          ...state.turn,
+          actionsRemaining: 0,
+          phase: "gameOver",
+          endGame: { status: "ended", winnerIds },
+        },
+      },
+      [],
+    );
+  }
+
   const roundNumber =
     nextPlayer.id === state.turn.startPlayerId ? state.turn.roundNumber + 1 : state.turn.roundNumber;
   const actionBonuses = { ...state.turn.actionBonuses };
@@ -1565,6 +1627,7 @@ function endTurn(state: GameState, action: Extract<GameAction, { type: "endTurn"
       phase: "action",
       actionBonuses,
       usedAbilityIds: [],
+      activatedThisTurn: [],
     },
   };
 
@@ -1584,6 +1647,24 @@ function computePlayerPower(state: GameState, playerId: PlayerId, catalog: Conte
     const definition = catalog.characterCards[instance.definitionId];
     return total + (typeof definition?.power === "number" ? definition.power : 0);
   }, 0);
+}
+
+function getEndGameWinnerIds(state: GameState, catalog: ContentCatalog): PlayerId[] {
+  const ranked = [...state.players].sort((left, right) => {
+    const leftPower = computePlayerPower(state, left.id, catalog);
+    const rightPower = computePlayerPower(state, right.id, catalog);
+    if (rightPower !== leftPower) return rightPower - leftPower;
+    return right.diamonds.length - left.diamonds.length;
+  });
+  const topPower = computePlayerPower(state, ranked[0].id, catalog);
+  const topDiamonds = ranked[0].diamonds.length;
+  return ranked
+    .filter(
+      (candidate) =>
+        computePlayerPower(state, candidate.id, catalog) === topPower &&
+        candidate.diamonds.length === topDiamonds,
+    )
+    .map((player) => player.id);
 }
 
 function applyEndGameTransitions(
@@ -1621,38 +1702,26 @@ function applyEndGameOnTurnStart(state: GameState, previousRound: number): GameS
   }
   const endGame = state.turn.endGame;
   if (endGame.status === "finishCurrentRound" && state.turn.roundNumber > endGame.triggeredRound) {
+    const winnerIds = getEndGameWinnerIds(state, fixtureCatalog);
     return {
       ...state,
       turn: {
         ...state.turn,
-        endGame: {
-          status: "finalRound",
-          triggeredBy: endGame.triggeredBy,
-          finalRoundNumber: state.turn.roundNumber,
-        },
+        actionsRemaining: 0,
+        phase: "gameOver",
+        endGame: { status: "ended", winnerIds },
       },
     };
   }
   if (endGame.status === "finalRound" && state.turn.roundNumber > endGame.finalRoundNumber) {
-    const ranked = [...state.players].sort((left, right) => {
-      const leftPower = computePlayerPower(state, left.id, fixtureCatalog);
-      const rightPower = computePlayerPower(state, right.id, fixtureCatalog);
-      if (rightPower !== leftPower) return rightPower - leftPower;
-      return right.diamonds.length - left.diamonds.length;
-    });
-    const topPower = computePlayerPower(state, ranked[0].id, fixtureCatalog);
-    const topDiamonds = ranked[0].diamonds.length;
-    const winners = ranked.filter(
-      (candidate) =>
-        computePlayerPower(state, candidate.id, fixtureCatalog) === topPower &&
-        candidate.diamonds.length === topDiamonds,
-    );
+    const winnerIds = getEndGameWinnerIds(state, fixtureCatalog);
     return {
       ...state,
       turn: {
         ...state.turn,
+        actionsRemaining: 0,
         phase: "gameOver",
-        endGame: { status: "ended", winnerIds: winners.map((p) => p.id) },
+        endGame: { status: "ended", winnerIds },
       },
     };
   }
@@ -1707,5 +1776,15 @@ export function reduceGame(
 
   let nextState = applyEndGameTransitions(outcome.state, action, catalog);
   nextState = applyEndGameOnTurnStart(nextState, previousRound);
+  if (nextState.turn.endGame.status === "ended" && nextState.turn.phase !== "gameOver") {
+    nextState = {
+      ...nextState,
+      turn: {
+        ...nextState.turn,
+        actionsRemaining: 0,
+        phase: "gameOver",
+      },
+    };
+  }
   return { ...outcome, state: nextState };
 }

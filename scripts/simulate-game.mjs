@@ -16,6 +16,7 @@ for (let index = 2; index < process.argv.length; index += 1) {
 
 const seed = args.get("seed") ?? "full-game-history";
 const totalPlayers = Number(args.get("players") ?? 3);
+const difficulty = args.get("difficulty") ?? "normal";
 const startPlayer = args.has("start-seat")
   ? { type: "fixedSeat", seatIndex: Number(args.get("start-seat")) }
   : { type: "seededRandom" };
@@ -34,6 +35,7 @@ import { fixtureCatalog } from "./src/game/content/catalog.ts";
 
 const seed = ${JSON.stringify(seed)};
 const totalPlayers = ${JSON.stringify(totalPlayers)};
+const difficulty = ${JSON.stringify(difficulty)};
 const startPlayer = ${JSON.stringify(startPlayer)};
 const maxSteps = ${JSON.stringify(maxSteps)};
 const outputPath = ${JSON.stringify(outputPath)};
@@ -49,6 +51,7 @@ function start() {
       ...defaultSetupOptions,
       seed,
       totalPlayers,
+      aiDifficulty: difficulty,
       startPlayer,
     },
   }).state;
@@ -289,6 +292,7 @@ while (state.turn.endGame.status !== "ended" && stepCount < maxSteps) {
 const report = {
   seed,
   totalPlayers,
+  difficulty,
   startPlayer,
   maxSteps,
   result: {

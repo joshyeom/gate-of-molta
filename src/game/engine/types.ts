@@ -138,6 +138,7 @@ export type TurnState = {
   endGame: EndGameState;
   actionBonuses: Record<PlayerId, number>;
   usedAbilityIds: string[];
+  activatedThisTurn: CardInstanceId[];
 };
 
 export type AbilityChoices = Record<
@@ -192,6 +193,7 @@ export type GameAction =
       actorId: PlayerId;
       characterInstanceId: CardInstanceId;
       payment: PaymentPlan;
+      choices?: AbilityChoices;
     }
   | { type: "discardPearlsToLimit"; actorId: PlayerId; pearlIds: CardInstanceId[] }
   | { type: "useAbility"; actorId: PlayerId; abilityId: string; choices: AbilityChoices }

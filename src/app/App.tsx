@@ -2,7 +2,14 @@ import { useEffect, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import { fixtureCatalog } from "../game/content/catalog";
-import { PEEK_CHARACTER_DECK_IDS } from "../game/engine/abilities";
+import {
+  DISCARD_OPPONENT_GATE_IDS,
+  DISCARD_REDRAW_HAND_IDS,
+  DRAW_DIAMOND_BY_TWO_IDS,
+  PEEK_CHARACTER_DECK_IDS,
+  RECLAIM_USED_PEARL_IDS,
+  SWAP_GATE_MARKET_IDS,
+} from "../game/engine/abilities";
 import { reduceGame } from "../game/engine/reducer";
 import { defaultSetupOptions } from "../game/engine/state";
 import {
@@ -12,9 +19,11 @@ import {
   getPaymentPlans,
   getPlayer,
   getPlayerPower,
+  getTurnActionCount,
   getUsableAbilityActions,
 } from "../game/engine/selectors";
 import type {
+  AbilityChoices,
   AiDifficulty,
   CardInstanceId,
   CharacterRequirement,
@@ -54,7 +63,7 @@ const eventLabels: Record<GameEvent["type"], string> = {
   pearlsReclaimed: "진주 회수",
 };
 
-const pearlArtUrls = import.meta.glob<string>("../assets/cards/pearls/*.png", {
+const pearlArtUrls = import.meta.glob<string>("../assets/cards/pearls/*.webp", {
   eager: true,
   query: "?url",
   import: "default",
@@ -63,11 +72,27 @@ const characterPlaceholderUrl = new URL(
   "../assets/cards/characters/placeholder-character.webp",
   import.meta.url,
 ).href;
-const characterArtUrls = import.meta.glob<string>("../assets/cards/characters/*.png", {
+const characterArtUrls = import.meta.glob<string>("../assets/cards/characters/*.webp", {
   eager: true,
   query: "?url",
   import: "default",
 });
+const boardArtUrl = new URL("../assets/boards/placeholder-board.svg", import.meta.url).href;
+const preloadAssetUrls = Array.from(
+  new Set([
+    boardArtUrl,
+    characterPlaceholderUrl,
+    ...Object.values(pearlArtUrls),
+    ...Object.values(characterArtUrls),
+  ]),
+);
+
+type AssetPreloadState = {
+  loaded: number;
+  failed: number;
+  total: number;
+  ready: boolean;
+};
 
 function createGame(options: GameSetupOptions): GameState {
   return reduceGame(undefined, { type: "startGame", options }).state;
@@ -92,10 +117,68 @@ function getSeatPositions(count: number): SeatPosition[] {
     case 3:
       return ["left", "top", "right"];
     case 4:
-      return ["left", "topLeft", "topRight", "right"];
+      return ["topLeft", "topRight", "left", "right"];
     default:
       return [];
   }
+}
+
+function useImagePreloader(urls: string[]): AssetPreloadState {
+  const [preloadState, setPreloadState] = useState<AssetPreloadState>({
+    loaded: 0,
+    failed: 0,
+    total: urls.length,
+    ready: urls.length === 0,
+  });
+
+  useEffect(() => {
+    if (urls.length === 0) {
+      setPreloadState({ loaded: 0, failed: 0, total: 0, ready: true });
+      return;
+    }
+
+    let cancelled = false;
+    let loaded = 0;
+    let failed = 0;
+
+    const update = (success: boolean) => {
+      if (cancelled) {
+        return;
+      }
+      if (success) {
+        loaded += 1;
+      } else {
+        failed += 1;
+      }
+      setPreloadState({
+        loaded,
+        failed,
+        total: urls.length,
+        ready: loaded + failed >= urls.length,
+      });
+    };
+
+    setPreloadState({ loaded: 0, failed: 0, total: urls.length, ready: false });
+
+    urls.forEach((url) => {
+      const image = new Image();
+      image.decoding = "async";
+      image.onload = () => {
+        image
+          .decode()
+          .then(() => update(true))
+          .catch(() => update(true));
+      };
+      image.onerror = () => update(false);
+      image.src = url;
+    });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [urls]);
+
+  return preloadState;
 }
 
 function formatEvents(events: GameEvent[]): string {
@@ -130,12 +213,16 @@ function formatEngineError(error: unknown): string {
 function finishTurnIfNeeded(
   state: GameState,
   actorId: string,
-  options: { autoDiscard: boolean } = { autoDiscard: true },
+  options: { autoDiscard: boolean; autoAbilities?: boolean } = { autoDiscard: true },
 ): { state: GameState; events: GameEvent[] } {
   let nextState = state;
   const events: GameEvent[] = [];
 
-  while (nextState.turn.activePlayerId === actorId && nextState.turn.actionsRemaining === 0) {
+  while (
+    options.autoAbilities !== false &&
+    nextState.turn.activePlayerId === actorId &&
+    nextState.turn.actionsRemaining === 0
+  ) {
     const abilityAction = chooseAiAction(nextState, actorId);
     if (abilityAction.type !== "useAbility") {
       break;
@@ -221,25 +308,6 @@ function describeAction(action: GameAction, actorLabel: string): string {
   }
 }
 
-function actionToneOf(action: GameAction): "gain" | "place" | "activate" | "refresh" | "ai" {
-  switch (action.type) {
-    case "gainPearlFromMarket":
-    case "gainPearlFromDeck":
-      return "gain";
-    case "placeCharacterFromMarket":
-    case "placeCharacterFromDeck":
-      return "place";
-    case "activateGateCharacter":
-      return "activate";
-    case "useAbility":
-      return "activate";
-    case "refreshPearlMarket":
-      return "refresh";
-    default:
-      return "ai";
-  }
-}
-
 function actionFocusCards(action: GameAction, state: GameState): CardInstanceId[] {
   switch (action.type) {
     case "gainPearlFromMarket":
@@ -294,6 +362,14 @@ function getCardMeta(state: GameState, cardId: CardInstanceId): string {
   return "관문";
 }
 
+function pearlValueOfCard(state: GameState, cardId: CardInstanceId): number | null {
+  const instance = state.cardsById[cardId];
+  if (!instance) {
+    return null;
+  }
+  return fixtureCatalog.pearlCards[instance.definitionId]?.value ?? null;
+}
+
 function getCharacterDefinition(state: GameState, cardId: CardInstanceId) {
   const definitionId = state.cardsById[cardId]?.definitionId;
   return fixtureCatalog.characterCards[definitionId];
@@ -304,12 +380,12 @@ function getCardImageUrl(state: GameState, cardId: CardInstanceId): string | und
   const pearl = fixtureCatalog.pearlCards[instance.definitionId];
   if (pearl) {
     const variant = pearl.hasRefreshIcon === true ? "-refresh" : "";
-    return pearlArtUrls[`../assets/cards/pearls/pearl-${pearl.value}${variant}.png`];
+    return pearlArtUrls[`../assets/cards/pearls/pearl-${pearl.value}${variant}.webp`];
   }
 
   if (fixtureCatalog.characterCards[instance.definitionId]) {
     return (
-      characterArtUrls[`../assets/cards/characters/${instance.definitionId}.png`] ??
+      characterArtUrls[`../assets/cards/characters/${instance.definitionId}.webp`] ??
       characterPlaceholderUrl
     );
   }
@@ -351,13 +427,15 @@ function formatPaymentPlan(state: GameState, payment: PaymentPlan): string {
     payment.diamondUses.map((use) => [use.pearlId, use.diamondId]),
   );
   const overrideByPearlId = new Map(
-    (payment.pearlValueOverrides ?? []).map((override) => [override.pearlId, override.value]),
+    (payment.pearlValueOverrides ?? []).map((override) => [override.pearlId, override]),
   );
   const pearlLabels = payment.pearlIds
     .map((pearlId) => {
       const pearlLabel = getCardLabel(state, pearlId, fixtureCatalog);
       const override = overrideByPearlId.get(pearlId);
-      const valueLabel = override ? `${pearlLabel}→${override}` : pearlLabel;
+      const valueLabel = override
+        ? `${pearlLabel}→${override.value} (${getCardLabel(state, override.sourceCharacterId, fixtureCatalog)})`
+        : pearlLabel;
       return diamondByPearlId.has(pearlId) ? `${valueLabel} + 다이아` : valueLabel;
     });
   const virtualLabels = (payment.virtualPearls ?? []).map((virtualPearl) => {
@@ -366,6 +444,70 @@ function formatPaymentPlan(state: GameState, payment: PaymentPlan): string {
   });
   const spentDiamondLabels = (payment.spentDiamondIds ?? []).map(() => "다이아 1장");
   return [...pearlLabels, ...virtualLabels, ...spentDiamondLabels].join(", ");
+}
+
+function paymentSourceGroups(
+  state: GameState,
+  payment: PaymentPlan,
+): Array<{ label: string; value: string; tone: "hand" | "active" | "diamond" }> {
+  const diamondByPearlId = new Map(
+    payment.diamondUses.map((use) => [use.pearlId, use.diamondId]),
+  );
+  const overrideByPearlId = new Map(
+    (payment.pearlValueOverrides ?? []).map((override) => [override.pearlId, override]),
+  );
+  const handLabels = payment.pearlIds.map((pearlId) => {
+    const base = getCardLabel(state, pearlId, fixtureCatalog);
+    const override = overrideByPearlId.get(pearlId);
+    const diamond = diamondByPearlId.has(pearlId) ? " + 다이아" : "";
+    return override ? `${base}→${override.value}${diamond}` : `${base}${diamond}`;
+  });
+  const activeLabels = [
+    ...(payment.virtualPearls ?? []).map((virtualPearl) => {
+      const source = getCardLabel(state, virtualPearl.sourceCharacterId, fixtureCatalog);
+      return `${source}=진주 ${virtualPearl.value}`;
+    }),
+    ...(payment.pearlValueOverrides ?? []).map((override) => {
+      const source = getCardLabel(state, override.sourceCharacterId, fixtureCatalog);
+      return `${source} 변환`;
+    }),
+  ];
+  const diamondCount = paymentDiamondIds(payment).length;
+
+  return [
+    ...(handLabels.length > 0
+      ? [{ label: "손패 진주", value: handLabels.join(", "), tone: "hand" as const }]
+      : []),
+    ...(activeLabels.length > 0
+      ? [{ label: "활성 카드", value: activeLabels.join(", "), tone: "active" as const }]
+      : []),
+    ...(diamondCount > 0
+      ? [{ label: "다이아", value: `${diamondCount}장 사용`, tone: "diamond" as const }]
+      : []),
+  ];
+}
+
+function paymentDisplayKey(state: GameState, payment: PaymentPlan): string {
+  return paymentSourceGroups(state, payment)
+    .map((group) => `${group.tone}:${group.label}:${group.value}`)
+    .join("|");
+}
+
+function getDisplayPaymentChoices(
+  state: GameState,
+  plans: PaymentPlan[],
+): Array<{ payment: PaymentPlan; duplicateCount: number }> {
+  const grouped = new Map<string, { payment: PaymentPlan; duplicateCount: number }>();
+  for (const payment of plans) {
+    const key = paymentDisplayKey(state, payment);
+    const current = grouped.get(key);
+    if (current) {
+      current.duplicateCount += 1;
+    } else {
+      grouped.set(key, { payment, duplicateCount: 1 });
+    }
+  }
+  return [...grouped.values()];
 }
 
 function paymentDiamondIds(payment: PaymentPlan): CardInstanceId[] {
@@ -408,9 +550,104 @@ function isPeekAbilityAction(action: GameAction, state: GameState): boolean {
   return Boolean(definitionId && PEEK_CHARACTER_DECK_IDS.has(definitionId));
 }
 
+function abilitySourceCardId(action: GameAction): CardInstanceId | null {
+  if (action.type !== "useAbility") {
+    return null;
+  }
+  return typeof action.choices.sourceCardId === "string" ? action.choices.sourceCardId : null;
+}
+
+function abilityPromptKey(state: GameState, action: GameAction): string {
+  return [
+    state.gameId,
+    state.turn.roundNumber,
+    state.turn.activePlayerId,
+    state.turn.actionsRemaining,
+    action.type === "useAbility" ? action.abilityId : "none",
+    abilitySourceCardId(action) ?? "unknown",
+  ].join(":");
+}
+
+function abilityPromptMessage(state: GameState, action: GameAction): string {
+  const sourceCardId = abilitySourceCardId(action);
+  const definitionId = sourceCardId ? definitionIdOf(state, sourceCardId) : undefined;
+  if (definitionId && PEEK_CHARACTER_DECK_IDS.has(definitionId)) {
+    return "첫 행동 전에 인물 더미 맨 위를 확인할 수 있습니다.";
+  }
+  if (definitionId && DISCARD_REDRAW_HAND_IDS.has(definitionId)) {
+    return "행동을 모두 사용했습니다. 손패를 버리고 다시 뽑는 효과를 사용할 수 있습니다.";
+  }
+  if (definitionId && SWAP_GATE_MARKET_IDS.has(definitionId)) {
+    return "첫 행동 전에 내 관문 인물 1장과 열린 인물 1장을 교환할 수 있습니다.";
+  }
+  if (definitionId && DRAW_DIAMOND_BY_TWO_IDS.has(definitionId)) {
+    return "손패의 진주 2 한 장을 버리고 다이아 1장을 가져올 수 있습니다.";
+  }
+  return "사용 가능한 인물 효과가 있습니다.";
+}
+
 type DetailAction =
   | { type: "placeFromMarket"; marketIndex: number }
   | { type: "selectGateCharacter"; cardId: CardInstanceId };
+
+type PendingActivationChoice = {
+  characterId: CardInstanceId;
+  paymentPlans: PaymentPlan[];
+};
+
+type PendingReclaimPearlChoice = {
+  characterId: CardInstanceId;
+  payment: PaymentPlan;
+  choices?: AbilityChoices;
+  pearlIds: CardInstanceId[];
+};
+
+type PendingOpponentGateChoice = {
+  characterId: CardInstanceId;
+  payment: PaymentPlan;
+  choices?: AbilityChoices;
+  targets: Array<{ ownerId: PlayerId; cardId: CardInstanceId }>;
+};
+
+type AbilityAction = Extract<GameAction, { type: "useAbility" }>;
+
+type PendingSwapGateMarketChoice = {
+  action: AbilityAction;
+  gateCardIds: CardInstanceId[];
+  marketCards: Array<{ cardId: CardInstanceId; marketIndex: number }>;
+};
+
+type PendingDiamondPearlChoice = {
+  action: AbilityAction;
+  pearlIds: CardInstanceId[];
+};
+
+function definitionIdOf(state: GameState, cardId: CardInstanceId): string | undefined {
+  return state.cardsById[cardId]?.definitionId;
+}
+
+function actionStatusText(state: GameState, playerId: PlayerId): string {
+  const total = getTurnActionCount(state, playerId);
+  const remaining =
+    state.turn.phase === "action" && state.turn.activePlayerId === playerId
+      ? state.turn.actionsRemaining
+      : 0;
+  return `행동 ${remaining}/${total}`;
+}
+
+function getOpponentGateTargets(
+  state: GameState,
+  actorId: PlayerId,
+): Array<{ ownerId: PlayerId; cardId: CardInstanceId }> {
+  return state.players
+    .filter((player) => player.id !== actorId)
+    .flatMap((player) =>
+      player.gateCharacters.map((cardId) => ({
+        ownerId: player.id,
+        cardId,
+      })),
+    );
+}
 
 export function App() {
   const [screen, setScreen] = useState<Screen>("home");
@@ -424,13 +661,24 @@ export function App() {
   const [selectedDiamondIds, setSelectedDiamondIds] = useState<CardInstanceId[]>([]);
   const [detailCardId, setDetailCardId] = useState<CardInstanceId | null>(null);
   const [detailAction, setDetailAction] = useState<DetailAction | null>(null);
+  const [pendingActivationChoice, setPendingActivationChoice] =
+    useState<PendingActivationChoice | null>(null);
+  const [pendingReclaimPearlChoice, setPendingReclaimPearlChoice] =
+    useState<PendingReclaimPearlChoice | null>(null);
+  const [pendingOpponentGateChoice, setPendingOpponentGateChoice] =
+    useState<PendingOpponentGateChoice | null>(null);
+  const [pendingSwapGateMarketChoice, setPendingSwapGateMarketChoice] =
+    useState<PendingSwapGateMarketChoice | null>(null);
+  const [pendingDiamondPearlChoice, setPendingDiamondPearlChoice] =
+    useState<PendingDiamondPearlChoice | null>(null);
   const [peekCardId, setPeekCardId] = useState<CardInstanceId | null>(null);
   const [message, setMessage] = useState("게임을 시작할 준비가 되었습니다.");
   const [aiWaiting, setAiWaiting] = useState(false);
   const [highlightCards, setHighlightCards] = useState<CardInstanceId[]>([]);
-  const [flash, setFlash] = useState<{ key: number; tone: "gain" | "place" | "activate" | "refresh" | "ai" } | null>(null);
   const [autopilot, setAutopilot] = useState(false);
+  const [dismissedAbilityPromptKeys, setDismissedAbilityPromptKeys] = useState<string[]>([]);
   const aiTimerRef = useRef<number | null>(null);
+  const assetLoading = useImagePreloader(preloadAssetUrls);
 
   const activePlayer = getActivePlayer(gameState);
   const humanPlayer = gameState.players.find((player) => player.controller.type === "human")!;
@@ -439,8 +687,20 @@ export function App() {
   const humanHandLimit = getHandLimit(gameState, humanPlayer.id);
   const discardExcessCount = Math.max(0, humanPlayer.pearlHand.length - humanHandLimit);
   const gameEnded = gameState.turn.endGame.status === "ended";
+  const usableHumanAbilityActions =
+    activeIsHuman && !gameEnded && !autopilot
+      ? getUsableAbilityActions(gameState, humanPlayer.id)
+      : [];
+  const pendingHumanAbilityAction =
+    usableHumanAbilityActions.find(
+      (action) => !dismissedAbilityPromptKeys.includes(abilityPromptKey(gameState, action)),
+    ) ?? null;
   const discardMode =
-    activeIsHuman && gameState.turn.actionsRemaining === 0 && discardExcessCount > 0 && !gameEnded;
+    activeIsHuman &&
+    gameState.turn.actionsRemaining === 0 &&
+    discardExcessCount > 0 &&
+    !gameEnded &&
+    !pendingHumanAbilityAction;
   const selectedGateDiscardId =
     selectedCardId && humanPlayer.gateCharacters.includes(selectedCardId)
       ? selectedCardId
@@ -448,6 +708,9 @@ export function App() {
   const actionDisabled =
     !activeIsHuman || aiWaiting || discardMode || gameState.turn.actionsRemaining === 0;
   const seatPositions = getSeatPositions(opponentPlayers.length);
+  const loadedAssetCount = assetLoading.loaded + assetLoading.failed;
+  const loadingProgress =
+    assetLoading.total > 0 ? Math.round((loadedAssetCount / assetLoading.total) * 100) : 100;
 
   useEffect(() => {
     if (screen !== "game") {
@@ -484,7 +747,6 @@ export function App() {
             const focus = actionFocusCards(action, gameState);
             setHighlightCards(focus);
             setMessage(`자동: ${describeAction(action, "나")}`);
-            setFlash({ key: Date.now(), tone: actionToneOf(action) });
             const result = reduceGame(gameState, action);
             setGameState(result.state);
             return;
@@ -494,12 +756,33 @@ export function App() {
         } catch (error) {
           setMessage(formatEngineError(error));
         }
-      }, 400);
+      }, 1000);
       return () => window.clearTimeout(timer);
     }
 
+    if (activePlayer.controller.type === "human" && pendingHumanAbilityAction) {
+      const sourceCardId = abilitySourceCardId(pendingHumanAbilityAction);
+      const overlayOpen =
+        detailCardId ||
+        pendingActivationChoice ||
+        pendingReclaimPearlChoice ||
+        pendingOpponentGateChoice ||
+        pendingSwapGateMarketChoice ||
+        pendingDiamondPearlChoice ||
+        peekCardId;
+      if (sourceCardId && !overlayOpen) {
+        setDetailCardId(sourceCardId);
+        setDetailAction(null);
+        setMessage(abilityPromptMessage(gameState, pendingHumanAbilityAction));
+      }
+      return;
+    }
+
     if (activePlayer.controller.type === "human" && gameState.turn.actionsRemaining === 0) {
-      const finished = finishTurnIfNeeded(gameState, activePlayer.id, { autoDiscard: false });
+      const finished = finishTurnIfNeeded(gameState, activePlayer.id, {
+        autoDiscard: false,
+        autoAbilities: false,
+      });
       if (finished.events.length > 0) {
         setGameState(finished.state);
         setSelectedCardId(null);
@@ -519,7 +802,7 @@ export function App() {
 
       const aiLabel = actorName(activePlayer);
       const aiId = activePlayer.id;
-      const STEP_DELAY = 1700;
+      const STEP_DELAY = 2300;
       let cancelled = false;
 
       const timer = window.setTimeout(() => {
@@ -530,7 +813,6 @@ export function App() {
             const focus = actionFocusCards(action, gameState);
             setHighlightCards(focus);
             setMessage(describeAction(action, aiLabel));
-            setFlash({ key: Date.now(), tone: "ai" });
             const result = reduceGame(gameState, action);
             setGameState(result.state);
             return;
@@ -558,19 +840,65 @@ export function App() {
         aiTimerRef.current = null;
       };
     }
-  }, [activePlayer, autopilot, discardExcessCount, discardMode, gameState, humanHandLimit, screen]);
+  }, [
+    activePlayer,
+    autopilot,
+    discardExcessCount,
+    discardMode,
+    dismissedAbilityPromptKeys,
+    gameState,
+    humanHandLimit,
+    pendingHumanAbilityAction,
+    pendingDiamondPearlChoice,
+    pendingSwapGateMarketChoice,
+    screen,
+  ]);
 
-  function startGame(nextScreen: Screen = "game") {
-    const nextState = createGame(setup);
+  if (!assetLoading.ready) {
+    return (
+      <main className="opening-screen loading-screen">
+        <section className="opening-content loading-content" role="status" aria-live="polite">
+          <p className="kicker">몰타의 관문</p>
+          <h1>카드 준비 중</h1>
+          <p className="opening-copy">
+            처음 실행에 필요한 카드 이미지를 불러오고 있습니다. 이미지가 준비되면 바로 시작 화면으로 넘어갑니다.
+          </p>
+          <div className="loading-meter" aria-label={`이미지 로딩 ${loadingProgress}%`}>
+            <span style={{ width: `${loadingProgress}%` }} />
+          </div>
+          <p className="loading-count">
+            {loadedAssetCount}/{assetLoading.total} · {loadingProgress}%
+          </p>
+        </section>
+      </main>
+    );
+  }
+
+  function startGame(nextScreen: Screen = "game", nextSetup: GameSetupOptions = setup) {
+    const nextState = createGame(nextSetup);
+    setSetup(nextSetup);
     setGameState(nextState);
     setSelectedCardId(null);
     setSelectedDiscardIds([]);
     setSelectedDiamondIds([]);
     setDetailCardId(null);
     setDetailAction(null);
+    setPendingActivationChoice(null);
+    setPendingReclaimPearlChoice(null);
+    setPendingOpponentGateChoice(null);
+    setPendingSwapGateMarketChoice(null);
+    setPendingDiamondPearlChoice(null);
     setPeekCardId(null);
+    setDismissedAbilityPromptKeys([]);
     setMessage("새 게임이 시작되었습니다.");
     setScreen(nextScreen);
+  }
+
+  function restartGameWithRandomSeed(delayMs: number) {
+    const nextSetup = { ...setup, seed: randomSeed() };
+    setSetup(nextSetup);
+    setMessage("새 게임을 준비합니다...");
+    window.setTimeout(() => startGame("game", nextSetup), delayMs);
   }
 
   function dispatchHumanAction(action: GameAction) {
@@ -588,6 +916,11 @@ export function App() {
       setGameState(result.state);
       setSelectedCardId(null);
       setSelectedDiscardIds([]);
+      setPendingActivationChoice(null);
+      setPendingReclaimPearlChoice(null);
+      setPendingOpponentGateChoice(null);
+      setPendingSwapGateMarketChoice(null);
+      setPendingDiamondPearlChoice(null);
       if (action.type === "activateGateCharacter") {
         setSelectedDiamondIds((current) =>
           current.filter((diamondId) => !paymentDiamondIds(action.payment).includes(diamondId)),
@@ -597,7 +930,6 @@ export function App() {
       setDetailAction(null);
       setPeekCardId(peekedCardId);
       setHighlightCards(focus);
-      setFlash({ key: Date.now(), tone: actionToneOf(action) });
       setMessage(
         peekAction
           ? peekedCardId
@@ -646,6 +978,7 @@ export function App() {
       });
       const finished = finishTurnIfNeeded(discardResult.state, activePlayer.id, {
         autoDiscard: false,
+        autoAbilities: false,
       });
 
       setGameState(finished.state);
@@ -676,8 +1009,7 @@ export function App() {
     setSelectedDiscardIds(nextSelection);
 
     if (nextSelection.length === discardExcessCount) {
-      setMessage("선택한 진주를 버리고 턴을 넘깁니다.");
-      window.setTimeout(() => discardSelectedPearls(nextSelection), 300);
+      setMessage("버릴 진주 선택이 끝났습니다. 확인을 눌러 손패를 정리하세요.");
       return;
     }
 
@@ -745,8 +1077,26 @@ export function App() {
   }
 
   function closeCharacterDetail() {
+    if (detailCardId && detailAction === null) {
+      const abilityAction = getUsableAbilityActions(gameState, humanPlayer.id).find(
+        (candidate) => abilitySourceCardId(candidate) === detailCardId,
+      );
+      if (abilityAction) {
+        dismissAbilityPrompt(abilityAction);
+      }
+    }
     setDetailCardId(null);
     setDetailAction(null);
+  }
+
+  function dismissAbilityPrompt(action: GameAction) {
+    if (action.type !== "useAbility") {
+      return;
+    }
+    const key = abilityPromptKey(gameState, action);
+    setDismissedAbilityPromptKeys((current) =>
+      current.includes(key) ? current : [...current, key],
+    );
   }
 
   function confirmDetailAction() {
@@ -764,12 +1114,133 @@ export function App() {
     closeCharacterDetail();
   }
 
-  function activateDetailCharacter(characterId: CardInstanceId, payment: PaymentPlan) {
+  function requestActivateCharacter(characterId: CardInstanceId, paymentPlans: PaymentPlan[]) {
+    if (actionDisabled) {
+      return;
+    }
+    const plans =
+      paymentPlans.length > 0
+        ? paymentPlans
+        : getPaymentPlans(gameState, activePlayer.id, characterId);
+    if (plans.length === 0) {
+      setMessage("활성화에 필요한 진주 조합이 없습니다.");
+      return;
+    }
+    if (plans.length > 1) {
+      setPendingActivationChoice({ characterId, paymentPlans: plans });
+      setDetailCardId(null);
+      setDetailAction(null);
+      setMessage("가능한 활성 조합 중 하나를 선택하세요.");
+      return;
+    }
+    requestActivateWithPayment(characterId, plans[0]);
+  }
+
+  function requestUseAbility(action: GameAction) {
+    if (action.type !== "useAbility") {
+      dispatchHumanAction(action);
+      return;
+    }
+    const sourceCardId = abilitySourceCardId(action);
+    const definitionId = sourceCardId ? definitionIdOf(gameState, sourceCardId) : undefined;
+
+    if (definitionId && SWAP_GATE_MARKET_IDS.has(definitionId)) {
+      const marketCards = gameState.market.characterMarket.map((cardId, marketIndex) => ({
+        cardId,
+        marketIndex,
+      }));
+      if (humanPlayer.gateCharacters.length > 0 && marketCards.length > 0) {
+        setPendingSwapGateMarketChoice({
+          action,
+          gateCardIds: humanPlayer.gateCharacters,
+          marketCards,
+        });
+        setDetailCardId(null);
+        setDetailAction(null);
+        setMessage("교환할 내 관문 인물과 열린 인물을 선택하세요.");
+        return;
+      }
+    }
+
+    if (definitionId && DRAW_DIAMOND_BY_TWO_IDS.has(definitionId)) {
+      const pearlIds = humanPlayer.pearlHand.filter(
+        (cardId) => pearlValueOfCard(gameState, cardId) === 2,
+      );
+      if (pearlIds.length > 0) {
+        setPendingDiamondPearlChoice({ action, pearlIds });
+        setDetailCardId(null);
+        setDetailAction(null);
+        setMessage("다이아로 바꿀 진주 2 카드 1장을 선택하세요.");
+        return;
+      }
+    }
+
+    dispatchHumanAction(action);
+  }
+
+  function requestActivateWithPayment(
+    characterId: CardInstanceId,
+    payment: PaymentPlan,
+    choices?: AbilityChoices,
+  ) {
+    setPendingActivationChoice(null);
+    const definitionId = definitionIdOf(gameState, characterId);
+    if (
+      definitionId &&
+      RECLAIM_USED_PEARL_IDS.has(definitionId) &&
+      payment.pearlIds.length > 1 &&
+      !choices?.reclaimPearlId
+    ) {
+      setPendingReclaimPearlChoice({
+        characterId,
+        payment,
+        choices,
+        pearlIds: payment.pearlIds,
+      });
+      setDetailCardId(null);
+      setDetailAction(null);
+      setMessage("방금 사용한 진주 중 되돌릴 카드 1장을 선택하세요.");
+      return;
+    }
+
+    requestOpponentGateTarget(characterId, payment, choices);
+  }
+
+  function requestOpponentGateTarget(
+    characterId: CardInstanceId,
+    payment: PaymentPlan,
+    choices?: AbilityChoices,
+  ) {
+    const definitionId = definitionIdOf(gameState, characterId);
+    if (
+      definitionId &&
+      DISCARD_OPPONENT_GATE_IDS.has(definitionId) &&
+      !choices?.targetGateCharacterId
+    ) {
+      const targets = getOpponentGateTargets(gameState, activePlayer.id);
+      if (targets.length > 0) {
+        setPendingOpponentGateChoice({ characterId, payment, choices, targets });
+        setDetailCardId(null);
+        setDetailAction(null);
+        setMessage("버릴 상대 관문 인물 1장을 선택하세요.");
+        return;
+      }
+    }
+
+    activateWithPayment(characterId, payment, choices);
+  }
+
+  function activateWithPayment(
+    characterId: CardInstanceId,
+    payment: PaymentPlan,
+    choices?: AbilityChoices,
+  ) {
     dispatchHumanAction({
       type: "activateGateCharacter",
       actorId: activePlayer.id,
       characterInstanceId: characterId,
       payment,
+      choices,
     });
   }
 
@@ -883,26 +1354,11 @@ export function App() {
           </p>
         </div>
       </section>
-      <section className="arena-shell" aria-label="몰타의 관문 전장">
-        <div className="status-banner-bar" aria-live="polite">
-          <div className={`turn-pill ${activeIsHuman ? "human" : "ai"}`}>
-            <span className="turn-pill-label">현재 차례</span>
-            <strong>{actorName(activePlayer)}</strong>
-            <em>행동 {gameState.turn.actionsRemaining}/3 · 라운드 {gameState.turn.roundNumber}</em>
-          </div>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={message}
-              className={`message-banner ${aiWaiting ? "ai-turn" : "human-turn"}`}
-              initial={{ opacity: 0, y: -8 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -6 }}
-              transition={{ duration: 0.25 }}
-            >
-              {aiWaiting ? <span className="ai-spinner" aria-hidden /> : null}
-              <span>{message}</span>
-            </motion.div>
-          </AnimatePresence>
+      <section
+        className={`arena-shell opponent-count-${opponentPlayers.length}`}
+        aria-label="몰타의 관문 전장"
+      >
+        <div className="status-banner-bar" aria-label="게임 제어">
           <button
             type="button"
             className={`reset-game-button${autopilot ? " active" : ""}`}
@@ -914,33 +1370,11 @@ export function App() {
           <button
             type="button"
             className="reset-game-button"
-            onClick={() => {
-              setSetup((current) => ({ ...current, seed: randomSeed() }));
-              setMessage("새 게임을 준비합니다...");
-              setFlash({ key: Date.now(), tone: "refresh" });
-              window.setTimeout(() => startGame("game"), 250);
-            }}
+            onClick={() => restartGameWithRandomSeed(250)}
           >
             새 게임
           </button>
         </div>
-        <AnimatePresence>
-          {flash ? (
-            <motion.div
-              key={flash.key}
-              className={`screen-flash tone-${flash.tone}`}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 0.55 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.4 }}
-              onAnimationComplete={() => {
-                window.setTimeout(() => {
-                  setFlash((prev) => (prev && prev.key === flash.key ? null : prev));
-                }, 320);
-              }}
-            />
-          ) : null}
-        </AnimatePresence>
         {gameEnded && gameState.turn.endGame.status === "ended" ? (
           <div className="game-over-overlay" role="dialog" aria-modal="true">
             <div className="game-over-panel">
@@ -980,11 +1414,7 @@ export function App() {
               <button
                 type="button"
                 className="primary-action"
-                onClick={() => {
-                  setSetup((current) => ({ ...current, seed: randomSeed() }));
-                  setMessage("새 게임을 준비합니다...");
-                  window.setTimeout(() => startGame("game"), 200);
-                }}
+                onClick={() => restartGameWithRandomSeed(200)}
               >
                 새 게임
               </button>
@@ -1106,7 +1536,7 @@ export function App() {
             }
             onActivatedInspect={openCharacterDetail}
             canQuickActivate={activeIsHuman && !aiWaiting && !discardMode && gameState.turn.actionsRemaining > 0}
-            onQuickActivate={activateDetailCharacter}
+            onQuickActivate={requestActivateCharacter}
             selectedDiamondIds={selectedDiamondIds}
             onDiamondToggle={toggleDiamondSelection}
           />
@@ -1156,6 +1586,108 @@ export function App() {
           </section>
         </section>
 
+        {discardMode ? (
+          <DiscardPearlsOverlay
+            state={gameState}
+            player={humanPlayer}
+            handLimit={humanHandLimit}
+            requiredCount={discardExcessCount}
+            selectedIds={selectedDiscardIds}
+            onToggle={toggleDiscardSelection}
+            onConfirm={() => discardSelectedPearls(selectedDiscardIds)}
+          />
+        ) : null}
+        {pendingActivationChoice ? (
+          <PaymentChoiceOverlay
+            state={gameState}
+            choice={pendingActivationChoice}
+            onChoose={(payment) =>
+              requestActivateWithPayment(pendingActivationChoice.characterId, payment)
+            }
+            onClose={() => setPendingActivationChoice(null)}
+          />
+        ) : null}
+        {pendingReclaimPearlChoice ? (
+          <ReclaimPearlChoiceOverlay
+            state={gameState}
+            choice={pendingReclaimPearlChoice}
+            onChoose={(pearlId) => {
+              const nextChoices = {
+                ...(pendingReclaimPearlChoice.choices ?? {}),
+                reclaimPearlId: pearlId,
+              };
+              setPendingReclaimPearlChoice(null);
+              requestActivateWithPayment(
+                pendingReclaimPearlChoice.characterId,
+                pendingReclaimPearlChoice.payment,
+                nextChoices,
+              );
+            }}
+            onClose={() => setPendingReclaimPearlChoice(null)}
+          />
+        ) : null}
+        {pendingOpponentGateChoice ? (
+          <OpponentGateChoiceOverlay
+            state={gameState}
+            choice={pendingOpponentGateChoice}
+            onChoose={(targetCardId) => {
+              const nextChoices = {
+                ...(pendingOpponentGateChoice.choices ?? {}),
+                targetGateCharacterId: targetCardId,
+              };
+              setPendingOpponentGateChoice(null);
+              activateWithPayment(
+                pendingOpponentGateChoice.characterId,
+                pendingOpponentGateChoice.payment,
+                nextChoices,
+              );
+            }}
+            onClose={() => setPendingOpponentGateChoice(null)}
+          />
+        ) : null}
+        {pendingSwapGateMarketChoice ? (
+          <SwapGateMarketChoiceOverlay
+            state={gameState}
+            choice={pendingSwapGateMarketChoice}
+            onChoose={(gateCharacterId, marketIndex) => {
+              const nextAction: AbilityAction = {
+                ...pendingSwapGateMarketChoice.action,
+                choices: {
+                  ...pendingSwapGateMarketChoice.action.choices,
+                  gateCharacterId,
+                  marketIndex,
+                },
+              };
+              setPendingSwapGateMarketChoice(null);
+              dispatchHumanAction(nextAction);
+            }}
+            onClose={() => {
+              dismissAbilityPrompt(pendingSwapGateMarketChoice.action);
+              setPendingSwapGateMarketChoice(null);
+            }}
+          />
+        ) : null}
+        {pendingDiamondPearlChoice ? (
+          <DiamondPearlChoiceOverlay
+            state={gameState}
+            choice={pendingDiamondPearlChoice}
+            onChoose={(pearlId) => {
+              const nextAction: AbilityAction = {
+                ...pendingDiamondPearlChoice.action,
+                choices: {
+                  ...pendingDiamondPearlChoice.action.choices,
+                  pearlId,
+                },
+              };
+              setPendingDiamondPearlChoice(null);
+              dispatchHumanAction(nextAction);
+            }}
+            onClose={() => {
+              dismissAbilityPrompt(pendingDiamondPearlChoice.action);
+              setPendingDiamondPearlChoice(null);
+            }}
+          />
+        ) : null}
         {detailCardId ? (
           <CardDetailOverlay
             cardId={detailCardId}
@@ -1167,9 +1699,9 @@ export function App() {
             isOnHumanGate={humanPlayer.gateCharacters.includes(detailCardId)}
             isHumanActivated={humanPlayer.activatedCharacters.includes(detailCardId)}
             canActivate={activeIsHuman && !aiWaiting && !discardMode && gameState.turn.actionsRemaining > 0}
-            onActivate={activateDetailCharacter}
+            onActivate={requestActivateCharacter}
             canUseAbility={activeIsHuman && !aiWaiting && !discardMode}
-            onUseAbility={dispatchHumanAction}
+            onUseAbility={requestUseAbility}
             selectedDiamondIds={selectedDiamondIds}
           />
         ) : null}
@@ -1219,35 +1751,91 @@ function MarketLane({
   onInspect,
 }: MarketLaneProps) {
   const highlightSet = new Set(highlightCards ?? []);
+  const [visibleCards, setVisibleCards] = useState<Array<CardInstanceId | null>>(cards);
+  const [transitioning, setTransitioning] = useState(false);
+  const previousCardsRef = useRef<CardInstanceId[]>(cards);
+
+  useEffect(() => {
+    const previousCards = previousCardsRef.current;
+    const changed =
+      previousCards.length !== cards.length ||
+      previousCards.some((cardId, index) => cardId !== cards[index]);
+    if (!changed) {
+      return;
+    }
+
+    setTransitioning(true);
+    const nextLength = Math.max(previousCards.length, cards.length);
+    setVisibleCards(
+      Array.from({ length: nextLength }, (_, index) =>
+        previousCards[index] === cards[index] ? previousCards[index] ?? null : null,
+      ),
+    );
+    const timer = window.setTimeout(() => {
+      previousCardsRef.current = cards;
+      setVisibleCards(cards);
+      setTransitioning(false);
+    }, 680);
+
+    return () => window.clearTimeout(timer);
+  }, [cards]);
+
   return (
-    <section className={replaceReady ? "market-lane replace-ready" : "market-lane"}>
+    <section
+      className={[
+        "market-lane",
+        replaceReady ? "replace-ready" : "",
+        transitioning ? "transitioning" : "",
+      ]
+        .filter(Boolean)
+        .join(" ")}
+    >
       <header>
         <h2>{title}</h2>
         <span>{marker}</span>
       </header>
-      <div className="battlefield-row">
-        <LayoutGroup>
-          <AnimatePresence mode="popLayout">
-            {cards.map((cardId, index) => (
+      <div className="battlefield-row market-slot-row">
+        {visibleCards.map((cardId, index) => (
+          <div key={`market-slot-${index}`} className="market-card-slot">
+            {cardId ? (
               <GameCard
                 key={cardId}
                 cardId={cardId}
                 state={state}
                 selected={selectedCardId === cardId}
                 highlight={highlightSet.has(cardId)}
-                disabled={disabled}
+                layoutEnabled={false}
+                disabled={
+                  transitioning ||
+                  (disabled && !(onInspect && getCardKind(state, cardId) === "character"))
+                }
                 onClick={() => {
+                  if (transitioning) {
+                    return;
+                  }
                   if (onInspect && getCardKind(state, cardId) === "character") {
                     onInspect(cardId, index);
+                    return;
+                  }
+                  if (disabled) {
                     return;
                   }
                   onSelect(cardId);
                   onPlay(index);
                 }}
               />
-            ))}
-          </AnimatePresence>
-        </LayoutGroup>
+            ) : (
+              <motion.div
+                key={`market-empty-${index}`}
+                className="market-card-placeholder"
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.18 }}
+                aria-hidden="true"
+              />
+            )}
+          </div>
+        ))}
       </div>
     </section>
   );
@@ -1342,13 +1930,16 @@ function PlayerField({
   highlightCards?: CardInstanceId[];
   onGateInspect: (cardId: CardInstanceId) => void;
   onActivatedInspect: (cardId: CardInstanceId) => void;
-  onQuickActivate?: (characterId: CardInstanceId, payment: PaymentPlan) => void;
+  onQuickActivate?: (characterId: CardInstanceId, paymentPlans: PaymentPlan[]) => void;
   canQuickActivate?: boolean;
   selectedDiamondIds?: CardInstanceId[];
   onDiamondToggle?: (cardId: CardInstanceId) => void;
   onGateCardClick?: () => void;
 }) {
-  const activeSlots = Math.max(3, player.activatedCharacters.length);
+  const activeSlots =
+    variant === "opponent"
+      ? player.activatedCharacters.length
+      : Math.max(3, player.activatedCharacters.length);
   const highlightSet = new Set(highlightCards ?? []);
   const score = getPlayerPower(state, player.id);
 
@@ -1358,6 +1949,10 @@ function PlayerField({
         <strong>{actorName(player)}</strong>
         <span>
           점수 {score} · 다이아 {player.diamonds.length}
+          {variant === "opponent" ? ` · 손패 ${player.pearlHand.length}` : ""}
+        </span>
+        <span className={active ? "action-count-badge active" : "action-count-badge"}>
+          {actionStatusText(state, player.id)}
         </span>
       </header>
       {player.diamonds.length > 0 ? (
@@ -1397,11 +1992,11 @@ function PlayerField({
               <AnimatePresence mode="popLayout">
                 {[0, 1].map((slot) => {
                   const cardId = player.gateCharacters[slot];
-                  const paymentPlan =
+                  const paymentPlans =
                     cardId && onQuickActivate
-                      ? getPaymentPlans(state, player.id, cardId)[0] ?? null
-                      : null;
-                  const quickEnabled = Boolean(canQuickActivate && cardId && paymentPlan);
+                      ? getPaymentPlans(state, player.id, cardId)
+                      : [];
+                  const quickEnabled = Boolean(canQuickActivate && cardId && paymentPlans.length > 0);
                   return (
                     <div key={slot} className="field-card-slot">
                       {cardId ? (
@@ -1430,8 +2025,8 @@ function PlayerField({
                               }
                               onClick={(event) => {
                                 event.stopPropagation();
-                                if (paymentPlan) {
-                                  onQuickActivate(cardId, paymentPlan);
+                                if (paymentPlans.length > 0) {
+                                  onQuickActivate(cardId, paymentPlans);
                                 }
                               }}
                             >
@@ -1450,32 +2045,36 @@ function PlayerField({
           </div>
         </section>
 
-        <section className="field-section activated-field" aria-label={`${actorName(player)} 활성 인물`}>
-          <span className="field-label">활성 인물</span>
+        <section className="field-section activated-field" aria-label={`${actorName(player)} 활성 카드`}>
+          <span className="field-label">활성 카드</span>
           <div className="field-card-row activated-card-row">
-            <LayoutGroup>
-              <AnimatePresence mode="popLayout">
-                {Array.from({ length: activeSlots }, (_, index) => {
-                  const cardId = player.activatedCharacters[index];
-                  return (
-                    <div key={cardId ?? `empty-${index}`} className="field-card-slot activated-slot">
-                      {cardId ? (
-                        <GameCard
-                          cardId={cardId}
-                          state={state}
-                          selected={false}
-                          highlight={highlightSet.has(cardId)}
-                          className="field-card activated-card"
-                          onClick={() => onActivatedInspect(cardId)}
-                        />
-                      ) : (
-                        <span>빈 활성</span>
-                      )}
-                    </div>
-                  );
-                })}
-              </AnimatePresence>
-            </LayoutGroup>
+            {activeSlots === 0 ? (
+              <span className="field-empty">빈 활성</span>
+            ) : (
+              <LayoutGroup>
+                <AnimatePresence mode="popLayout">
+                  {Array.from({ length: activeSlots }, (_, index) => {
+                    const cardId = player.activatedCharacters[index];
+                    return (
+                      <div key={cardId ?? `empty-${index}`} className="field-card-slot activated-slot">
+                        {cardId ? (
+                          <GameCard
+                            cardId={cardId}
+                            state={state}
+                            selected={false}
+                            highlight={highlightSet.has(cardId)}
+                            className="field-card activated-card"
+                            onClick={() => onActivatedInspect(cardId)}
+                          />
+                        ) : (
+                          <span>빈 활성</span>
+                        )}
+                      </div>
+                    );
+                  })}
+                </AnimatePresence>
+              </LayoutGroup>
+            )}
           </div>
         </section>
       </div>
@@ -1507,13 +2106,6 @@ function HeroBadge({
           점수 {getPlayerPower(state, player.id)} · 다이아 {player.diamonds.length}
         </span>
       </div>
-      <div className="hero-gate-card">
-        <GateIdentityCard
-          label={`${actorName(player)} 관문`}
-          opponent={position === "opponent"}
-          onClick={onGateCardClick}
-        />
-      </div>
     </section>
   );
 }
@@ -1542,7 +2134,7 @@ function CardDetailOverlay({
   isOnHumanGate: boolean;
   isHumanActivated: boolean;
   canActivate: boolean;
-  onActivate: (characterId: CardInstanceId, payment: PaymentPlan) => void;
+  onActivate: (characterId: CardInstanceId, paymentPlans: PaymentPlan[]) => void;
   canUseAbility: boolean;
   onUseAbility: (action: GameAction) => void;
   selectedDiamondIds: CardInstanceId[];
@@ -1602,12 +2194,16 @@ function CardDetailOverlay({
                 className="primary-action"
                 disabled={activationDisabled}
                 onClick={() => {
-                  if (paymentPlan) {
-                    onActivate(cardId, paymentPlan);
+                  if (paymentPlans.length > 0) {
+                    onActivate(cardId, paymentPlans);
                   }
                 }}
               >
-                {activationUsesDiamonds ? "다이아로 활성화" : "활성화"}
+                {paymentPlans.length > 1
+                  ? "활성 조합 선택"
+                  : activationUsesDiamonds
+                    ? "다이아로 활성화"
+                    : "활성화"}
               </button>
             ) : null}
             {abilityAction ? (
@@ -1664,6 +2260,407 @@ function CardDetailOverlay({
               <strong>{selectedDiamondIds.length}장</strong>
             </section>
           ) : null}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PaymentChoiceOverlay({
+  state,
+  choice,
+  onChoose,
+  onClose,
+}: {
+  state: GameState;
+  choice: PendingActivationChoice;
+  onChoose: (payment: PaymentPlan) => void;
+  onClose: () => void;
+}) {
+  const imageUrl = getCardImageUrl(state, choice.characterId);
+  const definition = getCharacterDefinition(state, choice.characterId);
+  const displayChoices = getDisplayPaymentChoices(state, choice.paymentPlans);
+  const recommendedChoice = displayChoices[0];
+  const otherChoices = displayChoices.slice(1);
+  return (
+    <section className="card-detail-backdrop" role="dialog" aria-modal="true" aria-label="활성 조합 선택">
+      <div className="card-detail-panel choice-panel">
+        <button type="button" className="detail-close-button" aria-label="닫기" onClick={onClose}>
+          ×
+        </button>
+        <div className="detail-card-column">
+          <div className="detail-card-preview">
+            {imageUrl ? <img src={imageUrl} alt="" /> : null}
+          </div>
+          <div className="detail-actions">
+            <button type="button" onClick={onClose}>
+              닫기
+            </button>
+          </div>
+        </div>
+        <div className="detail-copy">
+          <header className="detail-header">
+            <span className="kicker">활성 조합 선택</span>
+            <span>{displayChoices.length}개 조합</span>
+          </header>
+          <section className="detail-effect">
+            <span>조건</span>
+            <strong>{definition ? formatRequirement(definition.requirement) : "조건 미확인"}</strong>
+          </section>
+          <div className="payment-choice-list">
+            {recommendedChoice ? (
+              <PaymentChoiceButton
+                state={state}
+                choice={recommendedChoice}
+                recommended
+                onChoose={onChoose}
+              />
+            ) : null}
+            {otherChoices.length > 0 ? (
+              <section className="payment-choice-section">
+                <span>다른 조합</span>
+                {otherChoices.map((paymentChoice) => (
+                  <PaymentChoiceButton
+                    key={paymentDisplayKey(state, paymentChoice.payment)}
+                    state={state}
+                    choice={paymentChoice}
+                    onChoose={onChoose}
+                  />
+                ))}
+              </section>
+            ) : null}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PaymentChoiceButton({
+  state,
+  choice,
+  recommended = false,
+  onChoose,
+}: {
+  state: GameState;
+  choice: { payment: PaymentPlan; duplicateCount: number };
+  recommended?: boolean;
+  onChoose: (payment: PaymentPlan) => void;
+}) {
+  const payment = choice.payment;
+  const virtualCount = payment.virtualPearls?.length ?? 0;
+  const diamondCount = paymentDiamondIds(payment).length;
+  const sourceGroups = paymentSourceGroups(state, payment);
+  return (
+    <button
+      type="button"
+      className={recommended ? "payment-choice-button recommended" : "payment-choice-button"}
+      onClick={() => onChoose(payment)}
+    >
+      <strong>{formatPaymentPlan(state, payment)}</strong>
+      <span>
+        {recommended ? "추천 · " : ""}
+        손패 {payment.pearlIds.length}장
+        {virtualCount > 0 ? ` · 활성 카드 ${virtualCount}장` : ""}
+        {diamondCount > 0 ? ` · 다이아 ${diamondCount}장` : ""}
+        {choice.duplicateCount > 1 ? ` · 동일 ${choice.duplicateCount}개` : ""}
+      </span>
+      <span className="payment-choice-sources">
+        {sourceGroups.map((group) => (
+          <em key={`${group.label}-${group.value}`} className={`payment-source ${group.tone}`}>
+            <b>{group.label}</b>
+            {group.value}
+          </em>
+        ))}
+      </span>
+    </button>
+  );
+}
+
+function ReclaimPearlChoiceOverlay({
+  state,
+  choice,
+  onChoose,
+  onClose,
+}: {
+  state: GameState;
+  choice: PendingReclaimPearlChoice;
+  onChoose: (pearlId: CardInstanceId) => void;
+  onClose: () => void;
+}) {
+  return (
+    <section className="card-detail-backdrop" role="dialog" aria-modal="true" aria-label="되돌릴 진주 선택">
+      <div className="card-detail-panel choice-panel wide-choice-panel">
+        <button type="button" className="detail-close-button" aria-label="닫기" onClick={onClose}>
+          ×
+        </button>
+        <div className="detail-copy full-span">
+          <header className="detail-header">
+            <span className="kicker">되돌릴 진주 선택</span>
+            <span>345 효과</span>
+          </header>
+          <section className="detail-effect">
+            <span>효과</span>
+            <strong>방금 사용한 진주 카드 중 손패로 되돌릴 카드 1장을 선택하세요.</strong>
+          </section>
+          <div className="card-choice-grid">
+            {choice.pearlIds.map((cardId) => (
+              <CardChoiceButton
+                key={cardId}
+                cardId={cardId}
+                state={state}
+                selected={false}
+                onClick={() => onChoose(cardId)}
+              />
+            ))}
+          </div>
+          <div className="detail-actions inline-actions">
+            <button type="button" onClick={onClose}>
+              취소
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function OpponentGateChoiceOverlay({
+  state,
+  choice,
+  onChoose,
+  onClose,
+}: {
+  state: GameState;
+  choice: PendingOpponentGateChoice;
+  onChoose: (targetCardId: CardInstanceId) => void;
+  onClose: () => void;
+}) {
+  return (
+    <section className="card-detail-backdrop" role="dialog" aria-modal="true" aria-label="버릴 관문 인물 선택">
+      <div className="card-detail-panel choice-panel wide-choice-panel">
+        <button type="button" className="detail-close-button" aria-label="닫기" onClick={onClose}>
+          ×
+        </button>
+        <div className="detail-copy full-span">
+          <header className="detail-header">
+            <span className="kicker">버릴 관문 인물 선택</span>
+            <span>상대 관문</span>
+          </header>
+          <section className="detail-effect">
+            <span>효과</span>
+            <strong>다른 플레이어의 관문에 있는 인물 카드 중 1장을 직접 선택해 버립니다.</strong>
+          </section>
+          <div className="card-choice-grid">
+            {choice.targets.map((target) => {
+              const owner = getPlayer(state, target.ownerId);
+              return (
+                <div key={target.cardId} className="target-choice">
+                  <span>{actorName(owner)}</span>
+                  <CardChoiceButton
+                    cardId={target.cardId}
+                    state={state}
+                    selected={false}
+                    onClick={() => onChoose(target.cardId)}
+                  />
+                </div>
+              );
+            })}
+          </div>
+          <div className="detail-actions inline-actions">
+            <button type="button" onClick={onClose}>
+              취소
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function SwapGateMarketChoiceOverlay({
+  state,
+  choice,
+  onChoose,
+  onClose,
+}: {
+  state: GameState;
+  choice: PendingSwapGateMarketChoice;
+  onChoose: (gateCharacterId: CardInstanceId, marketIndex: number) => void;
+  onClose: () => void;
+}) {
+  const [selectedGateId, setSelectedGateId] = useState<CardInstanceId | null>(
+    choice.gateCardIds[0] ?? null,
+  );
+  const [selectedMarketIndex, setSelectedMarketIndex] = useState<number | null>(
+    choice.marketCards[0]?.marketIndex ?? null,
+  );
+  const ready = Boolean(selectedGateId && selectedMarketIndex !== null);
+
+  return (
+    <section className="card-detail-backdrop" role="dialog" aria-modal="true" aria-label="관문과 열린 인물 교환">
+      <div className="card-detail-panel choice-panel wide-choice-panel">
+        <button type="button" className="detail-close-button" aria-label="닫기" onClick={onClose}>
+          ×
+        </button>
+        <div className="detail-copy full-span">
+          <header className="detail-header">
+            <span className="kicker">관문 교환 선택</span>
+            <span>첫 행동 전</span>
+          </header>
+          <section className="detail-effect">
+            <span>효과</span>
+            <strong>내 관문 인물 1장과 열린 인물 1장을 선택해 서로 교환합니다.</strong>
+          </section>
+          <div className="paired-choice-grid">
+            <section className="choice-column">
+              <h3>내 관문</h3>
+              <div className="card-choice-grid">
+                {choice.gateCardIds.map((cardId) => (
+                  <CardChoiceButton
+                    key={cardId}
+                    cardId={cardId}
+                    state={state}
+                    selected={selectedGateId === cardId}
+                    onClick={() => setSelectedGateId(cardId)}
+                  />
+                ))}
+              </div>
+            </section>
+            <section className="choice-column">
+              <h3>열린 인물</h3>
+              <div className="card-choice-grid">
+                {choice.marketCards.map(({ cardId, marketIndex }) => (
+                  <CardChoiceButton
+                    key={`${marketIndex}-${cardId}`}
+                    cardId={cardId}
+                    state={state}
+                    selected={selectedMarketIndex === marketIndex}
+                    onClick={() => setSelectedMarketIndex(marketIndex)}
+                  />
+                ))}
+              </div>
+            </section>
+          </div>
+          <div className="detail-actions inline-actions">
+            <button
+              type="button"
+              className="primary-action"
+              disabled={!ready}
+              onClick={() => {
+                if (selectedGateId && selectedMarketIndex !== null) {
+                  onChoose(selectedGateId, selectedMarketIndex);
+                }
+              }}
+            >
+              선택한 카드 교환
+            </button>
+            <button type="button" onClick={onClose}>
+              취소
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DiamondPearlChoiceOverlay({
+  state,
+  choice,
+  onChoose,
+  onClose,
+}: {
+  state: GameState;
+  choice: PendingDiamondPearlChoice;
+  onChoose: (pearlId: CardInstanceId) => void;
+  onClose: () => void;
+}) {
+  return (
+    <section className="card-detail-backdrop" role="dialog" aria-modal="true" aria-label="다이아로 바꿀 진주 선택">
+      <div className="card-detail-panel choice-panel wide-choice-panel">
+        <button type="button" className="detail-close-button" aria-label="닫기" onClick={onClose}>
+          ×
+        </button>
+        <div className="detail-copy full-span">
+          <header className="detail-header">
+            <span className="kicker">진주 2 선택</span>
+            <span>다이아 획득</span>
+          </header>
+          <section className="detail-effect">
+            <span>효과</span>
+            <strong>버릴 진주 2 카드 1장을 선택하면 다이아 1장을 가져옵니다.</strong>
+          </section>
+          <div className="card-choice-grid">
+            {choice.pearlIds.map((cardId) => (
+              <CardChoiceButton
+                key={cardId}
+                cardId={cardId}
+                state={state}
+                selected={false}
+                onClick={() => onChoose(cardId)}
+              />
+            ))}
+          </div>
+          <div className="detail-actions inline-actions">
+            <button type="button" onClick={onClose}>
+              취소
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function DiscardPearlsOverlay({
+  state,
+  player,
+  handLimit,
+  requiredCount,
+  selectedIds,
+  onToggle,
+  onConfirm,
+}: {
+  state: GameState;
+  player: PlayerState;
+  handLimit: number;
+  requiredCount: number;
+  selectedIds: CardInstanceId[];
+  onToggle: (cardId: CardInstanceId) => void;
+  onConfirm: () => void;
+}) {
+  const ready = selectedIds.length === requiredCount;
+  return (
+    <section className="card-detail-backdrop" role="dialog" aria-modal="true" aria-label="손패 정리">
+      <div className="card-detail-panel choice-panel wide-choice-panel">
+        <div className="detail-copy full-span">
+          <header className="detail-header">
+            <span className="kicker">손패 정리</span>
+            <span>
+              {player.pearlHand.length}/{handLimit}
+            </span>
+          </header>
+          <section className="detail-effect">
+            <span>초과 손패</span>
+            <strong>손패 제한을 넘었습니다. 버릴 진주 {requiredCount}장을 선택한 뒤 확인하세요.</strong>
+          </section>
+          <div className="card-choice-grid">
+            {player.pearlHand.map((cardId) => (
+              <CardChoiceButton
+                key={cardId}
+                cardId={cardId}
+                state={state}
+                selected={selectedIds.includes(cardId)}
+                onClick={() => onToggle(cardId)}
+              />
+            ))}
+          </div>
+          <div className="detail-actions inline-actions">
+            <button type="button" className="primary-action" disabled={!ready} onClick={onConfirm}>
+              선택한 진주 버리기
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -1792,12 +2789,39 @@ function GateIdentityCard({
   );
 }
 
+function CardChoiceButton({
+  cardId,
+  state,
+  selected,
+  onClick,
+}: {
+  cardId: CardInstanceId;
+  state: GameState;
+  selected: boolean;
+  onClick: () => void;
+}) {
+  const imageUrl = getCardImageUrl(state, cardId);
+  return (
+    <button
+      type="button"
+      className={selected ? "card-choice-button selected" : "card-choice-button"}
+      aria-pressed={selected}
+      onClick={onClick}
+    >
+      <span className="card-choice-art">{imageUrl ? <img src={imageUrl} alt="" /> : null}</span>
+      <strong>{getCardLabel(state, cardId, fixtureCatalog)}</strong>
+      <em>{getCardMeta(state, cardId)}</em>
+    </button>
+  );
+}
+
 function GameCard({
   cardId,
   state,
   selected,
   disabled = false,
   highlight = false,
+  layoutEnabled = true,
   className = "",
   style,
   onClick,
@@ -1807,6 +2831,7 @@ function GameCard({
   selected: boolean;
   disabled?: boolean;
   highlight?: boolean;
+  layoutEnabled?: boolean;
   className?: string;
   style?: CSSProperties;
   onClick?: () => void;
@@ -1817,12 +2842,12 @@ function GameCard({
   return (
     <motion.button
       type="button"
-      layoutId={`card-${cardId}`}
-      layout
+      layoutId={layoutEnabled ? `card-${cardId}` : undefined}
+      layout={layoutEnabled}
       initial={{ opacity: 0, scale: 0.85 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.85 }}
-      transition={{ type: "spring", stiffness: 320, damping: 28, mass: 0.6 }}
+      transition={{ type: "spring", stiffness: 190, damping: 24, mass: 0.9 }}
       className={[
         "molta-card",
         kind,

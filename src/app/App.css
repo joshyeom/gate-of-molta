@@ -805,6 +805,17 @@ button.gate-identity-card {
   flex-basis: clamp(116px, 7.5vw, 150px);
 }
 
+.market-card-placeholder {
+  flex: 0 0 clamp(116px, 7.5vw, 150px);
+  width: clamp(116px, 7.5vw, 150px);
+  aspect-ratio: 5 / 7;
+  border: 2px dashed rgba(241, 204, 135, 0.22);
+  border-radius: 8px;
+  background:
+    radial-gradient(ellipse at 50% 42%, rgba(241, 204, 135, 0.12), transparent 58%),
+    rgba(0, 0, 0, 0.2);
+}
+
 .hand-row .molta-card {
   width: clamp(138px, 7.6vw, 158px);
   flex-basis: clamp(138px, 7.6vw, 158px);
@@ -1099,6 +1110,1094 @@ button.gate-identity-card {
   }
 }
 
+/* Final opponent table and compact-device layout pass */
+.status-banner-bar {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  left: auto;
+  z-index: 50;
+  width: auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  backdrop-filter: none;
+}
+
+.message-banner {
+  display: none;
+}
+
+.opponent-tableau {
+  grid-template-columns: clamp(72px, 6.5vw, 92px) minmax(0, 1fr);
+  column-gap: 8px;
+}
+
+.opponent-tableau > .hero-badge {
+  width: clamp(72px, 6.5vw, 92px);
+}
+
+.hero-badge.opponent {
+  width: 100%;
+  min-height: 92px;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-content: center;
+  gap: 5px;
+  padding: 6px;
+}
+
+.hero-badge.opponent .hero-portrait {
+  width: clamp(40px, 3.8vw, 50px);
+  height: clamp(40px, 3.8vw, 50px);
+}
+
+.hero-badge.opponent .hero-name {
+  justify-items: center;
+  text-align: center;
+}
+
+.hero-badge.opponent .hero-name span {
+  display: none;
+}
+
+.player-field.opponent {
+  width: 100%;
+  max-width: none;
+}
+
+.player-field.opponent .player-field-grid {
+  grid-template-columns: minmax(210px, 0.82fr) minmax(0, 1.35fr);
+}
+
+.player-field.opponent .field-card-row {
+  overflow: visible;
+}
+
+.player-field.opponent .gate-field {
+  grid-template-columns: clamp(46px, 3.8vw, 58px) minmax(0, 1fr);
+}
+
+.player-field.opponent .gate-field .gate-identity-card {
+  width: clamp(46px, 3.8vw, 58px);
+  min-height: clamp(80px, 6.8vw, 106px);
+}
+
+.player-field.opponent .gate-card-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(clamp(64px, 5vw, 78px), 1fr));
+}
+
+.player-field.opponent .gate-card-row .field-card-slot {
+  width: 100%;
+  min-width: 0;
+  min-height: clamp(96px, 7.8vw, 122px);
+}
+
+.player-field.opponent .activated-card-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(50px, 4vw, 60px), 1fr));
+  align-items: start;
+  align-content: start;
+  min-height: clamp(96px, 7.8vw, 122px);
+  overflow: visible;
+}
+
+.player-field.opponent .activated-card-row .field-card-slot {
+  width: 100%;
+  min-width: 0;
+  min-height: clamp(96px, 7.8vw, 122px);
+}
+
+.field-empty {
+  min-height: clamp(80px, 6.8vw, 104px);
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+  .game-screen {
+    display: block;
+    width: 100vw;
+    height: auto;
+    min-height: 100dvh;
+    padding: 0;
+    overflow: auto;
+  }
+
+  .arena-shell {
+    width: 100vw;
+    height: auto;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "opponent"
+      "field"
+      "player";
+    gap: 6px;
+    overflow: visible;
+    padding: 6px;
+    border-radius: 0;
+  }
+
+  .arena-shell::before {
+    display: none;
+  }
+
+  .status-banner-bar {
+    top: 6px;
+    right: 6px;
+  }
+
+  .reset-game-button {
+    min-height: 30px;
+    padding: 5px 9px;
+    font-size: 11px;
+  }
+
+  .opponent-seat-grid {
+    position: relative;
+    grid-area: opponent;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas: "topLeft topRight";
+    gap: 6px;
+    padding: 38px 0 0;
+    min-height: 0;
+  }
+
+  .opponent-seat-grid.seats-1,
+  .opponent-seat-grid.seats-2,
+  .opponent-seat-grid.seats-3,
+  .opponent-seat-grid.seats-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "topLeft topRight"
+      "left right";
+  }
+
+  .opponent-tableau {
+    grid-template-columns: 48px minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-areas: "badge field";
+    gap: 4px;
+    padding: 4px;
+    border-radius: 10px;
+  }
+
+  .opponent-tableau > .opponent-hand-fan {
+    display: none;
+  }
+
+  .opponent-tableau > .hero-badge {
+    width: 48px;
+  }
+
+  .hero-badge.opponent {
+    min-height: 72px;
+    padding: 4px;
+  }
+
+  .hero-badge.opponent .hero-portrait {
+    width: 32px;
+    height: 32px;
+  }
+
+  .hero-badge.opponent .hero-name strong {
+    font-size: 10px;
+  }
+
+  .player-field.opponent {
+    gap: 3px;
+  }
+
+  .player-field.opponent > header {
+    gap: 5px;
+  }
+
+  .player-field.opponent > header strong,
+  .player-field.opponent > header span {
+    font-size: 9px;
+  }
+
+  .player-field.opponent > header .action-count-badge {
+    padding: 2px 5px;
+    font-size: 8px;
+  }
+
+  .player-field.opponent .player-field-grid {
+    grid-template-columns: minmax(108px, 0.82fr) minmax(0, 1.35fr);
+    gap: 4px;
+  }
+
+  .player-field.opponent .field-section {
+    gap: 3px;
+    padding: 4px;
+  }
+
+  .player-field.opponent .gate-field {
+    grid-template-columns: 30px minmax(0, 1fr);
+  }
+
+  .player-field.opponent .gate-field .gate-identity-card {
+    width: 30px;
+    min-height: 54px;
+  }
+
+  .player-field.opponent .gate-card-row {
+    grid-template-columns: repeat(2, minmax(34px, 1fr));
+    gap: 3px;
+  }
+
+  .player-field.opponent .gate-card-row .field-card-slot,
+  .player-field.opponent .activated-card-row .field-card-slot {
+    min-height: 56px;
+  }
+
+  .player-field.opponent .activated-card-row {
+    grid-template-columns: repeat(auto-fill, minmax(34px, 1fr));
+    min-height: 56px;
+    gap: 3px;
+  }
+
+  .battlefield {
+    position: relative;
+    z-index: 3;
+    grid-area: field;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    min-height: 0;
+    height: auto;
+    display: grid;
+    grid-template-rows: auto;
+    align-content: start;
+    place-items: stretch;
+    padding: 0;
+  }
+
+  .arena-market {
+    width: 100%;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 6px;
+  }
+
+  .market-lane {
+    padding: 6px;
+  }
+
+  .market-lane h2 {
+    font-size: 11px;
+  }
+
+  .battlefield-row {
+    gap: 4px;
+    overflow: visible;
+    padding: 3px 0 4px;
+  }
+
+  .arena-market .molta-card,
+  .arena-market .market-card-placeholder {
+    width: clamp(54px, 9vw, 72px);
+    flex-basis: clamp(54px, 9vw, 72px);
+  }
+
+  .arena-market .market-card-slot {
+    width: clamp(54px, 9vw, 72px);
+    flex-basis: clamp(54px, 9vw, 72px);
+  }
+
+  .arena-actions {
+    width: min(430px, 100%);
+    gap: 5px;
+  }
+
+  .arena-actions .quick-action {
+    min-height: 34px;
+    grid-template-columns: 22px minmax(0, 1fr);
+    padding: 4px 5px;
+  }
+
+  .arena-actions .action-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .player-command {
+    position: relative;
+    z-index: 5;
+    grid-area: player;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    height: auto;
+    display: grid;
+    grid-template-columns: minmax(240px, 0.72fr) minmax(0, 1fr);
+    gap: 6px;
+    padding: 0;
+  }
+
+  .player-field.player {
+    align-self: start;
+  }
+
+  .player-field.player .field-card-slot {
+    width: clamp(42px, 7vw, 56px);
+    min-height: clamp(62px, 10vw, 82px);
+  }
+
+  .player-field.player .gate-field {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+
+  .player-field.player .gate-field .gate-identity-card {
+    width: 36px;
+    min-height: 62px;
+  }
+
+  .hand-zone {
+    align-self: start;
+  }
+
+  .hand-row {
+    min-height: 84px;
+    gap: 4px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+
+  .hand-row .molta-card {
+    width: clamp(54px, 9vw, 72px);
+    flex-basis: clamp(54px, 9vw, 72px);
+    margin: 0;
+    transform: none;
+  }
+}
+
+/* Final responsive table overrides */
+.status-banner-bar {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  left: auto;
+  z-index: 50;
+  width: auto;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  backdrop-filter: none;
+}
+
+.reset-game-button {
+  min-height: 34px;
+  padding: 7px 12px;
+  background: rgba(10, 12, 12, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.opponent-tableau {
+  grid-template-columns: clamp(82px, 8vw, 112px) minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  column-gap: 8px;
+  align-items: stretch;
+}
+
+.opponent-tableau > .hero-badge {
+  width: clamp(82px, 8vw, 112px);
+  align-self: stretch;
+}
+
+.opponent-tableau > .player-field {
+  justify-self: stretch;
+  width: 100%;
+}
+
+.opponent-tableau .opponent-hand-fan {
+  height: 54px;
+  max-width: 180px;
+}
+
+.opponent-tableau .fan-back {
+  width: clamp(34px, 3.1vw, 44px);
+}
+
+.hero-badge.opponent {
+  width: 100%;
+  min-height: 86px;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-content: center;
+  gap: 5px;
+  border-radius: 12px;
+  padding: 6px;
+}
+
+.hero-badge.opponent .hero-portrait {
+  width: clamp(44px, 4.2vw, 56px);
+  height: clamp(44px, 4.2vw, 56px);
+  border-width: 2px;
+}
+
+.hero-badge.opponent .hero-name {
+  justify-items: center;
+  text-align: center;
+}
+
+.hero-badge.opponent .hero-name strong {
+  font-size: 13px;
+}
+
+.hero-badge.opponent .hero-name span {
+  display: none;
+}
+
+.player-field.opponent {
+  width: 100%;
+  max-width: none;
+}
+
+.player-field.opponent .player-field-grid {
+  grid-template-columns: minmax(150px, 0.8fr) minmax(230px, 1.4fr);
+}
+
+.player-field.opponent .field-card-row {
+  overflow: visible;
+}
+
+.player-field.opponent .field-card-slot {
+  width: clamp(58px, 4.8vw, 76px);
+  min-height: clamp(88px, 7.2vw, 116px);
+}
+
+.player-field.opponent .gate-field {
+  grid-template-columns: clamp(46px, 3.6vw, 56px) minmax(0, 1fr);
+}
+
+.player-field.opponent .gate-field .gate-identity-card {
+  width: clamp(46px, 3.6vw, 56px);
+  min-height: clamp(78px, 6.8vw, 104px);
+}
+
+.player-field.opponent .activated-card-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(54px, 4.5vw, 72px), 1fr));
+  align-items: start;
+  min-height: clamp(88px, 7.2vw, 116px);
+  overflow: visible;
+}
+
+.player-field.opponent .activated-card-row .field-card-slot {
+  width: 100%;
+  min-width: 0;
+}
+
+.field-empty {
+  min-height: clamp(70px, 6vw, 96px);
+  display: grid;
+  place-items: center;
+  border: 1px dashed rgba(237, 199, 124, 0.28);
+  border-radius: 7px;
+  color: rgba(235, 220, 190, 0.5);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+@media (max-width: 1180px) {
+  .opponent-seat-grid {
+    padding: 0 8px;
+  }
+
+  .opponent-seat-grid.seats-2,
+  .opponent-seat-grid.seats-3,
+  .opponent-seat-grid.seats-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "topLeft topRight"
+      "left right";
+  }
+
+  .opponent-seat-grid.seats-3 .opponent-tableau.seat-top {
+    grid-column: 1 / -1;
+    grid-area: auto;
+  }
+
+  .player-field.opponent .player-field-grid {
+    grid-template-columns: minmax(132px, 0.75fr) minmax(190px, 1.35fr);
+  }
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+  .game-screen {
+    display: block;
+    min-height: 100dvh;
+    padding: 0;
+    overflow: auto;
+  }
+
+  .arena-shell {
+    width: 100vw;
+    height: auto;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "opponent"
+      "field"
+      "player";
+    gap: 6px;
+    overflow: visible;
+    border-radius: 0;
+    padding: 6px;
+  }
+
+  .arena-shell::before {
+    display: none;
+  }
+
+  .status-banner-bar {
+    top: 6px;
+    right: 6px;
+  }
+
+  .reset-game-button {
+    min-height: 30px;
+    padding: 5px 9px;
+    font-size: 11px;
+  }
+
+  .opponent-seat-grid {
+    padding: 36px 2px 0;
+    gap: 6px;
+  }
+
+  .opponent-tableau {
+    grid-template-columns: 58px minmax(0, 1fr);
+    gap: 4px;
+    padding: 4px;
+    border-radius: 10px;
+  }
+
+  .opponent-tableau .opponent-hand-fan {
+    height: 32px;
+    max-width: 112px;
+  }
+
+  .opponent-tableau .fan-back {
+    width: 28px;
+  }
+
+  .hero-badge.opponent {
+    min-height: 58px;
+    padding: 4px;
+  }
+
+  .hero-badge.opponent .hero-portrait {
+    width: 34px;
+    height: 34px;
+  }
+
+  .hero-badge.opponent .hero-name strong {
+    font-size: 11px;
+  }
+
+  .player-field.opponent > header {
+    gap: 5px;
+  }
+
+  .player-field.opponent > header strong,
+  .player-field.opponent > header span {
+    font-size: 9px;
+  }
+
+  .player-field.opponent > header .action-count-badge {
+    padding: 2px 5px;
+    font-size: 8px;
+  }
+
+  .player-field.opponent .player-field-grid {
+    grid-template-columns: minmax(92px, 0.85fr) minmax(126px, 1.15fr);
+    gap: 4px;
+  }
+
+  .player-field.opponent .field-section {
+    gap: 3px;
+    padding: 4px;
+  }
+
+  .player-field.opponent .gate-field {
+    grid-template-columns: 34px minmax(0, 1fr);
+  }
+
+  .player-field.opponent .gate-field .gate-identity-card {
+    width: 34px;
+    min-height: 52px;
+  }
+
+  .player-field.opponent .field-card-slot {
+    width: 40px;
+    min-height: 58px;
+  }
+
+  .player-field.opponent .activated-card-row {
+    grid-template-columns: repeat(auto-fit, minmax(38px, 1fr));
+    min-height: 58px;
+  }
+
+  .battlefield {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    padding: 0;
+  }
+
+  .arena-market {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .market-lane {
+    padding: 6px;
+  }
+
+  .market-lane h2 {
+    font-size: 12px;
+  }
+
+  .battlefield-row {
+    gap: 4px;
+    overflow: visible;
+  }
+
+  .arena-market .molta-card,
+  .arena-market .market-card-placeholder {
+    width: clamp(54px, 10vw, 84px);
+    flex-basis: clamp(54px, 10vw, 84px);
+  }
+
+  .arena-actions {
+    width: 100%;
+    gap: 5px;
+  }
+
+  .arena-actions .quick-action {
+    min-height: 34px;
+    grid-template-columns: 22px minmax(0, 1fr);
+    padding: 4px 5px;
+  }
+
+  .arena-actions .action-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .player-command {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    height: auto;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+    padding: 0;
+  }
+
+  .player-field.player .field-card-slot {
+    width: clamp(48px, 8.5vw, 68px);
+    min-height: clamp(70px, 12vw, 96px);
+  }
+
+  .player-field.player .gate-field {
+    grid-template-columns: 40px minmax(0, 1fr);
+  }
+
+  .player-field.player .gate-field .gate-identity-card {
+    width: 40px;
+    min-height: 68px;
+  }
+
+  .hand-row {
+    min-height: 88px;
+    gap: 6px;
+  }
+
+  .hand-row .molta-card {
+    width: clamp(54px, 10vw, 78px);
+    flex-basis: clamp(54px, 10vw, 78px);
+  }
+}
+
+/* Latest table layout tuning */
+.status-banner-bar {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  left: auto;
+  z-index: 50;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  backdrop-filter: none;
+}
+
+.reset-game-button {
+  min-height: 34px;
+  padding: 7px 12px;
+  background: rgba(10, 12, 12, 0.72);
+  backdrop-filter: blur(8px);
+}
+
+.opponent-tableau {
+  grid-template-columns: clamp(82px, 8vw, 112px) minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  column-gap: 8px;
+  align-items: stretch;
+}
+
+.opponent-tableau > .hero-badge {
+  width: clamp(82px, 8vw, 112px);
+  align-self: stretch;
+}
+
+.opponent-tableau > .player-field {
+  justify-self: stretch;
+  width: 100%;
+}
+
+.opponent-tableau .opponent-hand-fan {
+  height: 54px;
+  max-width: 180px;
+}
+
+.opponent-tableau .fan-back {
+  width: clamp(34px, 3.1vw, 44px);
+}
+
+.hero-badge.opponent {
+  width: 100%;
+  min-height: 86px;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-content: center;
+  gap: 5px;
+  border-radius: 12px;
+  padding: 6px;
+}
+
+.hero-badge.opponent .hero-portrait {
+  width: clamp(44px, 4.2vw, 56px);
+  height: clamp(44px, 4.2vw, 56px);
+  border-width: 2px;
+}
+
+.hero-badge.opponent .hero-name {
+  justify-items: center;
+  text-align: center;
+}
+
+.hero-badge.opponent .hero-name strong {
+  font-size: 13px;
+}
+
+.hero-badge.opponent .hero-name span {
+  display: none;
+}
+
+.player-field.opponent {
+  width: 100%;
+  max-width: none;
+}
+
+.player-field.opponent > header {
+  grid-template-columns: auto auto auto;
+}
+
+.player-field.opponent .player-field-grid {
+  grid-template-columns: minmax(150px, 0.8fr) minmax(230px, 1.4fr);
+}
+
+.player-field.opponent .field-card-row {
+  overflow: visible;
+}
+
+.player-field.opponent .field-card-slot {
+  width: clamp(58px, 4.8vw, 76px);
+  min-height: clamp(88px, 7.2vw, 116px);
+}
+
+.player-field.opponent .gate-field {
+  grid-template-columns: clamp(46px, 3.6vw, 56px) minmax(0, 1fr);
+}
+
+.player-field.opponent .gate-field .gate-identity-card {
+  width: clamp(46px, 3.6vw, 56px);
+  min-height: clamp(78px, 6.8vw, 104px);
+}
+
+.player-field.opponent .activated-card-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(54px, 4.5vw, 72px), 1fr));
+  align-items: start;
+  min-height: clamp(88px, 7.2vw, 116px);
+  overflow: visible;
+}
+
+.player-field.opponent .activated-card-row .field-card-slot {
+  width: 100%;
+  min-width: 0;
+}
+
+.field-empty {
+  min-height: clamp(70px, 6vw, 96px);
+  display: grid;
+  place-items: center;
+  border: 1px dashed rgba(237, 199, 124, 0.28);
+  border-radius: 7px;
+  color: rgba(235, 220, 190, 0.5);
+  font-size: 10px;
+  font-weight: 900;
+}
+
+@media (max-width: 1180px) {
+  .opponent-seat-grid {
+    padding: 0 8px;
+  }
+
+  .opponent-seat-grid.seats-2,
+  .opponent-seat-grid.seats-3,
+  .opponent-seat-grid.seats-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "topLeft topRight"
+      "left right";
+  }
+
+  .opponent-seat-grid.seats-3 .opponent-tableau.seat-top {
+    grid-column: 1 / -1;
+    grid-area: auto;
+  }
+
+  .player-field.opponent .player-field-grid {
+    grid-template-columns: minmax(132px, 0.75fr) minmax(190px, 1.35fr);
+  }
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+  .game-screen {
+    display: block;
+    min-height: 100dvh;
+    padding: 0;
+    overflow: auto;
+  }
+
+  .arena-shell {
+    width: 100vw;
+    height: auto;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "opponent"
+      "field"
+      "player";
+    gap: 6px;
+    overflow: visible;
+    border-radius: 0;
+    padding: 6px;
+  }
+
+  .arena-shell::before {
+    display: none;
+  }
+
+  .status-banner-bar {
+    top: 6px;
+    right: 6px;
+  }
+
+  .reset-game-button {
+    min-height: 30px;
+    padding: 5px 9px;
+    font-size: 11px;
+  }
+
+  .opponent-seat-grid {
+    padding: 36px 2px 0;
+    gap: 6px;
+  }
+
+  .opponent-tableau {
+    grid-template-columns: 58px minmax(0, 1fr);
+    gap: 4px;
+    padding: 4px;
+    border-radius: 10px;
+  }
+
+  .opponent-tableau .opponent-hand-fan {
+    height: 32px;
+    max-width: 112px;
+  }
+
+  .opponent-tableau .fan-back {
+    width: 28px;
+  }
+
+  .hero-badge.opponent {
+    min-height: 58px;
+    padding: 4px;
+  }
+
+  .hero-badge.opponent .hero-portrait {
+    width: 34px;
+    height: 34px;
+  }
+
+  .hero-badge.opponent .hero-name strong {
+    font-size: 11px;
+  }
+
+  .player-field.opponent > header {
+    gap: 5px;
+  }
+
+  .player-field.opponent > header strong,
+  .player-field.opponent > header span {
+    font-size: 9px;
+  }
+
+  .player-field.opponent > header .action-count-badge {
+    padding: 2px 5px;
+    font-size: 8px;
+  }
+
+  .player-field.opponent .player-field-grid {
+    grid-template-columns: minmax(92px, 0.85fr) minmax(126px, 1.15fr);
+    gap: 4px;
+  }
+
+  .player-field.opponent .field-section {
+    gap: 3px;
+    padding: 4px;
+  }
+
+  .player-field.opponent .gate-field {
+    grid-template-columns: 34px minmax(0, 1fr);
+  }
+
+  .player-field.opponent .gate-field .gate-identity-card {
+    width: 34px;
+    min-height: 52px;
+  }
+
+  .player-field.opponent .field-card-slot {
+    width: 40px;
+    min-height: 58px;
+  }
+
+  .player-field.opponent .activated-card-row {
+    grid-template-columns: repeat(auto-fit, minmax(38px, 1fr));
+    min-height: 58px;
+  }
+
+  .battlefield {
+    position: relative;
+    top: auto;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    padding: 0;
+  }
+
+  .arena-market {
+    width: 100%;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 6px;
+  }
+
+  .market-lane {
+    padding: 6px;
+  }
+
+  .market-lane h2 {
+    font-size: 12px;
+  }
+
+  .battlefield-row {
+    gap: 4px;
+    overflow: visible;
+  }
+
+  .arena-market .molta-card,
+  .arena-market .market-card-placeholder {
+    width: clamp(54px, 10vw, 84px);
+    flex-basis: clamp(54px, 10vw, 84px);
+  }
+
+  .arena-actions {
+    width: 100%;
+    gap: 5px;
+  }
+
+  .arena-actions .quick-action {
+    min-height: 34px;
+    grid-template-columns: 22px minmax(0, 1fr);
+    padding: 4px 5px;
+  }
+
+  .arena-actions .action-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .player-command {
+    position: relative;
+    left: auto;
+    right: auto;
+    bottom: auto;
+    height: auto;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 6px;
+    padding: 0;
+  }
+
+  .player-field.player .field-card-slot {
+    width: clamp(48px, 8.5vw, 68px);
+    min-height: clamp(70px, 12vw, 96px);
+  }
+
+  .player-field.player .gate-field {
+    grid-template-columns: 40px minmax(0, 1fr);
+  }
+
+  .player-field.player .gate-field .gate-identity-card {
+    width: 40px;
+    min-height: 68px;
+  }
+
+  .hand-row {
+    min-height: 88px;
+    gap: 6px;
+  }
+
+  .hand-row .molta-card {
+    width: clamp(54px, 10vw, 78px);
+    flex-basis: clamp(54px, 10vw, 78px);
+  }
+}
+
 .arena-shell::before {
   content: "";
   position: absolute;
@@ -1276,6 +2375,11 @@ button.gate-identity-card {
 .arena-market .molta-card {
   width: clamp(98px, 7vw, 132px);
   flex-basis: clamp(98px, 7vw, 132px);
+}
+
+.arena-market .market-card-placeholder {
+  flex-basis: clamp(98px, 7vw, 132px);
+  width: clamp(98px, 7vw, 132px);
 }
 
 .player-command {
@@ -1780,8 +2884,33 @@ button.gate-identity-card {
 }
 
 .hero-badge.opponent {
-  width: min(310px, 100%);
-  min-height: 94px;
+  width: 100%;
+  min-height: 86px;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-content: center;
+  gap: 5px;
+  border-radius: 12px;
+  padding: 6px;
+}
+
+.hero-badge.opponent .hero-portrait {
+  width: clamp(44px, 4.2vw, 56px);
+  height: clamp(44px, 4.2vw, 56px);
+  border-width: 2px;
+}
+
+.hero-badge.opponent .hero-name {
+  justify-items: center;
+  text-align: center;
+}
+
+.hero-badge.opponent .hero-name strong {
+  font-size: 13px;
+}
+
+.hero-badge.opponent .hero-name span {
+  display: none;
 }
 
 .battlefield {
@@ -1841,6 +2970,11 @@ button.gate-identity-card {
 .arena-market .molta-card {
   width: clamp(110px, 8.5vw, 158px);
   flex-basis: clamp(110px, 8.5vw, 158px);
+}
+
+.arena-market .market-card-placeholder {
+  flex-basis: clamp(110px, 8.5vw, 158px);
+  width: clamp(110px, 8.5vw, 158px);
 }
 
 .arena-actions {
@@ -2229,6 +3363,130 @@ button.gate-identity-card {
   padding: 12px 14px;
 }
 
+.choice-panel {
+  width: min(900px, 96%);
+}
+
+.wide-choice-panel {
+  grid-template-columns: minmax(0, 1fr);
+  width: min(980px, 96%);
+}
+
+.full-span {
+  grid-column: 1 / -1;
+  padding-right: 2px;
+}
+
+.payment-choice-list {
+  display: grid;
+  gap: 10px;
+}
+
+.payment-choice-section {
+  display: grid;
+  gap: 8px;
+}
+
+.payment-choice-section > span {
+  color: #f1d498;
+  font-size: 12px;
+  font-weight: 900;
+}
+
+.payment-choice-button {
+  display: grid;
+  gap: 6px;
+  text-align: left;
+  border: 1px solid rgba(241, 204, 135, 0.22);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.045);
+  color: #f8ead1;
+  padding: 12px 14px;
+}
+
+.payment-choice-button.recommended {
+  border-color: rgba(101, 236, 130, 0.62);
+  background:
+    radial-gradient(ellipse at 0% 0%, rgba(101, 236, 130, 0.16), transparent 62%),
+    rgba(255, 255, 255, 0.052);
+}
+
+.payment-choice-button strong {
+  font-size: 14px;
+  line-height: 1.35;
+}
+
+.payment-choice-button span {
+  color: #d4c2a3;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.card-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(108px, 1fr));
+  gap: 12px;
+  align-items: start;
+}
+
+.card-choice-button {
+  min-width: 0;
+  display: grid;
+  gap: 6px;
+  border: 1px solid rgba(241, 204, 135, 0.24);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #f8ead1;
+  padding: 8px;
+  text-align: left;
+}
+
+.card-choice-button.selected {
+  border-color: rgba(101, 236, 130, 0.88);
+  box-shadow: 0 0 0 2px rgba(101, 236, 130, 0.18);
+}
+
+.card-choice-art {
+  aspect-ratio: 1008 / 1561;
+  border-radius: 7px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.28);
+}
+
+.card-choice-art img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: fill;
+}
+
+.card-choice-button strong {
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.card-choice-button em {
+  color: #cdbb9c;
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 800;
+}
+
+.target-choice {
+  display: grid;
+  gap: 6px;
+}
+
+.target-choice > span {
+  color: #8cff9f;
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.inline-actions {
+  justify-content: end;
+}
+
 .detail-payment span {
   color: #9bd9ff;
   font-size: 12px;
@@ -2513,6 +3771,21 @@ button.gate-identity-card {
   white-space: nowrap;
 }
 
+.player-field > header .action-count-badge {
+  padding: 4px 8px;
+  border: 1px solid rgba(241, 204, 135, 0.24);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.045);
+  color: #d9ccb3;
+  font-size: 10px;
+}
+
+.player-field > header .action-count-badge.active {
+  border-color: rgba(101, 236, 130, 0.64);
+  color: #8cff9f;
+  background: rgba(20, 69, 36, 0.36);
+}
+
 .player-field.active > header strong {
   color: #8cff9f;
 }
@@ -2660,8 +3933,8 @@ button.diamond-chip {
 }
 
 .player-field.opponent {
-  width: min(390px, 48%);
-  max-width: 390px;
+  width: 100%;
+  max-width: none;
   gap: 4px;
 }
 
@@ -2681,26 +3954,43 @@ button.diamond-chip {
   padding: 5px;
 }
 
+.player-field.opponent .player-field-grid {
+  grid-template-columns: minmax(150px, 0.8fr) minmax(230px, 1.4fr);
+}
+
+.player-field.opponent .field-card-row {
+  overflow: visible;
+}
+
 .player-field.opponent .field-label {
   font-size: 10px;
 }
 
 .player-field.opponent .gate-field {
-  grid-template-columns: 42px minmax(0, 1fr);
+  grid-template-columns: clamp(46px, 3.6vw, 56px) minmax(0, 1fr);
 }
 
 .player-field.opponent .gate-field .gate-identity-card {
-  width: 42px;
-  min-height: 58px;
+  width: clamp(46px, 3.6vw, 56px);
+  min-height: clamp(78px, 6.8vw, 104px);
 }
 
 .player-field.opponent .field-card-slot {
-  width: 38px;
-  min-height: 56px;
+  width: clamp(58px, 4.8vw, 76px);
+  min-height: clamp(88px, 7.2vw, 116px);
 }
 
 .player-field.opponent .activated-card-row {
-  min-height: 56px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(clamp(54px, 4.5vw, 72px), 1fr));
+  align-items: start;
+  min-height: clamp(88px, 7.2vw, 116px);
+  overflow: visible;
+}
+
+.player-field.opponent .activated-card-row .field-card-slot {
+  width: 100%;
+  min-width: 0;
 }
 
 .player-field.opponent .molta-card.inspectable::after {
@@ -2842,14 +4132,14 @@ button.diamond-chip {
 
 .opponent-tableau {
   display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  grid-template-rows: auto auto;
+  grid-template-columns: clamp(82px, 8vw, 112px) minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
   grid-template-areas:
     "fan fan"
     "badge field";
-  column-gap: 10px;
+  column-gap: 8px;
   row-gap: 6px;
-  align-items: center;
+  align-items: stretch;
   min-width: 0;
   min-height: 0;
   padding: 6px;
@@ -2867,12 +4157,13 @@ button.diamond-chip {
 .opponent-tableau > .hero-badge {
   grid-area: badge;
   justify-self: start;
-  width: 100%;
+  width: clamp(82px, 8vw, 112px);
+  align-self: stretch;
 }
 
 .opponent-tableau > .player-field {
   grid-area: field;
-  justify-self: end;
+  justify-self: stretch;
   width: 100%;
 }
 
@@ -2892,19 +4183,19 @@ button.diamond-chip {
 .opponent-tableau .opponent-hand-fan {
   position: relative;
   width: 100%;
-  max-width: 220px;
-  height: 70px;
+  max-width: 180px;
+  height: 54px;
   margin: 0 auto;
 }
 
 .opponent-tableau .fan-back {
-  width: 44px;
+  width: clamp(34px, 3.1vw, 44px);
   border-color: rgba(85, 176, 217, 0.55);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
 }
 
 .opponent-tableau .hero-badge {
-  padding: 4px 8px;
+  padding: 6px;
 }
 
 .opponent-tableau .player-field {
@@ -2935,61 +4226,20 @@ button.diamond-chip {
 /* ====== Interaction / Animation enhancements ====== */
 
 .status-banner-bar {
-  position: sticky;
-  top: 0;
-  z-index: 30;
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  left: auto;
+  z-index: 50;
+  width: auto;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 12px 16px;
-  background: linear-gradient(rgba(15, 17, 16, 0.92), rgba(15, 17, 16, 0.78));
-  border-bottom: 1px solid rgba(232, 220, 188, 0.18);
-  backdrop-filter: blur(6px);
-}
-
-.turn-pill {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 10px;
-  padding: 8px 14px;
-  border-radius: 999px;
-  background: rgba(40, 44, 42, 0.85);
-  border: 1px solid rgba(232, 220, 188, 0.22);
-  font-size: 13px;
-  white-space: nowrap;
-}
-
-.turn-pill.human {
-  border-color: rgba(118, 200, 158, 0.65);
-  box-shadow: 0 0 18px rgba(118, 200, 158, 0.25);
-}
-
-.turn-pill.ai {
-  border-color: rgba(214, 153, 96, 0.7);
-  box-shadow: 0 0 18px rgba(214, 153, 96, 0.32);
-  animation: ai-pulse 1.6s ease-in-out infinite;
-}
-
-@keyframes ai-pulse {
-  0%, 100% { box-shadow: 0 0 18px rgba(214, 153, 96, 0.25); }
-  50% { box-shadow: 0 0 26px rgba(214, 153, 96, 0.55); }
-}
-
-.turn-pill-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #c8beb0;
-}
-
-.turn-pill strong {
-  font-size: 16px;
-}
-
-.turn-pill em {
-  font-style: normal;
-  color: #c8beb0;
-  font-size: 12px;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  backdrop-filter: none;
 }
 
 .message-banner {
@@ -3026,43 +4276,21 @@ button.diamond-chip {
 }
 
 .reset-game-button {
-  padding: 8px 14px;
+  min-height: 34px;
+  padding: 7px 12px;
   border-radius: 999px;
   border: 1px solid rgba(232, 220, 188, 0.3);
-  background: transparent;
+  background: rgba(10, 12, 12, 0.72);
   color: #efe8da;
   font-size: 12px;
   white-space: nowrap;
+  backdrop-filter: blur(8px);
   transition: background 0.18s ease, transform 0.18s ease;
 }
 
 .reset-game-button:hover {
   background: rgba(232, 220, 188, 0.12);
   transform: translateY(-1px);
-}
-
-.screen-flash {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 80;
-  mix-blend-mode: screen;
-}
-
-.screen-flash.tone-gain {
-  background: radial-gradient(circle at 50% 60%, rgba(120, 220, 200, 0.45), transparent 60%);
-}
-.screen-flash.tone-place {
-  background: radial-gradient(circle at 50% 60%, rgba(180, 160, 240, 0.55), transparent 65%);
-}
-.screen-flash.tone-activate {
-  background: radial-gradient(circle at 50% 50%, rgba(255, 200, 120, 0.7), transparent 60%);
-}
-.screen-flash.tone-refresh {
-  background: radial-gradient(circle at 50% 50%, rgba(140, 200, 255, 0.5), transparent 65%);
-}
-.screen-flash.tone-ai {
-  background: radial-gradient(circle at 50% 30%, rgba(214, 153, 96, 0.45), transparent 65%);
 }
 
 .molta-card.focus-highlight {
@@ -3179,6 +4407,549 @@ button.diamond-chip {
   color: #b9efd2;
 }
 
+/* Definitive HUD layout overrides. Keep this block at the end of the cascade. */
+.status-banner-bar {
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  left: auto;
+  z-index: 50;
+  width: auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  backdrop-filter: none;
+}
+
+.message-banner {
+  display: none;
+}
+
+.opponent-tableau {
+  grid-template-columns: clamp(72px, 6.5vw, 92px) minmax(0, 1fr);
+  column-gap: 8px;
+}
+
+.opponent-tableau > .hero-badge {
+  width: clamp(72px, 6.5vw, 92px);
+}
+
+.hero-badge.opponent {
+  width: 100%;
+  min-height: 92px;
+  grid-template-columns: 1fr;
+  justify-items: center;
+  align-content: center;
+  gap: 5px;
+  padding: 6px;
+}
+
+.hero-badge.opponent .hero-portrait {
+  width: clamp(40px, 3.8vw, 50px);
+  height: clamp(40px, 3.8vw, 50px);
+}
+
+.hero-badge.opponent .hero-name {
+  justify-items: center;
+  text-align: center;
+}
+
+.hero-badge.opponent .hero-name span {
+  display: none;
+}
+
+.player-field.opponent {
+  width: 100%;
+  max-width: none;
+}
+
+.player-field.opponent .player-field-grid {
+  grid-template-columns: minmax(210px, 0.82fr) minmax(0, 1.35fr);
+}
+
+.player-field.opponent .field-card-row {
+  overflow: visible;
+}
+
+.player-field.opponent .gate-field {
+  grid-template-columns: clamp(46px, 3.8vw, 58px) minmax(0, 1fr);
+}
+
+.player-field.opponent .gate-field .gate-identity-card {
+  width: clamp(46px, 3.8vw, 58px);
+  min-height: clamp(80px, 6.8vw, 106px);
+}
+
+.player-field.opponent .gate-card-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(clamp(64px, 5vw, 78px), 1fr));
+}
+
+.player-field.opponent .gate-card-row .field-card-slot {
+  width: 100%;
+  min-width: 0;
+  min-height: clamp(96px, 7.8vw, 122px);
+}
+
+.player-field.opponent .activated-card-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(clamp(50px, 4vw, 60px), 1fr));
+  align-items: start;
+  align-content: start;
+  min-height: clamp(96px, 7.8vw, 122px);
+  overflow: visible;
+}
+
+.player-field.opponent .activated-card-row .field-card-slot {
+  width: 100%;
+  min-width: 0;
+  min-height: clamp(96px, 7.8vw, 122px);
+}
+
+.field-empty {
+  min-height: clamp(80px, 6.8vw, 104px);
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+  .game-screen {
+    display: block;
+    width: 100vw;
+    height: auto;
+    min-height: 100dvh;
+    padding: 0;
+    overflow: auto;
+  }
+
+  .arena-shell {
+    width: 100vw;
+    height: auto;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "opponent"
+      "field"
+      "player";
+    gap: 6px;
+    overflow: visible;
+    padding: 6px;
+    border-radius: 0;
+  }
+
+  .arena-shell::before {
+    display: none;
+  }
+
+  .status-banner-bar {
+    top: 6px;
+    right: 6px;
+  }
+
+  .reset-game-button {
+    min-height: 30px;
+    padding: 5px 9px;
+    font-size: 11px;
+  }
+
+  .opponent-seat-grid {
+    position: relative;
+    grid-area: opponent;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas: "topLeft topRight";
+    gap: 6px;
+    padding: 38px 0 0;
+    min-height: 0;
+  }
+
+  .opponent-seat-grid.seats-1,
+  .opponent-seat-grid.seats-2,
+  .opponent-seat-grid.seats-3,
+  .opponent-seat-grid.seats-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "topLeft topRight"
+      "left right";
+  }
+
+  .opponent-tableau {
+    grid-template-columns: 48px minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-areas: "badge field";
+    gap: 4px;
+    padding: 4px;
+    border-radius: 10px;
+  }
+
+  .opponent-tableau > .opponent-hand-fan {
+    display: none;
+  }
+
+  .opponent-tableau > .hero-badge {
+    width: 48px;
+  }
+
+  .hero-badge.opponent {
+    min-height: 72px;
+    padding: 4px;
+  }
+
+  .hero-badge.opponent .hero-portrait {
+    width: 32px;
+    height: 32px;
+  }
+
+  .hero-badge.opponent .hero-name strong {
+    font-size: 10px;
+  }
+
+  .player-field.opponent {
+    gap: 3px;
+  }
+
+  .player-field.opponent > header {
+    gap: 5px;
+  }
+
+  .player-field.opponent > header strong,
+  .player-field.opponent > header span {
+    font-size: 9px;
+  }
+
+  .player-field.opponent > header .action-count-badge {
+    padding: 2px 5px;
+    font-size: 8px;
+  }
+
+  .player-field.opponent .player-field-grid {
+    grid-template-columns: minmax(108px, 0.82fr) minmax(0, 1.35fr);
+    gap: 4px;
+  }
+
+  .player-field.opponent .field-section {
+    gap: 3px;
+    padding: 4px;
+  }
+
+  .player-field.opponent .gate-field {
+    grid-template-columns: 30px minmax(0, 1fr);
+  }
+
+  .player-field.opponent .gate-field .gate-identity-card {
+    width: 30px;
+    min-height: 54px;
+  }
+
+  .player-field.opponent .gate-card-row {
+    grid-template-columns: repeat(2, minmax(34px, 1fr));
+    gap: 3px;
+  }
+
+  .player-field.opponent .gate-card-row .field-card-slot,
+  .player-field.opponent .activated-card-row .field-card-slot {
+    min-height: 56px;
+  }
+
+  .player-field.opponent .activated-card-row {
+    grid-template-columns: repeat(auto-fill, minmax(34px, 1fr));
+    min-height: 56px;
+    gap: 3px;
+  }
+
+  .battlefield {
+    position: relative;
+    z-index: 3;
+    grid-area: field;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    min-height: 0;
+    display: grid;
+    place-items: stretch;
+    padding: 0;
+  }
+
+  .arena-market {
+    width: 100%;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 6px;
+  }
+
+  .market-lane {
+    padding: 6px;
+  }
+
+  .market-lane h2 {
+    font-size: 11px;
+  }
+
+  .battlefield-row {
+    gap: 4px;
+    overflow: visible;
+    padding: 3px 0 4px;
+  }
+
+  .arena-market .molta-card,
+  .arena-market .market-card-placeholder {
+    width: clamp(54px, 9vw, 72px);
+    flex-basis: clamp(54px, 9vw, 72px);
+  }
+
+  .arena-actions {
+    width: min(430px, 100%);
+    gap: 5px;
+  }
+
+  .arena-actions .quick-action {
+    min-height: 34px;
+    grid-template-columns: 22px minmax(0, 1fr);
+    padding: 4px 5px;
+  }
+
+  .arena-actions .action-icon {
+    width: 22px;
+    height: 22px;
+  }
+
+  .player-command {
+    position: relative;
+    z-index: 5;
+    grid-area: player;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    height: auto;
+    display: grid;
+    grid-template-columns: minmax(240px, 0.72fr) minmax(0, 1fr);
+    gap: 6px;
+    padding: 0;
+  }
+
+  .player-field.player {
+    align-self: start;
+  }
+
+  .player-field.player .field-card-slot {
+    width: clamp(42px, 7vw, 56px);
+    min-height: clamp(62px, 10vw, 82px);
+  }
+
+  .player-field.player .gate-field {
+    grid-template-columns: 36px minmax(0, 1fr);
+  }
+
+  .player-field.player .gate-field .gate-identity-card {
+    width: 36px;
+    min-height: 62px;
+  }
+
+  .hand-zone {
+    align-self: start;
+  }
+
+  .hand-row {
+    min-height: 84px;
+    gap: 4px;
+    overflow-x: auto;
+    padding-bottom: 6px;
+  }
+
+  .hand-row .molta-card {
+    width: clamp(54px, 9vw, 72px);
+    flex-basis: clamp(54px, 9vw, 72px);
+    margin: 0;
+    transform: none;
+  }
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+  .battlefield {
+    height: auto;
+    grid-template-rows: auto;
+    align-content: start;
+  }
+
+  .hero-badge.opponent .hero-portrait span {
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  .player-field.player .player-field-grid {
+    grid-template-columns: minmax(136px, 0.9fr) minmax(0, 1.1fr);
+    gap: 4px;
+  }
+
+  .player-field.player .field-section {
+    gap: 3px;
+    padding: 4px;
+  }
+
+  .player-field.player .field-card-slot {
+    width: clamp(40px, 6vw, 48px);
+    min-height: clamp(60px, 9vw, 72px);
+  }
+
+  .player-field.player .gate-field {
+    grid-template-columns: 32px minmax(0, 1fr);
+  }
+
+  .player-field.player .gate-field .gate-identity-card {
+    width: 32px;
+    min-height: 58px;
+  }
+}
+
+/* Latest interaction and readability fixes */
+.market-lane.transitioning .molta-card {
+  opacity: 0.72;
+  pointer-events: none;
+}
+
+.market-slot-row {
+  align-items: stretch;
+}
+
+.arena-market .market-card-slot {
+  flex: 0 0 clamp(98px, 7vw, 132px);
+  width: clamp(98px, 7vw, 132px);
+  aspect-ratio: 1008 / 1561;
+  display: grid;
+  place-items: stretch;
+}
+
+.market-card-slot .molta-card,
+.market-card-slot .market-card-placeholder {
+  width: 100%;
+  height: 100%;
+  flex-basis: 100%;
+}
+
+.player-field > header strong {
+  font-size: 15px;
+}
+
+.player-field > header span {
+  color: #f7e7bf;
+  font-size: 14px;
+}
+
+.player-field.opponent > header strong {
+  font-size: 15px;
+}
+
+.player-field.opponent > header span {
+  color: #f7e7bf;
+  font-size: 15px;
+}
+
+.player-field > header .action-count-badge {
+  font-size: 11px;
+}
+
+.player-field.opponent .gate-card-row {
+  grid-template-columns: repeat(2, minmax(clamp(64px, 5vw, 78px), clamp(64px, 5vw, 78px)));
+  justify-content: start;
+}
+
+.player-field.opponent .activated-card-row {
+  grid-template-columns: repeat(auto-fill, minmax(clamp(64px, 5vw, 78px), clamp(64px, 5vw, 78px)));
+  justify-content: start;
+}
+
+.player-field.opponent .gate-card-row .field-card-slot,
+.player-field.opponent .activated-card-row .field-card-slot {
+  width: clamp(64px, 5vw, 78px);
+  min-height: clamp(96px, 7.8vw, 122px);
+}
+
+.payment-choice-sources {
+  display: grid;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.payment-source {
+  display: grid;
+  gap: 3px;
+  padding: 7px 9px;
+  border: 1px solid rgba(232, 220, 188, 0.16);
+  border-radius: 8px;
+  color: #e9dec7;
+  background: rgba(255, 255, 255, 0.035);
+  font-style: normal;
+  line-height: 1.35;
+}
+
+.payment-source b {
+  color: #f1d498;
+  font-size: 11px;
+}
+
+.payment-source.active {
+  border-color: rgba(101, 236, 130, 0.52);
+  background: rgba(31, 92, 52, 0.18);
+}
+
+.payment-source.diamond {
+  border-color: rgba(139, 217, 255, 0.44);
+  background: rgba(23, 65, 86, 0.18);
+}
+
+.paired-choice-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.choice-column {
+  min-width: 0;
+  display: grid;
+  align-content: start;
+  gap: 10px;
+}
+
+.choice-column h3 {
+  margin: 0;
+  color: #f1d498;
+  font-size: 13px;
+}
+
+@media (max-width: 900px) and (orientation: landscape) {
+  .player-field > header strong {
+    font-size: 11px;
+  }
+
+  .player-field > header span {
+    font-size: 10px;
+  }
+
+  .player-field.opponent > header strong,
+  .player-field.opponent > header span {
+    font-size: 10px;
+  }
+
+  .player-field.opponent .gate-card-row,
+  .player-field.opponent .activated-card-row {
+    grid-template-columns: repeat(auto-fill, minmax(34px, 34px));
+  }
+
+  .player-field.opponent .gate-card-row .field-card-slot,
+  .player-field.opponent .activated-card-row .field-card-slot {
+    width: 34px;
+    min-height: 56px;
+  }
+
+  .paired-choice-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 @media (orientation: portrait) and (hover: none) and (pointer: coarse),
   (orientation: portrait) and (max-width: 900px) {
   .game-screen {
@@ -3230,5 +5001,265 @@ button.diamond-chip {
 
   .orientation-guard .kicker {
     color: #f2c86b;
+  }
+}
+
+/* Final asset preloading and five-player readability overrides. */
+.loading-screen {
+  background:
+    linear-gradient(rgba(9, 11, 10, 0.62), rgba(9, 11, 10, 0.9)),
+    url("/src/assets/boards/placeholder-board.svg");
+  background-position: center;
+  background-size: cover;
+}
+
+.loading-content {
+  justify-items: stretch;
+}
+
+.loading-meter {
+  height: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(242, 200, 107, 0.42);
+  border-radius: 999px;
+  background: rgba(8, 10, 10, 0.76);
+  box-shadow: inset 0 0 12px rgba(0, 0, 0, 0.46);
+}
+
+.loading-meter span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #65ec82, #f2c86b);
+  transition: width 180ms ease;
+}
+
+.loading-count {
+  margin: -8px 0 0;
+  color: #f2c86b;
+  font-size: 13px;
+  font-weight: 900;
+}
+
+@media (min-width: 901px) and (max-height: 799px) {
+  .game-screen {
+    display: block;
+    width: 100vw;
+    height: auto;
+    min-height: 100dvh;
+    padding: 0;
+    overflow: auto;
+  }
+
+  .game-screen .arena-shell {
+    width: 100vw;
+    height: auto;
+    min-height: 100dvh;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto auto auto;
+    grid-template-areas:
+      "opponent"
+      "field"
+      "player";
+    gap: 8px;
+    overflow: visible;
+    padding: 8px;
+    border-radius: 0;
+  }
+
+  .arena-shell::before {
+    display: none;
+  }
+
+  .status-banner-bar {
+    top: 8px;
+    right: 8px;
+  }
+
+  .opponent-seat-grid,
+  .opponent-seat-grid.seats-4 {
+    position: relative;
+    grid-area: opponent;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "topLeft topRight"
+      "left right";
+    gap: 8px;
+    padding: 40px 0 0;
+  }
+
+  .opponent-seat-grid.seats-4 .opponent-tableau,
+  .opponent-tableau {
+    grid-template-columns: 64px minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-areas: "badge field";
+    gap: 6px;
+    padding: 6px;
+  }
+
+  .opponent-tableau > .opponent-hand-fan {
+    display: none;
+  }
+
+  .opponent-tableau > .hero-badge {
+    width: 64px;
+  }
+
+  .hero-badge.opponent {
+    min-height: 92px;
+  }
+
+  .player-field.opponent .player-field-grid {
+    grid-template-columns: minmax(176px, 0.86fr) minmax(0, 1.2fr);
+  }
+
+  .player-field.opponent .gate-card-row,
+  .player-field.opponent .activated-card-row {
+    grid-template-columns: repeat(auto-fill, minmax(58px, 58px));
+  }
+
+  .player-field.opponent .gate-card-row .field-card-slot,
+  .player-field.opponent .activated-card-row .field-card-slot {
+    width: 58px;
+    min-height: 90px;
+  }
+
+  .battlefield {
+    position: relative;
+    grid-area: field;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    width: 100%;
+    min-height: 0;
+    display: grid;
+    place-items: stretch;
+    padding: 0;
+  }
+
+  .arena-market {
+    width: 100%;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: 8px;
+  }
+
+  .arena-market .market-card-slot {
+    width: clamp(72px, 8vw, 96px);
+    flex-basis: clamp(72px, 8vw, 96px);
+  }
+
+  .player-command {
+    position: relative;
+    grid-area: player;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    left: auto;
+    height: auto;
+    grid-template-columns: minmax(300px, 0.78fr) minmax(0, 1fr);
+    gap: 8px;
+    padding: 0;
+  }
+}
+
+@media (min-width: 901px) and (min-height: 800px) {
+  .arena-shell.opponent-count-4 {
+    grid-template-rows: clamp(310px, 39vh, 400px) minmax(0, 1fr) clamp(205px, 24vh, 230px);
+  }
+
+  .arena-shell.opponent-count-4 .battlefield {
+    top: clamp(452px, 51vh, 462px);
+    bottom: 238px;
+  }
+
+  .arena-shell.opponent-count-4 .player-command {
+    bottom: 16px;
+    height: 206px;
+  }
+
+  .opponent-seat-grid.seats-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "topLeft topRight"
+      "left right";
+    align-content: stretch;
+  }
+
+  .opponent-seat-grid.seats-4 .opponent-tableau {
+    grid-template-columns: clamp(76px, 5.6vw, 98px) minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-areas: "badge field";
+    align-items: stretch;
+    padding: 8px;
+  }
+
+  .opponent-seat-grid.seats-4 .opponent-hand-fan {
+    display: none;
+  }
+
+  .opponent-seat-grid.seats-4 .hero-badge.opponent {
+    min-height: 0;
+  }
+
+  .opponent-seat-grid.seats-4 .hero-badge.opponent .hero-portrait {
+    width: clamp(42px, 3.8vw, 54px);
+    height: clamp(42px, 3.8vw, 54px);
+  }
+
+  .opponent-seat-grid.seats-4 .player-field.opponent .player-field-grid {
+    grid-template-columns: minmax(178px, 0.88fr) minmax(0, 1.22fr);
+  }
+
+  .opponent-seat-grid.seats-4 .player-field.opponent .gate-card-row,
+  .opponent-seat-grid.seats-4 .player-field.opponent .activated-card-row {
+    grid-template-columns: repeat(auto-fill, minmax(clamp(60px, 4.8vw, 82px), clamp(60px, 4.8vw, 82px)));
+  }
+
+  .opponent-seat-grid.seats-4 .player-field.opponent .gate-card-row .field-card-slot,
+  .opponent-seat-grid.seats-4 .player-field.opponent .activated-card-row .field-card-slot {
+    width: clamp(60px, 4.8vw, 82px);
+    min-height: clamp(90px, 7.4vw, 124px);
+  }
+
+  .arena-shell.opponent-count-4 .opponent-seat-grid.seats-4 {
+    padding-top: 48px;
+  }
+
+  .arena-shell.opponent-count-4 .arena-market {
+    align-self: stretch;
+    gap: 8px;
+  }
+
+  .arena-shell.opponent-count-4 .market-lane {
+    padding: 6px 8px;
+  }
+
+  .arena-shell.opponent-count-4 .market-lane h2 {
+    font-size: 12px;
+  }
+
+  .arena-shell.opponent-count-4 .battlefield-row {
+    gap: 6px;
+    padding: 2px 0 4px;
+  }
+
+  .arena-shell.opponent-count-4 .arena-market .market-card-slot {
+    width: clamp(76px, 6vw, 92px);
+    flex-basis: clamp(76px, 6vw, 92px);
+  }
+
+  .arena-shell.opponent-count-4 .arena-actions .quick-action {
+    min-height: 34px;
+    grid-template-columns: 24px minmax(0, 1fr);
+    padding: 4px 7px;
+  }
+
+  .arena-shell.opponent-count-4 .arena-actions .action-icon {
+    width: 24px;
+    height: 24px;
+    font-size: 13px;
   }
 }
