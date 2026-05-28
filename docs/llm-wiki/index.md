@@ -59,6 +59,10 @@ Content-oriented catalog for the Gate of Molta LLM Wiki.
 | [Generated ImageGen card restorations](../llm-sources/2026-05-23-tts-card-crops/generated-imagegen/README.md) | AI image-to-image restoration derivatives for all 67 cropped references, including named review copies; reference-only | 2026-05-24 |
 | [TTS pearl card crops](../llm-sources/2026-05-23-tts-pearl-card-crops/README.md) | Pearl-card subset with value-based filenames, sharpened readability derivatives, and image-generation restoration prompts; reference-only | 2026-05-23 |
 | [Full game history report](../llm-sources/2026-05-26-full-game-history.json) / [readable Markdown](../llm-sources/2026-05-26-full-game-history.md) / [HTML viewer](../llm-sources/2026-05-26-full-game-history.html) | Deterministic auto-play history for seed `full-game-history`, from setup through game over under current prototype effect and strategy-AI rules | 2026-05-26 |
+| [Expert 10-game round-end verification](../llm-sources/2026-05-27-expert-10-games-round-end.json) | Batch report for 10 expert-difficulty automated games after correcting the 12-point current-round ending rule | 2026-05-27 |
+| [Change visual report](../llm-sources/2026-05-28-change-visual-report.html) | Static HTML visualization of the current rule, UI, AI, and verification changes | 2026-05-28 |
+| [UX/rule 10-game audit](../llm-sources/2026-05-28-ux-rule-audit-10-games.json) | Expert AI batch report for 10 games used to check rule invariants and long-play effect coverage during UX review | 2026-05-28 |
+| [UX browser audit screenshots](../llm-sources/2026-05-28-ux-browser-audit/README.md) | Playwright screenshot set and notes for desktop 3-player, desktop 5-player, and landscape-mobile 5-player layout review | 2026-05-28 |
 
 ## Current Design Pillars
 
@@ -91,7 +95,7 @@ Content-oriented catalog for the Gate of Molta LLM Wiki.
 - The core "몰타의 관문" turn loop has been partially captured from WING Board Game.
 - Character-card activation/effect candidates now execute as prototype behavior, but official names, power values, diamond rewards, and final card data remain unverified.
 - The exact official character-card list still needs confirmation; the prototype currently treats each captured fixture entry as one physical card.
-- The normal solo policy is strategy-weighted but still heuristic; hard/expert difficulty tuning has not started yet.
+- The expert solo policy now has difficulty-aware heuristic tuning and batch verification, but it is still heuristic rather than rollout/expectimax AI.
 - The fixture-only automated game can complete, but official full gameplay remains incomplete until final card data and effect wording are verified.
 - The 5-card starting hand is a user-directed prototype rule and must be reconciled with any later official setup source.
 - Visual identity, asset dimensions, and animation timing standards are not defined yet.

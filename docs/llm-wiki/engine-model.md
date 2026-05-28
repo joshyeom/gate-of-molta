@@ -227,17 +227,21 @@ type TurnState = {
   roundNumber: number;
   activePlayerId: PlayerId;
   startPlayerId: PlayerId;
-  actionsRemaining: 0 | 1 | 2 | 3;
+  actionsRemaining: number;
   phase: TurnPhase;
   endGame: EndGameState;
+  actionBonuses: Record<PlayerId, number>;
+  usedAbilityIds: string[];
+  activatedThisTurn: CardInstanceId[];
 };
 ```
 
 Notes:
 
-- The documented turn gives exactly 3 actions.
+- The documented turn gives exactly 3 base actions, but prototype card effects can temporarily raise the action count.
 - Blue ability windows map to `startOfTurn`, `action`, and `afterActions`.
-- Endgame tracking must support: trigger at 12+ power, finish the current round, then play one additional full round.
+- `activatedThisTurn` blocks newly activated blue/passive effects from payment planning, ability use, hand-limit bonuses, and persistent action bonuses until that player's next turn; red/on-activation effects still resolve immediately.
+- Endgame tracking must support: trigger at 12+ power, finish the current round, then immediately rank winners.
 
 ## Game State
 
@@ -314,6 +318,7 @@ type GameAction =
       actorId: PlayerId;
       characterInstanceId: CardInstanceId;
       payment: PaymentPlan;
+      choices?: AbilityChoices;
     }
   | { type: "discardPearlsToLimit"; actorId: PlayerId; pearlIds: CardInstanceId[] }
   | { type: "useAbility"; actorId: PlayerId; abilityId: string; choices: AbilityChoices }

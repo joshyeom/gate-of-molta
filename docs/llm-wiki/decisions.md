@@ -262,3 +262,36 @@ Consequences:
 - `src/game/engine/reducer.ts` refreshes the character market when refresh pearls are revealed during play.
 - Character discards are terminal for the character draw pile under the current prototype.
 - The fixture character deck uses every captured character entry as exactly one physical card unless a later official source proves otherwise.
+
+## 2026-05-27: End the game after the current 12-point round
+
+When a player first reaches at least 12 score, the game does not end immediately and does not create an extra full final round. The current round finishes, then the player with the highest score wins; diamonds remain the current tiebreaker.
+
+Reason:
+
+- The user clarified that the winner is determined from the round in which 12 points appears.
+- Immediate ending incorrectly prevented later players in the same round from overtaking the first 12-point player.
+- An extra final round also exceeds the corrected timing.
+
+Consequences:
+
+- The reducer enters `finishCurrentRound` on the first 12+ activation.
+- When turn order advances into the next round, the reducer immediately sets `gameOver` and ranks winners.
+- Strategy and AI should evaluate whether triggering 12 now is safe against the remaining players in the current round.
+
+## 2026-05-27: Tune Expert as deterministic heuristic AI with denial
+
+Expert difficulty now uses the same deterministic reducer actions as other AI seats, but applies stronger heuristic weights for public-information denial, endgame pressure, opponent-gate discard effects, and contested market cards. It remains a deterministic heuristic policy, not a rollout/expectimax implementation.
+
+Reason:
+
+- The user requested hardest-difficulty playthrough verification now, before a full rollout AI exists.
+- The current prototype needs challenging play while card data is still candidate/prototype data.
+- Batch simulation showed that over-denial can stall games, so Expert must still prioritize building its own gate and activation path.
+
+Consequences:
+
+- `chooseAiAction` now reads the configured difficulty.
+- Hard/Expert can take denial pearls or characters when opponent value is high.
+- Expert fills empty gate slots before denial to preserve game progress.
+- Future rollout/expectimax AI can replace this policy later without changing engine rules.

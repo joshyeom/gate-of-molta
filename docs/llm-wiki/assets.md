@@ -57,7 +57,8 @@ The current browser prototype uses local image files under `src/assets/cards/`:
 
 - `src/assets/cards/pearls/` contains temporary pearl-card PNGs copied from the generated ImageGen pearl restoration batch so the UI can render value-specific pearl art immediately.
 - `src/assets/cards/characters/` contains temporary character-card PNGs copied from generated named-card outputs for the 54 current candidate fixture definitions, plus `placeholder-character.webp` as fallback.
-- `src/app/App.tsx` imports these through Vite URL handling and maps pearl definitions by value.
+- Runtime card rendering uses optimized WebP derivatives in the same folders; the source PNGs remain as higher-weight local working/runtime candidates but are not imported by the app.
+- `src/app/App.tsx` imports the WebP card assets through Vite URL handling, preloads them on the opening loading screen, and maps pearl definitions by value.
 - The active fixture character definitions reference candidate metadata from `docs/llm-sources/2026-05-23-tts-character-verification.json` for condition, power, diamond reward, and effect notes.
 
 This is a prototype wiring step requested during UI iteration. The pearl and character files still inherit the source-status cautions from the generated reference derivatives and should be replaced or re-approved before production release.

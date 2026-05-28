@@ -1,0 +1,924 @@
+{
+  "aggregate": {
+    "games": 10,
+    "difficulty": "expert",
+    "totalPlayers": 3,
+    "endedGames": 10,
+    "totalViolations": 0,
+    "winsByLabel": {
+      "AI 2": 7,
+      "AI 1": 2,
+      "human": 1
+    },
+    "actionsByType": {
+      "placeCharacterFromMarket": 316,
+      "activateGateCharacter": 193,
+      "endTurn": 720,
+      "gainPearlFromMarket": 1668,
+      "discardPearlsToLimit": 446,
+      "refreshPearlMarket": 27,
+      "useAbility": 114,
+      "placeCharacterFromDeck": 2
+    },
+    "abilitiesByDefinition": {
+      "character-402-straight-3-p1-d0": 69,
+      "character-302-18-p1-d0": 40,
+      "character-700-straight-5-p2-d0": 2,
+      "character-806-2-p0-d1": 3
+    },
+    "effectStats": {
+      "virtualPearlPayments": 53,
+      "pearlOverridePayments": 9,
+      "diamondModifierPayments": 23,
+      "spentDiamondPayments": 0,
+      "wispActivations": 3,
+      "opponentGateDiscards": 6,
+      "contestedCharacterTakes": 83,
+      "characterMarketRefreshes": 94,
+      "pearlsReclaimed": 3,
+      "diamondsSpent": 25,
+      "actionBonuses": 10
+    }
+  },
+  "games": [
+    {
+      "index": 1,
+      "seed": "ux-rule-audit-2026-05-28-01",
+      "steps": 571,
+      "turns": 120,
+      "stats": {
+        "actionsByType": {
+          "placeCharacterFromMarket": 25,
+          "activateGateCharacter": 19,
+          "endTurn": 120,
+          "gainPearlFromMarket": 297,
+          "discardPearlsToLimit": 88,
+          "refreshPearlMarket": 22
+        },
+        "activationsByDefinition": {
+          "character-502-sum-10-p1-d0": 1,
+          "character-308-55-p1-d0": 1,
+          "character-804-66-p1-d0": 1,
+          "character-705-sum-10-p1-d0": 1,
+          "character-407-three-card-sum-20-p2-d0": 1,
+          "character-706-three-of-kind-p2-d0": 1,
+          "character-408-odd-3-cards-p1-d1": 1,
+          "character-607-22-p1-d0": 1,
+          "character-807-three-card-sum-7-p1-d0": 1,
+          "character-405-three-of-kind-p2-d0": 1,
+          "character-501-88-p2-d0": 1,
+          "character-507-567-p1-d0": 1,
+          "character-400-12-p0-d0": 1,
+          "character-605-7788-p3-d1": 1,
+          "character-708-three-card-sum-10-p1-d0": 1,
+          "character-608-333-p1-d0": 1,
+          "character-702-1357-p2-d0": 1,
+          "character-307-7777-p4-d0": 1,
+          "character-505-8888-p5-d0": 1
+        },
+        "abilitiesByDefinition": {},
+        "virtualPearlPayments": 5,
+        "pearlOverridePayments": 1,
+        "diamondModifierPayments": 2,
+        "spentDiamondPayments": 0,
+        "wispActivations": 0,
+        "opponentGateDiscards": 1,
+        "ownGateReplacements": 4,
+        "contestedCharacterTakes": 7,
+        "characterMarketRefreshes": 24,
+        "pearlsReclaimed": 0,
+        "diamondsSpent": 2,
+        "actionBonuses": 3
+      },
+      "violations": [],
+      "ended": true,
+      "rounds": 40,
+      "winners": [
+        "AI 2"
+      ],
+      "finalPlayers": [
+        {
+          "id": "player-1",
+          "label": "human",
+          "score": 9,
+          "diamonds": 0,
+          "hand": 7,
+          "gate": 1,
+          "active": 5
+        },
+        {
+          "id": "player-2",
+          "label": "AI 1",
+          "score": 9,
+          "diamonds": 0,
+          "hand": 5,
+          "gate": 0,
+          "active": 5
+        },
+        {
+          "id": "player-3",
+          "label": "AI 2",
+          "score": 14,
+          "diamonds": 0,
+          "hand": 4,
+          "gate": 0,
+          "active": 9
+        }
+      ]
+    },
+    {
+      "index": 2,
+      "seed": "ux-rule-audit-2026-05-28-02",
+      "steps": 532,
+      "turns": 105,
+      "stats": {
+        "actionsByType": {
+          "placeCharacterFromMarket": 24,
+          "activateGateCharacter": 16,
+          "endTurn": 105,
+          "gainPearlFromMarket": 275,
+          "discardPearlsToLimit": 80,
+          "useAbility": 32
+        },
+        "activationsByDefinition": {
+          "character-502-sum-10-p1-d0": 1,
+          "character-303-sum-10-p1-d0": 1,
+          "character-506-pair-p1-d0": 1,
+          "character-402-straight-3-p1-d0": 1,
+          "character-803-pair-p1-d0": 1,
+          "character-605-7788-p3-d1": 1,
+          "character-406-pair-p1-d0": 1,
+          "character-608-333-p1-d0": 1,
+          "character-708-three-card-sum-10-p1-d0": 1,
+          "character-401-357-p1-d1": 1,
+          "character-601-88-p2-d0": 1,
+          "character-706-three-of-kind-p2-d0": 1,
+          "character-307-7777-p4-d0": 1,
+          "character-404-33-p1-d0": 1,
+          "character-400-12-p0-d0": 1,
+          "character-508-45678-p1-d0": 1
+        },
+        "abilitiesByDefinition": {
+          "character-402-straight-3-p1-d0": 32
+        },
+        "virtualPearlPayments": 1,
+        "pearlOverridePayments": 1,
+        "diamondModifierPayments": 2,
+        "spentDiamondPayments": 0,
+        "wispActivations": 0,
+        "opponentGateDiscards": 0,
+        "ownGateReplacements": 5,
+        "contestedCharacterTakes": 5,
+        "characterMarketRefreshes": 16,
+        "pearlsReclaimed": 0,
+        "diamondsSpent": 2,
+        "actionBonuses": 0
+      },
+      "violations": [],
+      "ended": true,
+      "rounds": 35,
+      "winners": [
+        "AI 2"
+      ],
+      "finalPlayers": [
+        {
+          "id": "player-1",
+          "label": "human",
+          "score": 6,
+          "diamonds": 0,
+          "hand": 6,
+          "gate": 2,
+          "active": 4
+        },
+        {
+          "id": "player-2",
+          "label": "AI 1",
+          "score": 4,
+          "diamonds": 0,
+          "hand": 5,
+          "gate": 1,
+          "active": 1
+        },
+        {
+          "id": "player-3",
+          "label": "AI 2",
+          "score": 12,
+          "diamonds": 0,
+          "hand": 4,
+          "gate": 0,
+          "active": 11
+        }
+      ]
+    },
+    {
+      "index": 3,
+      "seed": "ux-rule-audit-2026-05-28-03",
+      "steps": 425,
+      "turns": 84,
+      "stats": {
+        "actionsByType": {
+          "placeCharacterFromMarket": 28,
+          "activateGateCharacter": 15,
+          "endTurn": 84,
+          "gainPearlFromMarket": 218,
+          "discardPearlsToLimit": 62,
+          "useAbility": 18
+        },
+        "activationsByDefinition": {
+          "character-304-12-p0-d0": 1,
+          "character-708-three-card-sum-10-p1-d0": 1,
+          "character-302-18-p1-d0": 1,
+          "character-507-567-p1-d0": 1,
+          "character-500-44-p1-d0": 1,
+          "character-900-same-2-plus-6x2-p2-d1": 1,
+          "character-403-same-2-plus-66-p2-d1": 1,
+          "character-505-8888-p5-d0": 1,
+          "character-800-345-p1-d0": 1,
+          "character-508-45678-p1-d0": 1,
+          "character-504-6688-p3-d0": 1,
+          "character-501-88-p2-d0": 1,
+          "character-605-7788-p3-d1": 1,
+          "character-901-444-or-555-p3-d0": 1,
+          "character-406-pair-p1-d0": 1
+        },
+        "abilitiesByDefinition": {
+          "character-302-18-p1-d0": 18
+        },
+        "virtualPearlPayments": 2,
+        "pearlOverridePayments": 1,
+        "diamondModifierPayments": 2,
+        "spentDiamondPayments": 0,
+        "wispActivations": 0,
+        "opponentGateDiscards": 0,
+        "ownGateReplacements": 7,
+        "contestedCharacterTakes": 9,
+        "characterMarketRefreshes": 9,
+        "pearlsReclaimed": 1,
+        "diamondsSpent": 2,
+        "actionBonuses": 0
+      },
+      "violations": [],
+      "ended": true,
+      "rounds": 28,
+      "winners": [
+        "AI 2"
+      ],
+      "finalPlayers": [
+        {
+          "id": "player-1",
+          "label": "human",
+          "score": 3,
+          "diamonds": 0,
+          "hand": 5,
+          "gate": 2,
+          "active": 2
+        },
+        {
+          "id": "player-2",
+          "label": "AI 1",
+          "score": 9,
+          "diamonds": 1,
+          "hand": 5,
+          "gate": 2,
+          "active": 4
+        },
+        {
+          "id": "player-3",
+          "label": "AI 2",
+          "score": 15,
+          "diamonds": 0,
+          "hand": 0,
+          "gate": 2,
+          "active": 9
+        }
+      ]
+    },
+    {
+      "index": 4,
+      "seed": "ux-rule-audit-2026-05-28-04",
+      "steps": 248,
+      "turns": 54,
+      "stats": {
+        "actionsByType": {
+          "placeCharacterFromMarket": 33,
+          "gainPearlFromMarket": 108,
+          "discardPearlsToLimit": 27,
+          "endTurn": 54,
+          "activateGateCharacter": 21,
+          "useAbility": 5
+        },
+        "activationsByDefinition": {
+          "character-800-345-p1-d0": 1,
+          "character-805-77-p1-d0": 1,
+          "character-707-333-or-666-p3-d0": 1,
+          "character-503-7777-p4-d0": 1,
+          "character-408-odd-3-cards-p1-d1": 1,
+          "character-304-12-p0-d0": 1,
+          "character-601-88-p2-d0": 1,
+          "character-501-88-p2-d0": 1,
+          "character-302-18-p1-d0": 1,
+          "character-602-three-card-sum-7-p1-d0": 1,
+          "character-801-567-p1-d0": 1,
+          "character-500-44-p1-d0": 1,
+          "character-403-same-2-plus-66-p2-d1": 1,
+          "character-308-55-p1-d0": 1,
+          "character-303-sum-10-p1-d0": 1,
+          "character-703-even-3-cards-p1-d1": 1,
+          "character-700-straight-5-p2-d0": 1,
+          "character-603-1111-p0-d0": 1,
+          "character-404-33-p1-d0": 1,
+          "character-705-sum-10-p1-d0": 1,
+          "character-900-same-2-plus-6x2-p2-d1": 1
+        },
+        "abilitiesByDefinition": {
+          "character-302-18-p1-d0": 4,
+          "character-700-straight-5-p2-d0": 1
+        },
+        "virtualPearlPayments": 8,
+        "pearlOverridePayments": 0,
+        "diamondModifierPayments": 0,
+        "spentDiamondPayments": 0,
+        "wispActivations": 1,
+        "opponentGateDiscards": 1,
+        "ownGateReplacements": 5,
+        "contestedCharacterTakes": 8,
+        "characterMarketRefreshes": 5,
+        "pearlsReclaimed": 1,
+        "diamondsSpent": 0,
+        "actionBonuses": 0
+      },
+      "violations": [],
+      "ended": true,
+      "rounds": 18,
+      "winners": [
+        "AI 1"
+      ],
+      "finalPlayers": [
+        {
+          "id": "player-1",
+          "label": "human",
+          "score": 10,
+          "diamonds": 0,
+          "hand": 3,
+          "gate": 2,
+          "active": 8
+        },
+        {
+          "id": "player-2",
+          "label": "AI 1",
+          "score": 12,
+          "diamonds": 1,
+          "hand": 3,
+          "gate": 2,
+          "active": 7
+        },
+        {
+          "id": "player-3",
+          "label": "AI 2",
+          "score": 7,
+          "diamonds": 3,
+          "hand": 6,
+          "gate": 2,
+          "active": 6
+        }
+      ]
+    },
+    {
+      "index": 5,
+      "seed": "ux-rule-audit-2026-05-28-05",
+      "steps": 396,
+      "turns": 81,
+      "stats": {
+        "actionsByType": {
+          "placeCharacterFromMarket": 36,
+          "activateGateCharacter": 23,
+          "endTurn": 81,
+          "gainPearlFromMarket": 181,
+          "useAbility": 25,
+          "discardPearlsToLimit": 47,
+          "placeCharacterFromDeck": 1,
+          "refreshPearlMarket": 2
+        },
+        "activationsByDefinition": {
+          "character-506-pair-p1-d0": 1,
+          "character-803-pair-p1-d0": 1,
+          "character-708-three-card-sum-10-p1-d0": 1,
+          "character-402-straight-3-p1-d0": 1,
+          "character-801-567-p1-d0": 1,
+          "character-500-44-p1-d0": 1,
+          "character-805-77-p1-d0": 1,
+          "character-502-sum-10-p1-d0": 1,
+          "character-507-567-p1-d0": 1,
+          "character-308-55-p1-d0": 1,
+          "character-605-7788-p3-d1": 1,
+          "character-407-three-card-sum-20-p2-d0": 1,
+          "character-901-444-or-555-p3-d0": 1,
+          "character-806-2-p0-d1": 1,
+          "character-307-7777-p4-d0": 1,
+          "character-303-sum-10-p1-d0": 1,
+          "character-705-sum-10-p1-d0": 1,
+          "character-703-even-3-cards-p1-d1": 1,
+          "character-401-357-p1-d1": 1,
+          "character-707-333-or-666-p3-d0": 1,
+          "character-802-7788-p3-d1": 1,
+          "character-603-1111-p0-d0": 1,
+          "character-608-333-p1-d0": 1
+        },
+        "abilitiesByDefinition": {
+          "character-402-straight-3-p1-d0": 25
+        },
+        "virtualPearlPayments": 6,
+        "pearlOverridePayments": 0,
+        "diamondModifierPayments": 3,
+        "spentDiamondPayments": 0,
+        "wispActivations": 1,
+        "opponentGateDiscards": 0,
+        "ownGateReplacements": 12,
+        "contestedCharacterTakes": 11,
+        "characterMarketRefreshes": 10,
+        "pearlsReclaimed": 0,
+        "diamondsSpent": 3,
+        "actionBonuses": 0
+      },
+      "violations": [],
+      "ended": true,
+      "rounds": 27,
+      "winners": [
+        "human"
+      ],
+      "finalPlayers": [
+        {
+          "id": "player-1",
+          "label": "human",
+          "score": 12,
+          "diamonds": 0,
+          "hand": 6,
+          "gate": 0,
+          "active": 8
+        },
+        {
+          "id": "player-2",
+          "label": "AI 1",
+          "score": 11,
+          "diamonds": 0,
+          "hand": 5,
+          "gate": 1,
+          "active": 7
+        },
+        {
+          "id": "player-3",
+          "label": "AI 2",
+          "score": 10,
+          "diamonds": 0,
+          "hand": 6,
+          "gate": 1,
+          "active": 8
+        }
+      ]
+    },
+    {
+      "index": 6,
+      "seed": "ux-rule-audit-2026-05-28-06",
+      "steps": 349,
+      "turns": 72,
+      "stats": {
+        "actionsByType": {
+          "placeCharacterFromMarket": 31,
+          "activateGateCharacter": 17,
+          "endTurn": 72,
+          "gainPearlFromMarket": 170,
+          "discardPearlsToLimit": 49,
+          "useAbility": 10
+        },
+        "activationsByDefinition": {
+          "character-304-12-p0-d0": 1,
+          "character-406-pair-p1-d0": 1,
+          "character-507-567-p1-d0": 1,
+          "character-708-three-card-sum-10-p1-d0": 1,
+          "character-404-33-p1-d0": 1,
+          "character-803-pair-p1-d0": 1,
+          "character-402-straight-3-p1-d0": 1,
+          "character-401-357-p1-d1": 1,
+          "character-900-same-2-plus-6x2-p2-d1": 1,
+          "character-805-77-p1-d0": 1,
+          "character-307-7777-p4-d0": 1,
+          "character-706-three-of-kind-p2-d0": 1,
+          "character-508-45678-p1-d0": 1,
+          "character-802-7788-p3-d1": 1,
+          "character-405-three-of-kind-p2-d0": 1,
+          "character-407-three-card-sum-20-p2-d0": 1,
+          "character-607-22-p1-d0": 1
+        },
+        "abilitiesByDefinition": {
+          "character-402-straight-3-p1-d0": 10
+        },
+        "virtualPearlPayments": 6,
+        "pearlOverridePayments": 1,
+        "diamondModifierPayments": 3,
+        "spentDiamondPayments": 0,
+        "wispActivations": 0,
+        "opponentGateDiscards": 0,
+        "ownGateReplacements": 9,
+        "contestedCharacterTakes": 8,
+        "characterMarketRefreshes": 7,
+        "pearlsReclaimed": 0,
+        "diamondsSpent": 3,
+        "actionBonuses": 0
+      },
+      "violations": [],
+      "ended": true,
+      "rounds": 24,
+      "winners": [
+        "AI 2"
+      ],
+      "finalPlayers": [
+        {
+          "id": "player-1",
+          "label": "human",
+          "score": 6,
+          "diamonds": 0,
+          "hand": 4,
+          "gate": 2,
+          "active": 4
+        },
+        {
+          "id": "player-2",
+          "label": "AI 1",
+          "score": 5,
+          "diamonds": 0,
+          "hand": 5,
+          "gate": 2,
+          "active": 2
+        },
+        {
+          "id": "player-3",
+          "label": "AI 2",
+          "score": 14,
+          "diamonds": 0,
+          "hand": 1,
+          "gate": 1,
+          "active": 11
+        }
+      ]
+    },
+    {
+      "index": 7,
+      "seed": "ux-rule-audit-2026-05-28-07",
+      "steps": 228,
+      "turns": 51,
+      "stats": {
+        "actionsByType": {
+          "placeCharacterFromMarket": 35,
+          "gainPearlFromMarket": 95,
+          "discardPearlsToLimit": 22,
+          "endTurn": 51,
+          "activateGateCharacter": 22,
+          "refreshPearlMarket": 2,
+          "useAbility": 1
+        },
+        "activationsByDefinition": {
+          "character-408-odd-3-cards-p1-d1": 1,
+          "character-308-55-p1-d0": 1,
+          "character-803-pair-p1-d0": 1,
+          "character-804-66-p1-d0": 1,
+          "character-608-333-p1-d0": 1,
+          "character-705-sum-10-p1-d0": 1,
+          "character-800-345-p1-d0": 1,
+          "character-506-pair-p1-d0": 1,
+          "character-607-22-p1-d0": 1,
+          "character-403-same-2-plus-66-p2-d1": 1,
+          "character-401-357-p1-d1": 1,
+          "character-707-333-or-666-p3-d0": 1,
+          "character-806-2-p0-d1": 1,
+          "character-400-12-p0-d0": 1,
+          "character-404-33-p1-d0": 1,
+          "character-802-7788-p3-d1": 1,
+          "character-700-straight-5-p2-d0": 1,
+          "character-604-two-pairs-p2-d0": 1,
+          "character-500-44-p1-d0": 1,
+          "character-406-pair-p1-d0": 1,
+          "character-501-88-p2-d0": 1,
+          "character-807-three-card-sum-7-p1-d0": 1
+        },
+        "abilitiesByDefinition": {
+          "character-700-straight-5-p2-d0": 1
+        },
+        "virtualPearlPayments": 6,
+        "pearlOverridePayments": 2,
+        "diamondModifierPayments": 3,
+        "spentDiamondPayments": 0,
+        "wispActivations": 1,
+        "opponentGateDiscards": 1,
+        "ownGateReplacements": 7,
+        "contestedCharacterTakes": 9,
+        "characterMarketRefreshes": 6,
+        "pearlsReclaimed": 1,
+        "diamondsSpent": 3,
+        "actionBonuses": 1
+      },
+      "violations": [],
+      "ended": true,
+      "rounds": 17,
+      "winners": [
+        "AI 2"
+      ],
+      "finalPlayers": [
+        {
+          "id": "player-1",
+          "label": "human",
+          "score": 8,
+          "diamonds": 2,
+          "hand": 4,
+          "gate": 2,
+          "active": 7
+        },
+        {
+          "id": "player-2",
+          "label": "AI 1",
+          "score": 7,
+          "diamonds": 0,
+          "hand": 4,
+          "gate": 2,
+          "active": 6
+        },
+        {
+          "id": "player-3",
+          "label": "AI 2",
+          "score": 13,
+          "diamonds": 0,
+          "hand": 3,
+          "gate": 1,
+          "active": 9
+        }
+      ]
+    },
+    {
+      "index": 8,
+      "seed": "ux-rule-audit-2026-05-28-08",
+      "steps": 241,
+      "turns": 51,
+      "stats": {
+        "actionsByType": {
+          "placeCharacterFromMarket": 35,
+          "gainPearlFromMarket": 108,
+          "discardPearlsToLimit": 21,
+          "endTurn": 51,
+          "activateGateCharacter": 19,
+          "useAbility": 7
+        },
+        "activationsByDefinition": {
+          "character-806-2-p0-d1": 1,
+          "character-605-7788-p3-d1": 1,
+          "character-804-66-p1-d0": 1,
+          "character-505-8888-p5-d0": 1,
+          "character-607-22-p1-d0": 1,
+          "character-303-sum-10-p1-d0": 1,
+          "character-407-three-card-sum-20-p2-d0": 1,
+          "character-708-three-card-sum-10-p1-d0": 1,
+          "character-507-567-p1-d0": 1,
+          "character-508-45678-p1-d0": 1,
+          "character-404-33-p1-d0": 1,
+          "character-705-sum-10-p1-d0": 1,
+          "character-802-7788-p3-d1": 1,
+          "character-302-18-p1-d0": 1,
+          "character-403-same-2-plus-66-p2-d1": 1,
+          "character-402-straight-3-p1-d0": 1,
+          "character-604-two-pairs-p2-d0": 1,
+          "character-803-pair-p1-d0": 1,
+          "character-700-straight-5-p2-d0": 1
+        },
+        "abilitiesByDefinition": {
+          "character-806-2-p0-d1": 3,
+          "character-302-18-p1-d0": 2,
+          "character-402-straight-3-p1-d0": 2
+        },
+        "virtualPearlPayments": 3,
+        "pearlOverridePayments": 0,
+        "diamondModifierPayments": 5,
+        "spentDiamondPayments": 0,
+        "wispActivations": 0,
+        "opponentGateDiscards": 0,
+        "ownGateReplacements": 12,
+        "contestedCharacterTakes": 8,
+        "characterMarketRefreshes": 7,
+        "pearlsReclaimed": 0,
+        "diamondsSpent": 5,
+        "actionBonuses": 1
+      },
+      "violations": [],
+      "ended": true,
+      "rounds": 17,
+      "winners": [
+        "AI 1"
+      ],
+      "finalPlayers": [
+        {
+          "id": "player-1",
+          "label": "human",
+          "score": 5,
+          "diamonds": 1,
+          "hand": 5,
+          "gate": 2,
+          "active": 4
+        },
+        {
+          "id": "player-2",
+          "label": "AI 1",
+          "score": 13,
+          "diamonds": 0,
+          "hand": 5,
+          "gate": 1,
+          "active": 8
+        },
+        {
+          "id": "player-3",
+          "label": "AI 2",
+          "score": 12,
+          "diamonds": 1,
+          "hand": 5,
+          "gate": 1,
+          "active": 7
+        }
+      ]
+    },
+    {
+      "index": 9,
+      "seed": "ux-rule-audit-2026-05-28-09",
+      "steps": 225,
+      "turns": 45,
+      "stats": {
+        "actionsByType": {
+          "placeCharacterFromMarket": 32,
+          "activateGateCharacter": 20,
+          "endTurn": 45,
+          "gainPearlFromMarket": 96,
+          "useAbility": 12,
+          "refreshPearlMarket": 1,
+          "discardPearlsToLimit": 19
+        },
+        "activationsByDefinition": {
+          "character-302-18-p1-d0": 1,
+          "character-604-two-pairs-p2-d0": 1,
+          "character-608-333-p1-d0": 1,
+          "character-705-sum-10-p1-d0": 1,
+          "character-308-55-p1-d0": 1,
+          "character-508-45678-p1-d0": 1,
+          "character-806-2-p0-d1": 1,
+          "character-801-567-p1-d0": 1,
+          "character-603-1111-p0-d0": 1,
+          "character-401-357-p1-d1": 1,
+          "character-601-88-p2-d0": 1,
+          "character-303-sum-10-p1-d0": 1,
+          "character-605-7788-p3-d1": 1,
+          "character-807-three-card-sum-7-p1-d0": 1,
+          "character-507-567-p1-d0": 1,
+          "character-400-12-p0-d0": 1,
+          "character-403-same-2-plus-66-p2-d1": 1,
+          "character-702-1357-p2-d0": 1,
+          "character-708-three-card-sum-10-p1-d0": 1,
+          "character-503-7777-p4-d0": 1
+        },
+        "abilitiesByDefinition": {
+          "character-302-18-p1-d0": 12
+        },
+        "virtualPearlPayments": 9,
+        "pearlOverridePayments": 3,
+        "diamondModifierPayments": 2,
+        "spentDiamondPayments": 0,
+        "wispActivations": 0,
+        "opponentGateDiscards": 1,
+        "ownGateReplacements": 6,
+        "contestedCharacterTakes": 8,
+        "characterMarketRefreshes": 4,
+        "pearlsReclaimed": 0,
+        "diamondsSpent": 4,
+        "actionBonuses": 4
+      },
+      "violations": [],
+      "ended": true,
+      "rounds": 15,
+      "winners": [
+        "AI 2"
+      ],
+      "finalPlayers": [
+        {
+          "id": "player-1",
+          "label": "human",
+          "score": 5,
+          "diamonds": 0,
+          "hand": 5,
+          "gate": 2,
+          "active": 4
+        },
+        {
+          "id": "player-2",
+          "label": "AI 1",
+          "score": 7,
+          "diamonds": 0,
+          "hand": 4,
+          "gate": 2,
+          "active": 7
+        },
+        {
+          "id": "player-3",
+          "label": "AI 2",
+          "score": 14,
+          "diamonds": 0,
+          "hand": 4,
+          "gate": 1,
+          "active": 9
+        }
+      ]
+    },
+    {
+      "index": 10,
+      "seed": "ux-rule-audit-2026-05-28-10",
+      "steps": 271,
+      "turns": 57,
+      "stats": {
+        "actionsByType": {
+          "placeCharacterFromMarket": 37,
+          "gainPearlFromMarket": 120,
+          "discardPearlsToLimit": 31,
+          "endTurn": 57,
+          "activateGateCharacter": 21,
+          "placeCharacterFromDeck": 1,
+          "useAbility": 4
+        },
+        "activationsByDefinition": {
+          "character-406-pair-p1-d0": 1,
+          "character-306-11-p1-d0": 1,
+          "character-604-two-pairs-p2-d0": 1,
+          "character-708-three-card-sum-10-p1-d0": 1,
+          "character-500-44-p1-d0": 1,
+          "character-803-pair-p1-d0": 1,
+          "character-404-33-p1-d0": 1,
+          "character-508-45678-p1-d0": 1,
+          "character-302-18-p1-d0": 1,
+          "character-805-77-p1-d0": 1,
+          "character-804-66-p1-d0": 1,
+          "character-408-odd-3-cards-p1-d1": 1,
+          "character-602-three-card-sum-7-p1-d0": 1,
+          "character-900-same-2-plus-6x2-p2-d1": 1,
+          "character-705-sum-10-p1-d0": 1,
+          "character-608-333-p1-d0": 1,
+          "character-308-55-p1-d0": 1,
+          "character-507-567-p1-d0": 1,
+          "character-501-88-p2-d0": 1,
+          "character-807-three-card-sum-7-p1-d0": 1,
+          "character-502-sum-10-p1-d0": 1
+        },
+        "abilitiesByDefinition": {
+          "character-302-18-p1-d0": 4
+        },
+        "virtualPearlPayments": 7,
+        "pearlOverridePayments": 0,
+        "diamondModifierPayments": 1,
+        "spentDiamondPayments": 0,
+        "wispActivations": 0,
+        "opponentGateDiscards": 2,
+        "ownGateReplacements": 10,
+        "contestedCharacterTakes": 10,
+        "characterMarketRefreshes": 6,
+        "pearlsReclaimed": 0,
+        "diamondsSpent": 1,
+        "actionBonuses": 1
+      },
+      "violations": [],
+      "ended": true,
+      "rounds": 19,
+      "winners": [
+        "AI 2"
+      ],
+      "finalPlayers": [
+        {
+          "id": "player-1",
+          "label": "human",
+          "score": 4,
+          "diamonds": 0,
+          "hand": 5,
+          "gate": 1,
+          "active": 4
+        },
+        {
+          "id": "player-2",
+          "label": "AI 1",
+          "score": 8,
+          "diamonds": 0,
+          "hand": 3,
+          "gate": 2,
+          "active": 8
+        },
+        {
+          "id": "player-3",
+          "label": "AI 2",
+          "score": 12,
+          "diamonds": 1,
+          "hand": 1,
+          "gate": 2,
+          "active": 9
+        }
+      ]
+    }
+  ]
+}

@@ -92,7 +92,7 @@ Behavior:
 - Estimates draw odds from remaining deck composition, not hidden deck order.
 - Scores opportunity cost, action efficiency, hand-limit waste, diamond leverage, and character-slot pressure.
 - Blocks high-value market cards when the human is close to activating or reaching the end-game threshold.
-- Times activation to trigger or avoid the final round when advantageous.
+- Times activation to trigger or avoid the current-round ending window when advantageous.
 - Uses fewer random tie-breaks than Normal.
 
 Purpose:
@@ -184,4 +184,3 @@ Recommended flow:
 - Should AI seats share one difficulty, or should advanced setup allow per-seat difficulty?
 - Should the default table size be 2 or 3 players?
 - Should future challenge modes add rule handicaps, or should difficulty remain AI-quality-only?
-
