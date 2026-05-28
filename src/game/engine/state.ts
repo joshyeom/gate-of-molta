@@ -216,6 +216,7 @@ export function createInitialGameState(
       endGame: { status: "notTriggered" },
       actionBonuses: {},
       usedAbilityIds: [],
+      activatedThisTurn: [],
     },
     cardsById,
     pearlDeck: {

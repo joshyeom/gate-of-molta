@@ -4,16 +4,14 @@ import {
   DISCARD_REDRAW_HAND_IDS,
   DRAW_DIAMOND_BY_TWO_IDS,
   DOWN_DIAMOND_IDS,
-  getActivatedAbilitySources,
-  getActivatedDefinitionIds,
   getDefinitionId,
   HAND_LIMIT_BONUS_IDS,
-  hasActivatedDefinition,
   isWisp,
   ONE_AS_EIGHT_IDS,
   PEEK_CHARACTER_DECK_IDS,
   SWAP_GATE_MARKET_IDS,
   THREE_AS_ANY_IDS,
+  TURN_ACTION_BONUS_IDS,
   USE_ABILITY_DEFINITION_IDS,
   VIRTUAL_PEARL_VALUE_BY_DEFINITION,
 } from "./abilities";
@@ -46,6 +44,7 @@ type PaymentToken = {
 };
 
 const PEARL_VALUES: PearlValue[] = [1, 2, 3, 4, 5, 6, 7, 8];
+const MAX_PAYMENT_PLANS = 12;
 
 export function getActivePlayer(state: GameState): PlayerState {
   const player = state.players.find((candidate) => candidate.id === state.turn.activePlayerId);
@@ -77,21 +76,21 @@ export function getPlayerPower(
 }
 
 export function getHandLimit(state: GameState, playerId: PlayerId): number {
-  const bonus = getActivatedDefinitionIds(state, playerId).filter((definitionId) =>
+  const bonus = getReadyActivatedDefinitionIds(state, playerId).filter((definitionId) =>
     HAND_LIMIT_BONUS_IDS.has(definitionId),
   ).length;
   return 5 + bonus;
 }
 
 export function getTurnActionCount(state: GameState, playerId: PlayerId): number {
-  const persistent = getActivatedDefinitionIds(state, playerId).filter((definitionId) =>
+  const persistent = getReadyActivatedDefinitionIds(state, playerId).filter((definitionId) =>
     hasTurnActionBonus(definitionId),
   ).length;
   return 3 + persistent + (state.turn.actionBonuses[playerId] ?? 0);
 }
 
 function hasTurnActionBonus(definitionId: string): boolean {
-  return definitionId === "character-508-45678-p1-d0";
+  return TURN_ACTION_BONUS_IDS.has(definitionId);
 }
 
 export function getCardLabel(
@@ -192,6 +191,7 @@ export function getUsableAbilityActions(state: GameState, playerId: PlayerId): G
   const player = getPlayer(state, playerId);
   const actions: GameAction[] = [];
   for (const sourceCardId of player.activatedCharacters) {
+    if (isActivatedThisTurn(state, sourceCardId)) continue;
     const definitionId = getDefinitionId(state, sourceCardId);
     const definition = definitionId ? fixtureCatalog.characterCards[definitionId] : null;
     const ability = definition?.abilities[0];
@@ -206,6 +206,31 @@ export function getUsableAbilityActions(state: GameState, playerId: PlayerId): G
     });
   }
   return actions;
+}
+
+function getReadyActivatedDefinitionIds(state: GameState, playerId: PlayerId): string[] {
+  const player = getPlayer(state, playerId);
+  return player.activatedCharacters
+    .filter((cardId) => !isActivatedThisTurn(state, cardId))
+    .map((cardId) => getDefinitionId(state, cardId))
+    .filter((definitionId): definitionId is string => Boolean(definitionId));
+}
+
+function getReadyActivatedAbilitySources(
+  state: GameState,
+  playerId: PlayerId,
+  definitionIds: Set<string>,
+): CardInstanceId[] {
+  const player = getPlayer(state, playerId);
+  return player.activatedCharacters.filter((cardId) => {
+    if (isActivatedThisTurn(state, cardId)) return false;
+    const definitionId = getDefinitionId(state, cardId);
+    return Boolean(definitionId && definitionIds.has(definitionId));
+  });
+}
+
+function isActivatedThisTurn(state: GameState, cardId: CardInstanceId): boolean {
+  return state.turn.activatedThisTurn.includes(cardId);
 }
 
 function canUseAbilityNow(
@@ -263,8 +288,7 @@ export function getPaymentPlans(
   characterInstanceId: CardInstanceId,
   catalog: ContentCatalog = fixtureCatalog,
 ): PaymentPlan[] {
-  const plan = findPaymentPlanForCharacter(state, playerId, characterInstanceId, catalog);
-  return plan ? [plan] : [];
+  return findPaymentPlansForCharacter(state, playerId, characterInstanceId, catalog);
 }
 
 function getHandPearls(
@@ -299,32 +323,41 @@ function findPaymentPlanForCharacter(
   characterInstanceId: CardInstanceId,
   catalog: ContentCatalog = fixtureCatalog,
 ): PaymentPlan | null {
+  return findPaymentPlansForCharacter(state, playerId, characterInstanceId, catalog)[0] ?? null;
+}
+
+function findPaymentPlansForCharacter(
+  state: GameState,
+  playerId: PlayerId,
+  characterInstanceId: CardInstanceId,
+  catalog: ContentCatalog = fixtureCatalog,
+): PaymentPlan[] {
   const instance = state.cardsById[characterInstanceId];
   if (!instance) {
-    return null;
+    return [];
   }
   const definition = catalog.characterCards[instance.definitionId];
   if (!definition) {
-    return null;
+    return [];
   }
   const requirement: CharacterRequirement = definition.requirement;
   const tokens = buildPaymentTokens(state, playerId, catalog);
 
   switch (requirement.type) {
     case "exactValues":
-      return findExactValuePlan(tokens, requirement.values);
+      return findExactValuePlans(tokens, requirement.values);
     case "sum":
-      return findSumPlan(tokens, requirement.total, requirement.count);
+      return findSumPlans(tokens, requirement.total, requirement.count);
     case "sequence":
-      return findSequencePlan(tokens, requirement.count);
+      return findSequencePlans(tokens, requirement.count);
     case "sameValue":
-      return findSameValuePlan(tokens, requirement.count);
+      return findSameValuePlans(tokens, requirement.count);
     case "odd":
-      return findParityPlan(tokens, requirement.count, "odd");
+      return findParityPlans(tokens, requirement.count, "odd");
     case "even":
-      return findParityPlan(tokens, requirement.count, "even");
+      return findParityPlans(tokens, requirement.count, "even");
     case "custom":
-      return findCustomPlan(state, playerId, tokens, requirement.label);
+      return findCustomPlans(state, playerId, tokens, requirement.label);
   }
 }
 
@@ -336,9 +369,10 @@ function buildPaymentTokens(
   const player = getPlayer(state, playerId);
   const hand = getHandPearls(state, playerId, catalog);
   const tokens: PaymentToken[] = [];
-  const allowDownDiamond = hasActivatedDefinition(state, playerId, DOWN_DIAMOND_IDS);
-  const threeAsAnySources = getActivatedAbilitySources(state, playerId, THREE_AS_ANY_IDS);
-  const oneAsEightSources = getActivatedAbilitySources(state, playerId, ONE_AS_EIGHT_IDS);
+  const allowDownDiamond =
+    getReadyActivatedAbilitySources(state, playerId, DOWN_DIAMOND_IDS).length > 0;
+  const threeAsAnySources = getReadyActivatedAbilitySources(state, playerId, THREE_AS_ANY_IDS);
+  const oneAsEightSources = getReadyActivatedAbilitySources(state, playerId, ONE_AS_EIGHT_IDS);
 
   for (const entry of hand) {
     tokens.push({
@@ -407,6 +441,7 @@ function buildPaymentTokens(
   }
 
   for (const sourceCharacterId of player.activatedCharacters) {
+    if (isActivatedThisTurn(state, sourceCharacterId)) continue;
     const definitionId = getDefinitionId(state, sourceCharacterId);
     if (!definitionId) continue;
     const virtualValue = VIRTUAL_PEARL_VALUE_BY_DEFINITION[definitionId];
@@ -417,7 +452,7 @@ function buildPaymentTokens(
         key: `virtual:${sourceCharacterId}:${value}`,
         value,
         virtualPearl: { sourceCharacterId, value },
-        cost: virtualValue === "any" ? 0.8 : 0.5,
+        cost: virtualValue === "any" ? -0.8 : -1,
       });
     }
   }
@@ -431,78 +466,92 @@ function findCustomPlan(
   tokens: PaymentToken[],
   label: string,
 ): PaymentPlan | null {
+  return findCustomPlans(state, playerId, tokens, label)[0] ?? null;
+}
+
+function findCustomPlans(
+  state: GameState,
+  playerId: PlayerId,
+  tokens: PaymentToken[],
+  label: string,
+): PaymentPlan[] {
   const trimmed = label.trim();
   const exact = parseExactValuesFromLabel(trimmed);
   if (exact) {
-    return findExactValuePlan(tokens, exact);
+    return findExactValuePlans(tokens, exact);
   }
 
   if (trimmed === "합하면 '10'이 되는 카드들") {
-    return findSumPlan(tokens, 10, undefined);
+    return findSumPlans(tokens, 10, undefined);
   }
   if (trimmed === "합이 10이 되는 카드 3장") {
-    return findSumPlan(tokens, 10, 3);
+    return findSumPlans(tokens, 10, 3);
   }
   if (trimmed === "합하면 20이 되는 카드 3장") {
-    return findSumPlan(tokens, 20, 3);
+    return findSumPlans(tokens, 20, 3);
   }
   if (trimmed === "합하면 7이 되는 카드 3장") {
-    return findSumPlan(tokens, 7, 3);
+    return findSumPlans(tokens, 7, 3);
   }
   if (trimmed === "연속되는 카드 3장") {
-    return findSequencePlan(tokens, 3);
+    return findSequencePlans(tokens, 3);
   }
   if (trimmed === "연속되는 카드 5장") {
-    return findSequencePlan(tokens, 5);
+    return findSequencePlans(tokens, 5);
   }
   if (trimmed === "같은 카드 2장") {
-    return findSameValuePlan(tokens, 2);
+    return findSameValuePlans(tokens, 2);
   }
   if (trimmed === "같은 카드 3장") {
-    return findSameValuePlan(tokens, 3);
+    return findSameValuePlans(tokens, 3);
   }
   if (trimmed === "같은 카드 4장") {
-    return findSameValuePlan(tokens, 4);
+    return findSameValuePlans(tokens, 4);
   }
   if (trimmed === "홀수인 카드 3장") {
-    return findParityPlan(tokens, 3, "odd");
+    return findParityPlans(tokens, 3, "odd");
   }
   if (trimmed === "짝수인 카드 3장") {
-    return findParityPlan(tokens, 3, "even");
+    return findParityPlans(tokens, 3, "even");
   }
   if (trimmed === "333/666") {
-    return findBestPlan([
-      findExactValuePlan(tokens, [3, 3, 3]),
-      findExactValuePlan(tokens, [6, 6, 6]),
+    return rankPaymentPlans([
+      ...findExactValuePlans(tokens, [3, 3, 3]),
+      ...findExactValuePlans(tokens, [6, 6, 6]),
     ]);
   }
   if (trimmed === "444/555") {
-    return findBestPlan([
-      findExactValuePlan(tokens, [4, 4, 4]),
-      findExactValuePlan(tokens, [5, 5, 5]),
+    return rankPaymentPlans([
+      ...findExactValuePlans(tokens, [4, 4, 4]),
+      ...findExactValuePlans(tokens, [5, 5, 5]),
     ]);
   }
   if (trimmed === "222+다이아몬드 1장") {
-    const base = findExactValuePlan(tokens, [2, 2, 2]);
-    if (!base) return null;
-    const usedDiamondIds = new Set([
-      ...base.diamondUses.map((use) => use.diamondId),
-      ...(base.spentDiamondIds ?? []),
-    ]);
-    const diamondId = getPlayer(state, playerId).diamonds.find((id) => !usedDiamondIds.has(id));
-    return diamondId ? normalizePlan({ ...base, spentDiamondIds: [diamondId] }) : null;
+    const plans: PaymentPlan[] = [];
+    for (const base of findExactValuePlans(tokens, [2, 2, 2])) {
+      const usedDiamondIds = new Set([
+        ...base.diamondUses.map((use) => use.diamondId),
+        ...(base.spentDiamondIds ?? []),
+      ]);
+      for (const diamondId of getPlayer(state, playerId).diamonds) {
+        if (!usedDiamondIds.has(diamondId)) {
+          plans.push(normalizePlan({ ...base, spentDiamondIds: [diamondId] }));
+        }
+      }
+    }
+    return rankPaymentPlans(plans);
   }
   if (trimmed === "같은 카드 2장 + 66" || trimmed === "같은 카드 2장 + 6카드 2장") {
-    return findBestPlan(
-      PEARL_VALUES.map((value) => findExactValuePlan(tokens, [value, value, 6, 6])),
+    return rankPaymentPlans(
+      PEARL_VALUES.flatMap((value) => findExactValuePlans(tokens, [value, value, 6, 6])),
     );
   }
   if (trimmed === "같은 카드 2장씩 두 벌") {
-    const plans: Array<PaymentPlan | null> = [];
+    const plans: PaymentPlan[] = [];
     for (let left = 0; left < PEARL_VALUES.length; left += 1) {
       for (let right = left + 1; right < PEARL_VALUES.length; right += 1) {
         plans.push(
-          findExactValuePlan(tokens, [
+          ...findExactValuePlans(tokens, [
             PEARL_VALUES[left],
             PEARL_VALUES[left],
             PEARL_VALUES[right],
@@ -511,50 +560,58 @@ function findCustomPlan(
         );
       }
     }
-    return findBestPlan(plans);
+    return rankPaymentPlans(plans);
   }
 
-  return null;
+  return [];
 }
 
 function findExactValuePlan(tokens: PaymentToken[], values: PearlValue[]): PaymentPlan | null {
-  function search(
-    valueIndex: number,
-    picked: PaymentToken[],
-  ): PaymentToken[] | null {
+  return findExactValuePlans(tokens, values)[0] ?? null;
+}
+
+function findExactValuePlans(tokens: PaymentToken[], values: PearlValue[]): PaymentPlan[] {
+  const plans: PaymentPlan[] = [];
+
+  function search(valueIndex: number, picked: PaymentToken[]): void {
     if (valueIndex === values.length) {
-      return picked;
+      plans.push(tokensToPlan(picked));
+      return;
     }
 
     const target = values[valueIndex];
     for (const token of tokens) {
       if (token.value !== target || !canPickToken(picked, token)) continue;
-      const next = search(valueIndex + 1, [...picked, token]);
-      if (next) return next;
+      search(valueIndex + 1, [...picked, token]);
+      if (plans.length >= MAX_PAYMENT_PLANS * 4) return;
     }
-    return null;
   }
 
-  const picked = search(0, []);
-  return picked ? tokensToPlan(picked) : null;
+  search(0, []);
+  return rankPaymentPlans(plans);
 }
 
 function findSequencePlan(tokens: PaymentToken[], count: number): PaymentPlan | null {
+  return findSequencePlans(tokens, count)[0] ?? null;
+}
+
+function findSequencePlans(tokens: PaymentToken[], count: number): PaymentPlan[] {
+  const plans: PaymentPlan[] = [];
   for (let start = 1; start + count - 1 <= 8; start += 1) {
     const values = Array.from({ length: count }, (_, index) => (start + index) as PearlValue);
-    const plan = findExactValuePlan(tokens, values);
-    if (plan) return plan;
+    plans.push(...findExactValuePlans(tokens, values));
   }
-  return null;
+  return rankPaymentPlans(plans);
 }
 
 function findSameValuePlan(tokens: PaymentToken[], count: number): PaymentPlan | null {
-  return findBestPlan(
-    PEARL_VALUES.map((value) =>
-      findExactValuePlan(
-        tokens,
-        Array.from({ length: count }, () => value),
-      ),
+  return findSameValuePlans(tokens, count)[0] ?? null;
+}
+
+function findSameValuePlans(tokens: PaymentToken[], count: number): PaymentPlan[] {
+  return rankPaymentPlans(
+    PEARL_VALUES.flatMap((value) =>
+      findExactValuePlans(tokens, Array.from({ length: count }, () => value)),
     ),
   );
 }
@@ -564,23 +621,32 @@ function findParityPlan(
   count: number,
   parity: "odd" | "even",
 ): PaymentPlan | null {
+  return findParityPlans(tokens, count, parity)[0] ?? null;
+}
+
+function findParityPlans(
+  tokens: PaymentToken[],
+  count: number,
+  parity: "odd" | "even",
+): PaymentPlan[] {
   const matches = (value: PearlValue) =>
     parity === "odd" ? value % 2 === 1 : value % 2 === 0;
+  const plans: PaymentPlan[] = [];
 
-  function search(picked: PaymentToken[]): PaymentToken[] | null {
+  function search(picked: PaymentToken[]): void {
     if (picked.length === count) {
-      return picked;
+      plans.push(tokensToPlan(picked));
+      return;
     }
     for (const token of tokens) {
       if (!matches(token.value) || !canPickToken(picked, token)) continue;
-      const next = search([...picked, token]);
-      if (next) return next;
+      search([...picked, token]);
+      if (plans.length >= MAX_PAYMENT_PLANS * 4) return;
     }
-    return null;
   }
 
-  const picked = search([]);
-  return picked ? tokensToPlan(picked) : null;
+  search([]);
+  return rankPaymentPlans(plans);
 }
 
 function findSumPlan(
@@ -588,6 +654,14 @@ function findSumPlan(
   total: number,
   fixedCount: number | undefined,
 ): PaymentPlan | null {
+  return findSumPlans(tokens, total, fixedCount)[0] ?? null;
+}
+
+function findSumPlans(
+  tokens: PaymentToken[],
+  total: number,
+  fixedCount: number | undefined,
+): PaymentPlan[] {
   const counts =
     typeof fixedCount === "number"
       ? [fixedCount]
@@ -608,6 +682,7 @@ function findSumPlan(
       const sum = next.reduce((acc, item) => acc + item.value, 0);
       if (sum > total) continue;
       search(index + 1, next, count);
+      if (plans.length >= MAX_PAYMENT_PLANS * 4) return;
     }
   }
 
@@ -615,7 +690,7 @@ function findSumPlan(
     search(0, [], count);
   }
 
-  return findBestPlan(plans);
+  return rankPaymentPlans(plans);
 }
 
 function canPickToken(picked: PaymentToken[], token: PaymentToken): boolean {
@@ -682,24 +757,72 @@ function normalizePlan(plan: PaymentPlan): PaymentPlan {
 }
 
 function findBestPlan(plans: Array<PaymentPlan | null>): PaymentPlan | null {
-  const candidates = plans.filter((plan): plan is PaymentPlan => Boolean(plan));
-  candidates.sort(
-    (left, right) =>
-      planCost(left) - planCost(right) ||
-      left.pearlIds.length - right.pearlIds.length ||
-      left.diamondUses.length - right.diamondUses.length,
-  );
-  return candidates[0] ?? null;
+  return rankPaymentPlans(plans.filter((plan): plan is PaymentPlan => Boolean(plan)))[0] ?? null;
+}
+
+function rankPaymentPlans(plans: PaymentPlan[]): PaymentPlan[] {
+  const unique = new Map<string, PaymentPlan>();
+  for (const plan of plans.map(normalizePlan)) {
+    unique.set(paymentPlanKey(plan), plan);
+  }
+  return [...unique.values()]
+    .sort(
+      (left, right) =>
+        planCost(left) - planCost(right) ||
+        (right.virtualPearls?.length ?? 0) - (left.virtualPearls?.length ?? 0) ||
+        left.pearlIds.length - right.pearlIds.length ||
+        paymentDiamondIds(left).length - paymentDiamondIds(right).length ||
+        paymentPlanKey(left).localeCompare(paymentPlanKey(right)),
+    )
+    .slice(0, MAX_PAYMENT_PLANS);
 }
 
 function planCost(plan: PaymentPlan): number {
   return (
-    plan.pearlIds.length * 10 +
-    plan.diamondUses.length * 20 +
-    (plan.spentDiamondIds?.length ?? 0) * 20 +
-    (plan.pearlValueOverrides?.length ?? 0) * 5 +
-    (plan.virtualPearls?.length ?? 0) * 3
+    plan.pearlIds.length * 100 +
+    plan.diamondUses.length * 24 +
+    (plan.spentDiamondIds?.length ?? 0) * 24 +
+    (plan.pearlValueOverrides?.length ?? 0) * 8 -
+    (plan.virtualPearls?.length ?? 0) * 18
   );
+}
+
+function paymentDiamondIds(plan: PaymentPlan): CardInstanceId[] {
+  return [
+    ...plan.diamondUses.map((use) => use.diamondId),
+    ...(plan.spentDiamondIds ?? []),
+  ];
+}
+
+function paymentPlanKey(plan: PaymentPlan): string {
+  const diamondUses = [...plan.diamondUses]
+    .sort((left, right) =>
+      `${left.diamondId}:${left.pearlId}:${left.modifier}:${left.source}`.localeCompare(
+        `${right.diamondId}:${right.pearlId}:${right.modifier}:${right.source}`,
+      ),
+    )
+    .map((use) => `${use.diamondId}:${use.pearlId}:${use.modifier}:${use.source}`);
+  const overrides = [...(plan.pearlValueOverrides ?? [])]
+    .sort((left, right) =>
+      `${left.sourceCharacterId}:${left.pearlId}:${left.value}`.localeCompare(
+        `${right.sourceCharacterId}:${right.pearlId}:${right.value}`,
+      ),
+    )
+    .map((override) => `${override.sourceCharacterId}:${override.pearlId}:${override.value}`);
+  const virtualPearls = [...(plan.virtualPearls ?? [])]
+    .sort((left, right) =>
+      `${left.sourceCharacterId}:${left.value}`.localeCompare(
+        `${right.sourceCharacterId}:${right.value}`,
+      ),
+    )
+    .map((virtualPearl) => `${virtualPearl.sourceCharacterId}:${virtualPearl.value}`);
+  return JSON.stringify({
+    pearlIds: [...plan.pearlIds].sort(),
+    diamondUses,
+    spentDiamondIds: [...(plan.spentDiamondIds ?? [])].sort(),
+    overrides,
+    virtualPearls,
+  });
 }
 
 function parseExactValuesFromLabel(label: string): PearlValue[] | null {

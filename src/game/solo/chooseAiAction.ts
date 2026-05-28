@@ -26,6 +26,7 @@ import {
   getUsableAbilityActions,
 } from "../engine/selectors";
 import type {
+  AiDifficulty,
   CardInstanceId,
   CharacterCardDefinition,
   GameAction,
@@ -42,43 +43,52 @@ type StrategyStage = "engine" | "tempo" | "endgame";
 
 export function chooseAiAction(state: GameState, actorId: PlayerId): GameAction {
   const player = getPlayer(state, actorId);
+  const difficulty = policyDifficulty(state, player);
 
   if (state.turn.actionsRemaining === 0) {
-    const ability = chooseAbility(state, player, "afterActions");
+    const ability = chooseAbility(state, player, "afterActions", difficulty);
     if (ability) {
       return ability;
     }
     return { type: "endTurn", actorId };
   }
 
-  const startAbility = chooseAbility(state, player, "startOfTurn");
+  const startAbility = chooseAbility(state, player, "startOfTurn", difficulty);
   if (startAbility) {
     return startAbility;
   }
 
-  const activation = chooseActivation(state, player);
+  const activation = chooseActivation(state, player, difficulty);
   if (activation) {
     return activation;
   }
 
-  const utilityAbility = chooseAbility(state, player, "duringTurn");
+  const utilityAbility = chooseAbility(state, player, "duringTurn", difficulty);
   if (utilityAbility) {
     return utilityAbility;
   }
 
   if (player.gateCharacters.length < 2) {
-    const placement = choosePlacement(state, player);
+    const placement = choosePlacement(state, player, difficulty);
     if (placement) {
       return placement;
     }
+    if (state.characterDeck.drawPile.length > 0) {
+      return { type: "placeCharacterFromDeck", actorId };
+    }
   }
 
-  const pearl = choosePearlGain(state, player);
+  const denial = chooseDenialAction(state, player, difficulty);
+  if (denial) {
+    return denial;
+  }
+
+  const pearl = choosePearlGain(state, player, difficulty);
   if (pearl) {
     return pearl;
   }
 
-  if (shouldRefreshPearlMarket(state, player)) {
+  if (shouldRefreshPearlMarket(state, player, difficulty)) {
     return { type: "refreshPearlMarket", actorId };
   }
 
@@ -91,7 +101,7 @@ export function chooseAiAction(state: GameState, actorId: PlayerId): GameAction 
   }
 
   if (player.gateCharacters.length >= 2) {
-    const replacement = choosePlacement(state, player);
+    const replacement = choosePlacement(state, player, difficulty);
     if (replacement) {
       return replacement;
     }
@@ -104,6 +114,7 @@ function chooseAbility(
   state: GameState,
   player: PlayerState,
   window: "startOfTurn" | "duringTurn" | "afterActions",
+  difficulty: AiDifficulty,
 ): GameAction | null {
   const actions = getUsableAbilityActions(state, player.id).filter(
     (action): action is Extract<GameAction, { type: "useAbility" }> => action.type === "useAbility",
@@ -124,7 +135,7 @@ function chooseAbility(
     const swap = actions.find(
       (action) =>
         sourceDefinitionId(state, action)?.startsWith("character-700-") &&
-        isBeneficialSwap(state, player),
+        isBeneficialSwap(state, player, difficulty),
     );
     if (swap) return swap;
 
@@ -167,15 +178,36 @@ function sourceDefinitionId(
   return state.cardsById[sourceCardId]?.definitionId ?? null;
 }
 
-function isBeneficialSwap(state: GameState, player: PlayerState): boolean {
+function policyDifficulty(state: GameState, player: PlayerState): AiDifficulty {
+  return player.controller.type === "ai" ? player.controller.difficulty : state.setup.aiDifficulty;
+}
+
+function difficultyRank(difficulty: AiDifficulty): number {
+  switch (difficulty) {
+    case "easy":
+      return 0;
+    case "normal":
+      return 1;
+    case "hard":
+      return 2;
+    case "expert":
+      return 3;
+  }
+}
+
+function isBeneficialSwap(
+  state: GameState,
+  player: PlayerState,
+  difficulty: AiDifficulty,
+): boolean {
   if (player.gateCharacters.length === 0 || state.market.characterMarket.length === 0) {
     return false;
   }
   const weakestGate = [...player.gateCharacters]
-    .map((cardId) => ({ cardId, score: placementScore(state, player, cardId) }))
+    .map((cardId) => ({ cardId, score: placementScore(state, player, cardId, difficulty) }))
     .sort((left, right) => left.score - right.score)[0];
   const bestMarket = state.market.characterMarket
-    .map((cardId) => ({ cardId, score: placementScore(state, player, cardId) }))
+    .map((cardId) => ({ cardId, score: placementScore(state, player, cardId, difficulty) }))
     .sort((left, right) => right.score - left.score)[0];
   return Boolean(bestMarket && weakestGate && bestMarket.score > weakestGate.score + 0.5);
 }
@@ -205,7 +237,11 @@ export function choosePearlsToDiscardToLimit(
     .slice(0, excess);
 }
 
-function chooseActivation(state: GameState, player: PlayerState): GameAction | null {
+function chooseActivation(
+  state: GameState,
+  player: PlayerState,
+  difficulty: AiDifficulty,
+): GameAction | null {
   type Candidate = {
     characterId: CardInstanceId;
     payment: PaymentPlan;
@@ -220,7 +256,7 @@ function chooseActivation(state: GameState, player: PlayerState): GameAction | n
     const definition = getCharacterDefinition(state, characterId);
     if (!definition) continue;
 
-    const score = activationScore(state, player, characterId, payment);
+    const score = activationScore(state, player, characterId, payment, difficulty);
     candidates.push({ characterId, payment, score });
   }
 
@@ -241,6 +277,7 @@ function activationScore(
   player: PlayerState,
   characterId: CardInstanceId,
   payment: PaymentPlan,
+  difficulty: AiDifficulty,
 ): number {
   const definition = getCharacterDefinition(state, characterId);
   if (!definition) return 0;
@@ -255,7 +292,7 @@ function activationScore(
   let score =
     power * (stage === "endgame" ? 15 : 9) +
     diamond * (stage === "endgame" ? 8 : 5) +
-    effectValue(state, player, definitionId, stage, "activation") -
+    effectValue(state, player, definitionId, stage, "activation", difficulty) -
     paymentCost(payment, stage);
 
   if (stage === "engine" && isEngineDefinition(definitionId)) {
@@ -266,10 +303,14 @@ function activationScore(
   }
   if (reachesEndGame) {
     const diamondLead = player.diamonds.length + diamond - maxOpponentDiamonds(state, player.id);
-    score += diamondLead >= 0 ? 18 + diamondLead * 2 : 8 + diamondLead * 3;
+    const triggerBonus = difficultyRank(difficulty) >= 2 ? 28 : 18;
+    score += diamondLead >= 0 ? triggerBonus + diamondLead * 2 : 8 + diamondLead * 3;
   }
   if (state.turn.endGame.status !== "notTriggered") {
     score += power * 5 + diamond * 6;
+  }
+  if (difficultyRank(difficulty) >= 2) {
+    score += defensiveActivationValue(state, player, definitionId, difficulty);
   }
 
   return score;
@@ -286,7 +327,11 @@ function paymentCost(payment: PaymentPlan, stage: StrategyStage): number {
   );
 }
 
-function choosePlacement(state: GameState, player: PlayerState): GameAction | null {
+function choosePlacement(
+  state: GameState,
+  player: PlayerState,
+  difficulty: AiDifficulty,
+): GameAction | null {
   const marketIndexed = state.market.characterMarket
     .map((cardId, marketIndex) => ({ cardId, marketIndex }))
     .filter((entry) => Boolean(entry.cardId));
@@ -296,7 +341,7 @@ function choosePlacement(state: GameState, player: PlayerState): GameAction | nu
   const ranked = marketIndexed
     .map((entry) => ({
       ...entry,
-      score: placementScore(state, player, entry.cardId),
+      score: placementScore(state, player, entry.cardId, difficulty),
       payable: Boolean(findPaymentForCharacter(state, player.id, entry.cardId)),
     }))
     .sort((left, right) => right.score - left.score);
@@ -315,7 +360,7 @@ function choosePlacement(state: GameState, player: PlayerState): GameAction | nu
   const gateRanked = [...player.gateCharacters]
     .map((cardId) => ({
       cardId,
-      score: placementScore(state, player, cardId),
+      score: placementScore(state, player, cardId, difficulty),
       payable: Boolean(findPaymentForCharacter(state, player.id, cardId)),
     }))
     .sort((left, right) => left.score - right.score);
@@ -332,8 +377,13 @@ function choosePlacement(state: GameState, player: PlayerState): GameAction | nu
     };
   }
 
-  const replacementThreshold = weakestGate.payable && !bestMarket.payable ? 8 : stage === "engine" ? 4 : 2.5;
-  if (bestMarket.score > weakestGate.score + replacementThreshold) {
+  const pressureDiscount =
+    difficultyRank(difficulty) >= 2
+      ? marketCharacterDenialValue(state, player, bestMarket.cardId, difficulty) * 0.08
+      : 0;
+  const replacementThreshold =
+    weakestGate.payable && !bestMarket.payable ? 8 : stage === "engine" ? 4 : 2.5;
+  if (bestMarket.score > weakestGate.score + Math.max(0.5, replacementThreshold - pressureDiscount)) {
     return {
       type: "placeCharacterFromMarket",
       actorId: player.id,
@@ -345,7 +395,12 @@ function choosePlacement(state: GameState, player: PlayerState): GameAction | nu
   return null;
 }
 
-function placementScore(state: GameState, player: PlayerState, cardId: CardInstanceId): number {
+function placementScore(
+  state: GameState,
+  player: PlayerState,
+  cardId: CardInstanceId,
+  difficulty: AiDifficulty,
+): number {
   const definition = getCharacterDefinition(state, cardId);
   if (!definition) return 0;
 
@@ -361,8 +416,12 @@ function placementScore(state: GameState, player: PlayerState, cardId: CardInsta
   return (
     power * (stage === "endgame" ? 3 : 1.2) +
     diamond * (stage === "endgame" ? 2.5 : 1.2) +
-    effectValue(state, player, definition.id, stage, "placement") +
+    effectValue(state, player, definition.id, stage, "placement", difficulty) +
     (payable ? (stage === "engine" ? 8 : 5) : 0) +
+    (difficultyRank(difficulty) >= 2
+      ? marketCharacterDenialValue(state, player, cardId, difficulty) *
+        (difficulty === "expert" ? 0.45 : 0.25)
+      : 0) +
     progress -
     hardUnpayablePenalty
   );
@@ -388,26 +447,34 @@ function effectValue(
   definitionId: string,
   stage: StrategyStage,
   context: "placement" | "activation",
+  difficulty: AiDifficulty,
 ): number {
   const activationMultiplier = context === "activation" ? 1.35 : 1;
+  const rank = difficultyRank(difficulty);
+  const engineMultiplier = rank >= 3 ? 1.15 : rank === 0 ? 0.65 : 1;
+  const attackMultiplier = rank >= 3 ? 1.6 : rank === 2 ? 1.3 : rank === 0 ? 0.45 : 1;
   let value = 0;
 
-  if (TURN_ACTION_BONUS_IDS.has(definitionId)) value += stage === "endgame" ? 18 : 24;
-  if (VIRTUAL_PEARL_VALUE_BY_DEFINITION[definitionId] === "any") value += stage === "engine" ? 22 : 15;
-  else if (VIRTUAL_PEARL_VALUE_BY_DEFINITION[definitionId]) value += stage === "engine" ? 11 : 7;
-  if (THREE_AS_ANY_IDS.has(definitionId)) value += stage === "engine" ? 18 : 12;
-  if (ONE_AS_EIGHT_IDS.has(definitionId)) value += stage === "engine" ? 10 : 7;
-  if (HAND_LIMIT_BONUS_IDS.has(definitionId)) value += stage === "engine" ? 9 : 5;
-  if (DISCARD_REDRAW_HAND_IDS.has(definitionId)) value += stage === "engine" ? 12 : 8;
-  if (DOWN_DIAMOND_IDS.has(definitionId)) value += 9 + Math.min(4, player.diamonds.length) * 1.5;
-  if (DRAW_DIAMOND_BY_TWO_IDS.has(definitionId)) value += stage === "endgame" ? 8 : 10;
-  if (RECLAIM_USED_PEARL_IDS.has(definitionId)) value += 8;
+  if (TURN_ACTION_BONUS_IDS.has(definitionId)) value += (stage === "endgame" ? 18 : 24) * engineMultiplier;
+  if (VIRTUAL_PEARL_VALUE_BY_DEFINITION[definitionId] === "any") value += (stage === "engine" ? 22 : 15) * engineMultiplier;
+  else if (VIRTUAL_PEARL_VALUE_BY_DEFINITION[definitionId]) value += (stage === "engine" ? 11 : 7) * engineMultiplier;
+  if (THREE_AS_ANY_IDS.has(definitionId)) value += (stage === "engine" ? 18 : 12) * engineMultiplier;
+  if (ONE_AS_EIGHT_IDS.has(definitionId)) value += (stage === "engine" ? 10 : 7) * engineMultiplier;
+  if (HAND_LIMIT_BONUS_IDS.has(definitionId)) value += (stage === "engine" ? 9 : 5) * engineMultiplier;
+  if (DISCARD_REDRAW_HAND_IDS.has(definitionId)) value += (stage === "engine" ? 12 : 8) * engineMultiplier;
+  if (DOWN_DIAMOND_IDS.has(definitionId)) value += (9 + Math.min(4, player.diamonds.length) * 1.5) * engineMultiplier;
+  if (DRAW_DIAMOND_BY_TWO_IDS.has(definitionId)) value += (stage === "endgame" ? 8 : 10) * engineMultiplier;
+  if (RECLAIM_USED_PEARL_IDS.has(definitionId)) value += 8 * engineMultiplier;
   if (IMMEDIATE_EXTRA_ACTION_IDS.has(definitionId)) value += stage === "engine" ? 8 : 14;
-  if (NEXT_PLAYER_ACTION_BONUS_IDS.has(definitionId)) value += 5;
-  if (SWAP_GATE_MARKET_IDS.has(definitionId)) value += 5;
-  if (PEEK_CHARACTER_DECK_IDS.has(definitionId)) value += 2;
-  if (STEAL_HAND_IDS.has(definitionId)) value += hasOpponentPearls(state, player.id) ? 7 : 3;
-  if (DISCARD_OPPONENT_GATE_IDS.has(definitionId)) value += hasOpponentGateCharacters(state, player.id) ? 9 : 3;
+  if (NEXT_PLAYER_ACTION_BONUS_IDS.has(definitionId)) value += 5 * attackMultiplier;
+  if (SWAP_GATE_MARKET_IDS.has(definitionId)) value += 5 * engineMultiplier;
+  if (PEEK_CHARACTER_DECK_IDS.has(definitionId)) value += 2 * engineMultiplier;
+  if (STEAL_HAND_IDS.has(definitionId)) value += (hasOpponentPearls(state, player.id) ? 7 : 3) * attackMultiplier;
+  if (DISCARD_OPPONENT_GATE_IDS.has(definitionId)) {
+    value +=
+      (hasOpponentGateCharacters(state, player.id) ? 9 + opponentGateThreat(state, player.id) : 3) *
+      attackMultiplier;
+  }
   if (WISP_IDS.has(definitionId)) value += 4;
 
   return value * activationMultiplier;
@@ -449,6 +516,223 @@ function hasOpponentPearls(state: GameState, playerId: PlayerId): boolean {
 
 function hasOpponentGateCharacters(state: GameState, playerId: PlayerId): boolean {
   return state.players.some((player) => player.id !== playerId && player.gateCharacters.length > 0);
+}
+
+function opponentGateThreat(state: GameState, playerId: PlayerId): number {
+  return Math.max(
+    0,
+    ...state.players
+      .filter((player) => player.id !== playerId)
+      .flatMap((player) =>
+        player.gateCharacters.map((cardId) => {
+          const definition = getCharacterDefinition(state, cardId);
+          const power = typeof definition?.power === "number" ? definition.power : 0;
+          const ownerPower = playerPower(state, player);
+          const payableBonus = getPaymentPlans(state, player.id, cardId).length > 0 ? 5 : 0;
+          const endgameBonus = ownerPower < 12 && ownerPower + power >= 12 ? 10 : 0;
+          return power * 1.5 + ownerPower * 0.3 + payableBonus + endgameBonus;
+        }),
+      ),
+  );
+}
+
+function defensiveActivationValue(
+  state: GameState,
+  player: PlayerState,
+  definitionId: string,
+  difficulty: AiDifficulty,
+): number {
+  const rank = difficultyRank(difficulty);
+  if (rank < 2) return 0;
+
+  if (DISCARD_OPPONENT_GATE_IDS.has(definitionId)) {
+    return opponentGateThreat(state, player.id) * (rank === 3 ? 0.9 : 0.55);
+  }
+  if (STEAL_HAND_IDS.has(definitionId)) {
+    return maxOpponentPower(state, player.id) * (rank === 3 ? 0.35 : 0.2);
+  }
+  return 0;
+}
+
+function chooseDenialAction(
+  state: GameState,
+  player: PlayerState,
+  difficulty: AiDifficulty,
+): GameAction | null {
+  const rank = difficultyRank(difficulty);
+  if (rank < 2) return null;
+
+  const pearl = choosePearlDenialAction(state, player, difficulty);
+  const character = chooseCharacterDenialAction(state, player, difficulty);
+  const best = [pearl, character]
+    .filter((candidate): candidate is { action: GameAction; score: number } => Boolean(candidate))
+    .sort((left, right) => right.score - left.score)[0];
+  return best?.action ?? null;
+}
+
+function choosePearlDenialAction(
+  state: GameState,
+  player: PlayerState,
+  difficulty: AiDifficulty,
+): { action: GameAction; score: number } | null {
+  const need = pearlNeedScores(state, player);
+  const handLimit = getHandLimit(state, player.id);
+  const handFull = player.pearlHand.length >= handLimit;
+  const lowestCurrentKeepScore =
+    player.pearlHand.length > 0
+      ? Math.min(...player.pearlHand.map((cardId) => pearlKeepScore(state, cardId, need)))
+      : -Infinity;
+  const threshold = difficulty === "expert" ? 5.8 : 8.2;
+  const candidates = state.market.pearlMarket
+    .map((cardId, marketIndex) => {
+      const value = pearlValueOf(state, cardId);
+      if (value === null) return null;
+      const ownNeed = need[value] ?? 0;
+      const denial = marketPearlDenialValue(state, player, value, difficulty);
+      const handPressurePenalty = handFull && ownNeed <= 0 ? 1.5 : 0;
+      return {
+        marketIndex,
+        score: denial - ownNeed * 0.7 - handPressurePenalty,
+        keepScore: ownNeed * 100 + value * 0.1,
+      };
+    })
+    .filter((candidate): candidate is { marketIndex: number; score: number; keepScore: number } =>
+      Boolean(candidate),
+    )
+    .filter((candidate) => !handFull || candidate.keepScore > lowestCurrentKeepScore || candidate.score > threshold + 2)
+    .sort((left, right) => right.score - left.score);
+
+  const best = candidates[0];
+  if (!best || best.score < threshold) return null;
+  return {
+    action: { type: "gainPearlFromMarket", actorId: player.id, marketIndex: best.marketIndex },
+    score: best.score,
+  };
+}
+
+function chooseCharacterDenialAction(
+  state: GameState,
+  player: PlayerState,
+  difficulty: AiDifficulty,
+): { action: GameAction; score: number } | null {
+  if (state.market.characterMarket.length === 0) return null;
+
+  const threshold = difficulty === "expert" ? 12 : 15;
+  const candidates = state.market.characterMarket
+    .map((cardId, marketIndex) => ({
+      cardId,
+      marketIndex,
+      denial: marketCharacterDenialValue(state, player, cardId, difficulty),
+      ownScore: placementScore(state, player, cardId, difficulty),
+      payable: Boolean(findPaymentForCharacter(state, player.id, cardId)),
+    }))
+    .sort((left, right) => right.denial + right.ownScore * 0.2 - (left.denial + left.ownScore * 0.2));
+
+  const best = candidates[0];
+  if (!best || best.denial < threshold) return null;
+
+  if (player.gateCharacters.length < 2) {
+    return {
+      action: {
+        type: "placeCharacterFromMarket",
+        actorId: player.id,
+        marketIndex: best.marketIndex,
+      },
+      score: best.denial + best.ownScore * 0.2,
+    };
+  }
+
+  const weakestGate = [...player.gateCharacters]
+    .map((cardId) => ({
+      cardId,
+      score: placementScore(state, player, cardId, difficulty),
+      payable: Boolean(findPaymentForCharacter(state, player.id, cardId)),
+    }))
+    .sort((left, right) => left.score - right.score)[0];
+  if (!weakestGate) return null;
+  if (weakestGate.payable && !best.payable && best.denial < threshold + 5) return null;
+  if (best.ownScore + best.denial * 0.3 <= weakestGate.score + 2) return null;
+
+  return {
+    action: {
+      type: "placeCharacterFromMarket",
+      actorId: player.id,
+      marketIndex: best.marketIndex,
+      discardGateCharacterId: weakestGate.cardId,
+    },
+    score: best.denial + best.ownScore * 0.2,
+  };
+}
+
+function marketCharacterDenialValue(
+  state: GameState,
+  player: PlayerState,
+  cardId: CardInstanceId,
+  difficulty: AiDifficulty,
+): number {
+  const definition = getCharacterDefinition(state, cardId);
+  if (!definition) return 0;
+  const rank = difficultyRank(difficulty);
+  if (rank < 2) return 0;
+
+  const power = typeof definition.power === "number" ? definition.power : 0;
+  const diamond = typeof definition.diamondReward === "number" ? definition.diamondReward : 0;
+  const effectThreat =
+    (DISCARD_OPPONENT_GATE_IDS.has(definition.id) ? 5 : 0) +
+    (STEAL_HAND_IDS.has(definition.id) ? 3 : 0) +
+    (IMMEDIATE_EXTRA_ACTION_IDS.has(definition.id) ? 4 : 0) +
+    (TURN_ACTION_BONUS_IDS.has(definition.id) ? 3 : 0) +
+    (VIRTUAL_PEARL_VALUE_BY_DEFINITION[definition.id] ? 3 : 0);
+
+  return Math.max(
+    0,
+    ...state.players
+      .filter((opponent) => opponent.id !== player.id)
+      .map((opponent) => {
+        const opponentPower = playerPower(state, opponent);
+        const endgameDanger = opponentPower < 12 && opponentPower + power >= 12 ? 18 : 0;
+        const leaderDanger = opponentPower >= playerPower(state, player) ? 3 : 0;
+        const slotPressure = opponent.gateCharacters.length < 2 ? 2 : 0;
+        return power * 2.2 + diamond * 1.2 + effectThreat + endgameDanger + leaderDanger + slotPressure;
+      }),
+  );
+}
+
+function marketPearlDenialValue(
+  state: GameState,
+  player: PlayerState,
+  value: PearlValue,
+  difficulty: AiDifficulty,
+): number {
+  const rank = difficultyRank(difficulty);
+  if (rank < 2) return 0;
+  const ownPower = playerPower(state, player);
+  return Math.max(
+    0,
+    ...state.players
+      .filter((opponent) => opponent.id !== player.id)
+      .flatMap((opponent) =>
+        opponent.gateCharacters.map((characterId) => {
+          const definition = getCharacterDefinition(state, characterId);
+          if (!definition) return 0;
+          const characterPower = typeof definition.power === "number" ? definition.power : 0;
+          const opponentPower = playerPower(state, opponent);
+          const affinity = requirementValueAffinity(definition, value);
+          const endgameDanger = opponentPower < 12 && opponentPower + characterPower >= 12 ? 2.5 : 1;
+          const leaderDanger = opponentPower >= ownPower ? 1.25 : 1;
+          return affinity * (1 + characterPower * 0.45) * endgameDanger * leaderDanger;
+        }),
+      ),
+  );
+}
+
+function maxOpponentPower(state: GameState, playerId: PlayerId): number {
+  return Math.max(
+    0,
+    ...state.players
+      .filter((player) => player.id !== playerId)
+      .map((player) => playerPower(state, player)),
+  );
 }
 
 function requirementProgressScore(
@@ -508,8 +792,82 @@ function customRequirementProfile(label: string): { count: number; difficulty: n
   return { count: 3, difficulty: 4 };
 }
 
-function choosePearlGain(state: GameState, player: PlayerState): GameAction | null {
+function requirementValueAffinity(
+  definition: CharacterCardDefinition,
+  value: PearlValue,
+): number {
+  const requirement = definition.requirement;
+  switch (requirement.type) {
+    case "exactValues":
+      return requirement.values.filter((candidate) => candidate === value).length * 3;
+    case "sameValue":
+      return 1.2 + requirement.count * 0.2;
+    case "sequence":
+      return sequenceValueAffinity(requirement.count, value);
+    case "sum":
+      return sumValueAffinity(requirement.total, requirement.count ?? 3, value);
+    case "odd":
+      return value % 2 === 1 ? 1.5 + requirement.count * 0.15 : 0;
+    case "even":
+      return value % 2 === 0 ? 1.5 + requirement.count * 0.15 : 0;
+    case "custom":
+      return customRequirementValueAffinity(requirement.label, value);
+  }
+}
+
+function customRequirementValueAffinity(label: string, value: PearlValue): number {
+  const trimmed = label.trim();
+  if (/^[1-8]+$/.test(trimmed)) {
+    return trimmed
+      .split("")
+      .filter((digit) => Number(digit) === value).length * 3;
+  }
+  if (trimmed === "333/666") return value === 3 || value === 6 ? 3.2 : 0;
+  if (trimmed === "444/555") return value === 4 || value === 5 ? 3.2 : 0;
+  if (trimmed === "222+다이아몬드 1장") return value === 2 ? 3.2 : 0;
+  if (trimmed === "같은 카드 2장 + 66" || trimmed === "같은 카드 2장 + 6카드 2장") {
+    return value === 6 ? 3.4 : 1.4;
+  }
+  if (trimmed === "같은 카드 2장씩 두 벌") return 1.6;
+  if (trimmed === "같은 카드 2장") return 1.4;
+  if (trimmed === "같은 카드 3장") return 1.7;
+  if (trimmed === "같은 카드 4장") return 2;
+  if (trimmed === "연속되는 카드 3장") return sequenceValueAffinity(3, value);
+  if (trimmed === "연속되는 카드 5장") return sequenceValueAffinity(5, value);
+  if (trimmed === "홀수인 카드 3장") return value % 2 === 1 ? 1.9 : 0;
+  if (trimmed === "짝수인 카드 3장") return value % 2 === 0 ? 1.9 : 0;
+  if (trimmed === "합하면 7이 되는 카드 3장") return sumValueAffinity(7, 3, value);
+  if (trimmed === "합이 10이 되는 카드 3장") return sumValueAffinity(10, 3, value);
+  if (trimmed === "합하면 20이 되는 카드 3장") return sumValueAffinity(20, 3, value);
+  if (trimmed === "합하면 '10'이 되는 카드들") return sumValueAffinity(10, 3, value);
+  return 0;
+}
+
+function sequenceValueAffinity(count: number, value: PearlValue): number {
+  let windows = 0;
+  for (let start = 1; start + count - 1 <= 8; start += 1) {
+    if (value >= start && value < start + count) {
+      windows += 1;
+    }
+  }
+  return windows * (count >= 5 ? 0.75 : 1.05);
+}
+
+function sumValueAffinity(total: number, count: number, value: PearlValue): number {
+  if (value >= total) return value === total && count === 1 ? 3 : 0;
+  const average = total / count;
+  const closeness = Math.max(0, 1.4 - Math.abs(value - average) / 3);
+  const feasible = sumPatterns(total, count).some((pattern) => pattern.includes(value));
+  return feasible ? 0.8 + closeness : 0;
+}
+
+function choosePearlGain(
+  state: GameState,
+  player: PlayerState,
+  difficulty: AiDifficulty,
+): GameAction | null {
   const need = pearlNeedScores(state, player);
+  const rank = difficultyRank(difficulty);
   const handLimit = getHandLimit(state, player.id);
   const handFull = player.pearlHand.length >= handLimit;
   const lowestCurrentKeepScore =
@@ -521,7 +879,13 @@ function choosePearlGain(state: GameState, player: PlayerState): GameAction | nu
     .filter((entry) => Boolean(entry.cardId))
     .map((entry) => {
       const value = pearlValueOf(state, entry.cardId);
-      const score = value !== null ? (need[value] ?? 0) + value * 0.1 : 0;
+      const ownNeed = value !== null ? need[value] ?? 0 : 0;
+      const denial =
+        value !== null && rank >= 2
+          ? marketPearlDenialValue(state, player, value, difficulty) *
+            (difficulty === "expert" ? 0.65 : 0.35)
+          : 0;
+      const score = value !== null ? ownNeed + denial + value * 0.1 : 0;
       return { ...entry, score };
     })
     .filter((entry) => !handFull || entry.score > lowestCurrentKeepScore)
@@ -539,7 +903,11 @@ function choosePearlGain(state: GameState, player: PlayerState): GameAction | nu
   };
 }
 
-function shouldRefreshPearlMarket(state: GameState, player: PlayerState): boolean {
+function shouldRefreshPearlMarket(
+  state: GameState,
+  player: PlayerState,
+  _difficulty: AiDifficulty,
+): boolean {
   if (player.pearlHand.length >= 4) return false;
   if (player.pearlHand.length < 3) return false;
   const need = pearlNeedScores(state, player);
