@@ -402,3 +402,165 @@ Verification:
 Known gaps:
 
 - The user corrected the earlier duplicate assumption: every current fixture character card is one physical card.
+
+### Payment Choice And Targeted Interaction Corrections
+
+The user reported several remaining interaction and rule issues around activations.
+
+- Changed payment discovery to return multiple valid activation plans instead of one deterministic plan.
+- Ranked payment plans so activated virtual pearl cards are preferred over spending matching hand pearls; `1111` now contributes one reusable virtual pearl of any chosen value from 1-8.
+- Added choice plumbing to activation actions for selected opponent-gate discard targets and selected `345` reclaimed pearls.
+- Added UI modals for multi-plan activation choice, `345` reclaimed pearl choice, opponent gate discard choice, and over-limit hand discard confirmation.
+- Changed hand-limit cleanup so selecting the last discard candidate no longer auto-confirms.
+- Changed 12-point activation to end the game immediately and normalized ended games to `gameOver`.
+- Removed the central action flash and moved remaining action counts into each player field instead of the top round/status pill.
+- Kept character detail readable while it is not the human player's turn, while disabling activation actions.
+- Increased AI valuation for opponent-gate discard effects when an opponent has a strong or immediately payable gate card.
+- Staged market card replacement rendering so changed market slots briefly clear before the new card is revealed.
+
+Verification:
+
+- `npm test`
+- `npm run build`
+
+Known gap:
+
+- The staged market reveal is UI-only; the reducer still applies the market replacement as one deterministic state transition.
+
+### Opponent HUD And Responsive Layout Corrections
+
+The user requested another pass on the top HUD and opponent table readability.
+
+- Removed the visible top turn/status message from the arena HUD, leaving only game-control buttons.
+- Compressed the opponent identity badge so gate and active-card regions get more horizontal space.
+- Changed opponent active cards to a wrapping grid so multiple activated cards remain visible without horizontal scrolling.
+- Added compact landscape-mobile layout overrides so opponent rows, market rows, and the human field flow vertically without overlapping.
+- Kept portrait mobile behind the existing orientation guard.
+
+Verification:
+
+- `npm test`
+- `npm run build`
+- Playwright layout checks at desktop, mobile landscape, and mobile portrait viewports.
+
+### Passive Prompt And Payment Readability Corrections
+
+The user reported that start/after-action effects were too hidden and that activation options did not clearly distinguish hand pearls from activated-card substitutes.
+
+- Changed human turn finishing so usable abilities are not auto-resolved before the player sees them.
+- Added automatic detail prompts for human ability cards that need a choice or confirmation, including the character-deck peek effect and the `18` discard/redraw effect.
+- Let the player dismiss an ability prompt once for that timing window, after which normal action/discard/turn-end flow continues.
+- Expanded activation payment options with source groups for hand pearls, activated-card virtual/transform sources, and diamonds.
+- Removed the blank market placeholder phase by holding the previous market cards during the replacement delay before revealing the next cards.
+- Increased score/diamond text size and aligned opponent gate/activated card slot sizing.
+
+Verification:
+
+- `npm test`
+- `npm run build`
+- Playwright layout smoke check for desktop and mobile landscape.
+
+### Ability Choice Modal Completion
+
+The previous prompt pass still left some human-use abilities with reducer defaults.
+
+- Added a dedicated choice modal for the start-of-turn gate/market swap effect so the player picks both the gate character and the open character.
+- Added a dedicated choice modal for the pearl-`2`-to-diamond effect so the player chooses which `2` pearl to discard.
+- Routed card-detail ability use through UI choice preparation before dispatching `useAbility`.
+- Dismissing either choice modal marks that ability prompt as skipped for the current timing window.
+
+Verification:
+
+- `npm test`
+- `npm run build`
+- Playwright layout smoke check for desktop and mobile landscape.
+
+### Expert Verification And Current-Round End Rule
+
+The user asked to continue with hardest-difficulty playthrough verification, then corrected the end-game rule during the work.
+
+- Added `scripts/simulate-batch.mjs` to run deterministic batches and check engine invariants across all card zones, owners, markets, hand limits, end-game status, and effect counters.
+- Wired `scripts/simulate-game.mjs` to accept `--difficulty` so expert simulations actually use the selected setup difficulty.
+- Updated the solo AI so Hard/Expert use explicit difficulty-aware scoring, including public-information denial of important pearls/characters and higher value for opponent-gate discard pressure.
+- Tuned Expert so it fills empty gate slots before taking denial pearls; this fixed long games caused by over-denial and excessive refresh-pearl churn.
+- Corrected the 12-point rule: reaching 12+ points now starts `finishCurrentRound`, and the game ends only when that same round completes. There is no immediate end and no extra final round.
+- Added a regression test where one player triggers 12 points, another player overtakes within the same round, and the higher scorer wins at round end.
+- Updated the rules/strategy/engine wiki pages to match the corrected end-game timing.
+- Ran 10 expert automated games after the correction: all 10 ended with 0 invariant violations. Result split was AI 2: 6 wins, AI 1: 2 wins, human autoplay: 2 wins.
+
+Verification:
+
+- `npm test`
+- `npm run build`
+- `node scripts/simulate-batch.mjs --games=10 --seed-prefix=expert-verify-round-end --players=3 --difficulty=expert --output=docs/llm-sources/2026-05-27-expert-10-games-round-end.json`
+
+## 2026-05-28
+
+### Change Visualization Report
+
+The user asked to turn the changed parts into an HTML visual report.
+
+- Added `docs/llm-sources/2026-05-28-change-visual-report.html`.
+- Summarized the rule corrections, card-effect choice flows, UI layout changes, Expert AI tuning, verification status, changed-file map, and diff-size metrics.
+- Linked the report from `docs/llm-wiki/index.md`.
+- Recorded the report creation in `docs/llm-wiki/log.md`.
+
+Known gap:
+
+- This report is a point-in-time summary of the current diff; later gameplay changes should get a new dated report instead of editing this one as if it were raw source.
+
+### Image Preload And 5-Player Layout Pass
+
+The user reported that first-entry image loading was too slow and that 5-player games made the opponent UI too small.
+
+- Generated optimized WebP derivatives for runtime pearl and character card images under `src/assets/cards/`.
+- Changed `App.tsx` to import WebP card assets and preload all card/board images before the home screen appears.
+- Added an opening loading screen with progress feedback while the browser downloads/decodes card images.
+- Added a 5-player-specific arena class and changed four AI opponents to a 2x2 opponent layout on normal desktop heights.
+- Hid the opponent hand fan in dense 5-player opponent cells and surfaced opponent hand count in the field header instead.
+- Added a short-height landscape fallback that switches the arena to a scrollable vertical flow so opponent fields, markets, and the player area do not overlap.
+- Updated `docs/llm-wiki/assets.md` to record the WebP runtime wiring.
+
+Verification:
+
+- `npm test -- --run`
+- `npm run build`
+- Playwright at 1440x900 and 1280x720 confirmed the loading screen appears, card requests are WebP-only, no images are broken, and 5-player opponent rows no longer overlap the battlefield/player areas.
+
+### Payment Choice, Market Replacement, Passive Timing, And Round-End Edge Case
+
+The user reported four follow-up issues from screenshots: duplicated payment-combination rows, market replacement cards still appearing with a shifted interaction feel, blue passive cards taking effect immediately after activation, and a 12-point trigger ending/advancing at the wrong time.
+
+- Grouped visually identical payment plans in the activation modal, so the first row is the recommended combination and the rest are distinct alternative combinations.
+- Changed market card rendering to fixed slots. A changed card now clears from its slot first, then the new card appears in the same slot; market cards disable shared layout animation in that lane.
+- Added `turn.activatedThisTurn` so newly activated blue/passive effects are unavailable until the owner's next turn for payment substitutions, ability actions, hand-limit bonuses, and persistent action bonuses.
+- Kept red/on-activation effects immediate, including activation-resolution bonuses.
+- Changed current-round game ending so the last player resolves their turn and the game ends before advancing to the start player.
+- Added regression coverage for passive next-turn readiness, direct reducer rejection of same-turn ability use, and the last-player round-end stop.
+
+Verification:
+
+- `npm test -- --run`
+- `npm run build`
+- Playwright market replacement check at 1440x900: slot coordinates stayed fixed, the refreshed pearl row showed 4 placeholders during the delay, and all 6 market cards returned afterward with no console/page errors.
+
+### 10-Game UX And Rule Audit
+
+The user asked to run 10 games and review the experience from a senior card-game UX/UI perspective while also fixing any rule issues that surfaced.
+
+- Ran `scripts/simulate-batch.mjs` for 10 expert games with 3 players.
+- Result: 10/10 games ended, 0 invariant violations.
+- Coverage included virtual pearl payments, pearl value overrides, diamond modifier payments, wisp activation, opponent gate discard, reclaimed pearls, action bonuses, and character market refresh.
+- Browser screenshots showed that the 5-player desktop layout still had HUD and market-region collisions under repeated play conditions.
+- Reserved a top control area for 5-player desktop and compacted the market band so the 2x2 opponent area, market, and player area no longer intersect at 1440x900.
+- Browser 10-game accelerated run found that repeated `새 게임` could reuse the same setup seed because the restart path updated React state and then started from the stale `setup` closure.
+- Changed restart to generate a concrete `nextSetup` and pass it directly into `startGame`; the follow-up browser run completed 10 consecutive games with 10 unique scoreboards.
+- Saved rule audit data and browser screenshot evidence under `docs/llm-sources/2026-05-28-ux-rule-audit-10-games.json` and `docs/llm-sources/2026-05-28-ux-browser-audit/`.
+
+Verification:
+
+- `node scripts/simulate-batch.mjs --games=10 --seed-prefix=ux-rule-audit-2026-05-28 --players=3 --difficulty=expert --output=docs/llm-sources/2026-05-28-ux-rule-audit-10-games.json`
+- Playwright desktop 5-player bounding check: no status/opponent, market/opponent, or market/player intersections after the layout fix.
+- Playwright accelerated browser run: 10 consecutive React games ended, 10 unique scoreboards, 0 console/page errors, and no game-over text overflow.
+- `npm test -- --run`
+- `npm run build`

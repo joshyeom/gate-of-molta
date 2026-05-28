@@ -124,6 +124,10 @@ Implemented prototype effect groups:
 - Reclaiming one just-used pearl.
 - Adjacent activation of upside-down wisp cards.
 
+Prototype timing rule:
+
+- Newly activated blue/passive effects are not available on the same turn they are activated. They become ready from that player's next turn. Red/on-activation effects, including immediate action bonuses and other activation-resolution effects, still resolve immediately when the card is activated.
+
 Unresolved for final rules:
 
 - These are prototype interpretations of candidate text, not verified official rules.
@@ -149,6 +153,8 @@ The source describes timing with a moon icon position on the activated card:
 
 The current prototype maps the captured candidate effect text by character definition ID. Official card names, final timing icons, and final target-choice wording still need verification.
 
+Current implementation detail: a blue/passive ability card activated during the current turn is tracked separately and is hidden from legal ability actions, payment substitutes, hand-limit bonuses, and persistent action-count bonuses until the next turn.
+
 ## Solo Mode
 
 - The provided rule source describes the original game as 2-5 players.
@@ -167,10 +173,10 @@ The current prototype maps the captured candidate effect text by character defin
 
 - End-game trigger:
   - When any player reaches at least 12 power, finish the current round through the last player.
-  - Then play one additional full round.
-  - The game ends after that additional round.
+  - The game ends when that same round is complete; there is no additional full final round.
+  - If the last player in turn order is the player who reaches 12+ power, the game ends after that player's turn resolves instead of advancing to the start player.
 - Winner:
-  - The player with the most power wins.
+  - At the end of the round in which 12+ power first appeared, the player with the most power wins.
 - Tiebreaker:
   - If tied on power, the player with more diamonds wins.
 - Further tiebreakers:
